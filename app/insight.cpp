@@ -22,11 +22,11 @@ struct Synchronizer {
 };
 
 int decode_marker(const cv::Mat& image,int camera,int count) {
-  if(image.cols!=704 || image.rows!=288 || image.type()!=CV_8UC3)return -1;
+  if(image.cols!=704 || image.rows!=288 || (image.type()!=CV_8UC3 && image.type()!=CV_8UC1))return -1;
   std::array<int,5> bytes{};
   for(int bit=0;bit<40;++bit) {
     auto value=cv::mean(image(cv::Rect(bit*16+4,272,8,8)));
-    const double luminance=(value[0]+value[1]+value[2])/3;
+    const double luminance=image.channels()==1?value[0]:(value[0]+value[1]+value[2])/3;
     if(luminance>70 && luminance<180)return -1;
     bytes[bit/8]=(bytes[bit/8]<<1)|(luminance>128);
   }
@@ -39,11 +39,11 @@ struct CameraReader {
   neat::Run run;
   std::thread worker;
   Synchronizer& sync;
-  CameraReader(const Json& clip,int index,int count,Synchronizer& state):sync(state) {
+  CameraReader(const Json& clip,int index,int count,int fps,Synchronizer& state,bool nv12=false):sync(state) {
     neat::nodes::groups::RtspDecodedInputOptions options;
     options.url=clip.at("url");options.tcp=true;options.latency_ms=150;
-    options.source_fps=2;options.h264_width=704;options.h264_height=288;
-    options.h264_fps=2;options.auto_caps_from_stream=false;
+    options.source_fps=fps;options.h264_width=704;options.h264_height=288;
+    options.h264_fps=fps;options.auto_caps_from_stream=false;
     options.num_buffers=4;options.decoder_input_buffers=4;
     options.decoder_name="flashocc_decode_"+std::to_string(index);
     options.out_format=neat::FormatTag::NV12;
@@ -52,7 +52,7 @@ struct CameraReader {
                   neat::nodes::Output("camera",neat::OutputOptions::EveryFrame(4)));
     neat::RunOptions runtime;runtime.queue_depth=4;
     run=graph.build(runtime);
-    worker=std::thread([this,index,count] {
+    worker=std::thread([this,index,count,nv12] {
       try {
         int last=-1,cycle=0;auto last_sample=Clock::now();
         while(!sync.stopping) {
@@ -65,16 +65,26 @@ struct CameraReader {
           if(tensors.size()!=1 || !tensors[0].is_nv12())throw std::runtime_error("Expected decoded NV12 camera frame");
           auto bytes=tensors[0].copy_nv12_contiguous();
           if(bytes.size()!=704*288*3/2)throw std::runtime_error("Decoded camera dimensions changed");
-          cv::Mat yuv(288*3/2,704,CV_8UC1,bytes.data()),bgr;
-          cv::cvtColor(yuv,bgr,cv::COLOR_YUV2BGR_NV12);
-          int marker=decode_marker(bgr,index,count);
+          cv::Mat yuv(288*3/2,704,CV_8UC1,bytes.data()),image;
+          int marker;
+          if(nv12) {
+            marker=decode_marker(yuv.rowRange(0,288),index,count);
+            // Copy both planes independently: UV starts after all 288 Y rows.
+            image=cv::Mat(256*3/2,704,CV_8UC1);
+            yuv.rowRange(0,256).copyTo(image.rowRange(0,256));
+            yuv.rowRange(288,288+128).copyTo(image.rowRange(256,384));
+          } else {
+            cv::Mat bgr;cv::cvtColor(yuv,bgr,cv::COLOR_YUV2BGR_NV12);
+            marker=decode_marker(bgr,index,count);
+            image=bgr(cv::Rect(0,0,704,256)).clone();
+          }
           std::lock_guard lock(sync.mutex);
           ++sync.received[index];
           if(marker<0){++sync.invalid[index];continue;}
           ++sync.marker_received[index][marker];
           if(last>=0 && marker<last)++cycle;
           last=marker;
-          auto& cache=sync.frames[index];cache[cycle*count+marker]=bgr(cv::Rect(0,0,704,256)).clone();
+          auto& cache=sync.frames[index];cache[cycle*count+marker]=std::move(image);
           while(cache.size()>12)cache.erase(cache.begin());
           sync.changed.notify_one();
         }
@@ -142,18 +152,37 @@ Geometry load_geometry(const fs::path& path) {
     for(const auto& point:values)for(float v:point)if(!std::isfinite(v))throw std::runtime_error("Non-finite camera ray");
   return g;
 }
-void normalize_views(const std::array<cv::Mat,6>& views,Frame& frame) {
-  const std::array<float,3> mean{123.675f,116.28f,103.53f},stddev{58.395f,57.12f,57.375f};
+void normalize_views(const std::array<cv::Mat,6>& views,Frame& frame,const Options& options=Options{}) {
+  const auto& mean=options.mean;const auto& stddev=options.stddev;
   frame.images.resize(6*704*256*3);
   for(int camera=0;camera<6;++camera) {
     if(views[camera].rows!=256 || views[camera].cols!=704 || views[camera].type()!=CV_8UC3)
       throw std::runtime_error("Invalid cropped camera frame");
     for(int y=0;y<256;++y) {
       auto* row=views[camera].ptr<cv::Vec3b>(y);
-      for(int x=0;x<704;++x)for(int c=0;c<3;++c)
-        frame.images[((camera*256+y)*704+x)*3+c]=(static_cast<float>(row[x][c])-mean[c])/stddev[c];
+      for(int x=0;x<704;++x)for(int c=0;c<3;++c) {
+        const int source=options.camera_model_order=="RGB"?2-c:c;
+        frame.images[((camera*256+y)*704+x)*3+c]=(static_cast<float>(row[x][source])-mean[source])/stddev[source];
+      }
     }
   }
+}
+neat::Tensor camera_image_tensor(const cv::Mat& image,bool nv12,bool rgb_model=false) {
+  // BF16 preproc's identity path requires RGB transport. In ev74-bgr mode
+  // these are deliberately raw model-order channels: no color swap is run.
+  if(!nv12) {
+    if(rgb_model){cv::Mat rgb;cv::cvtColor(image,rgb,cv::COLOR_BGR2RGB);return neat::Tensor::from_cv_mat(rgb,neat::ImageSpec::PixelFormat::RGB,neat::TensorMemory::EV74);}
+    return neat::Tensor::from_cv_mat(image,neat::ImageSpec::PixelFormat::RGB,neat::TensorMemory::EV74);
+  }
+  if(image.rows!=384 || image.cols!=704 || image.type()!=CV_8UC1 || !image.isContinuous())
+    throw std::invalid_argument("Invalid cropped NV12 image");
+  std::vector<std::uint8_t> bytes(image.data,image.data+384*704);
+  auto tensor=neat::Tensor::from_vector(bytes,{384,704},neat::TensorMemory::EV74);
+  tensor.shape={256,704};tensor.strides_bytes={704,1};tensor.layout=neat::TensorLayout::HW;tensor.axis_semantics.clear();
+  tensor.semantic.image=neat::ImageSpec{neat::ImageSpec::PixelFormat::NV12,{}};
+  tensor.planes={{neat::PlaneRole::Y,{256,704},{704,1},0},
+                 {neat::PlaneRole::UV,{128,704},{704,1},256*704}};
+  return tensor;
 }
 const std::array<cv::Vec3b,18> colors{{{119,119,119},{0,158,255},{255,97,255},{0,255,255},
   {255,140,0},{255,255,0},{255,0,255},{0,0,255},{0,200,255},{250,150,100},
@@ -165,13 +194,14 @@ void text(cv::Mat& image,const std::string& value,int x,int y,double size=.55,cv
   cv::putText(image,value,{x,y},cv::FONT_HERSHEY_SIMPLEX,size,color,1,cv::LINE_AA);
 }
 cv::Mat render(const std::array<cv::Mat,6>& views,const std::vector<std::uint8_t>& labels,
-               const Geometry& geometry,const Json& config,int marker,double compute_ms) {
+               const Geometry& geometry,const Json& config,int marker,double compute_ms,int render_threads=6) {
   cv::Mat canvas(864,1536,CV_8UC3,cv::Scalar(22,25,30));
   text(canvas,"FlashOCC on Modalix | "+config.at("scene").get<std::string>()+" | frame "+std::to_string(marker)+
        " | compute "+std::to_string(static_cast<int>(compute_ms))+" ms",16,25,.65);
   std::array<cv::Mat,6> annotated;
   std::array<std::thread,6> workers;
-  for(int camera=0;camera<6;++camera)workers[camera]=std::thread([&,camera] {
+  for(int worker=0;worker<render_threads;++worker)workers[worker]=std::thread([&,worker] {
+   for(int camera=worker;camera<6;camera+=render_threads) {
     cv::Mat hits(ray_height,ray_width,CV_32SC1);
     for(int row=0;row<ray_height;++row)for(int col=0;col<ray_width;++col) {
       const int ray=row*ray_width+col;
@@ -185,8 +215,9 @@ cv::Mat render(const std::array<cv::Mat,6>& views,const std::vector<std::uint8_t
       const auto color=colors[labels[voxel]];
       for(int channel=0;channel<3;++channel)pixel[channel]=cv::saturate_cast<std::uint8_t>(pixel[channel]*.65+color[channel]*.35);
     }
+   }
   });
-  for(auto& worker:workers)worker.join();
+  for(auto& worker:workers)if(worker.joinable())worker.join();
   for(int camera=0;camera<6;++camera) {
     const int left=(camera%3)*512,top=40+(camera/3)*208;
     annotated[camera].copyTo(canvas(cv::Rect(left,top+20,512,186)));
@@ -212,10 +243,27 @@ cv::Mat render(const std::array<cv::Mat,6>& views,const std::vector<std::uint8_t
     text(canvas,names[klass],x+24,y,.47);
   }
   text(canvas,"Live MLA inference + ARM NEON",930,820,.52);
-  text(canvas,"2 Hz keyframe replay | predicted occupancy",930,846,.43);
+  text(canvas,std::to_string(config.at("fps").get<int>())+" FPS replay | predicted occupancy",930,846,.43);
   return canvas;
 }
 struct RunGuard {neat::Run run;~RunGuard(){try{run.close();}catch(const std::exception& e){std::cerr<<e.what()<<'\n';}}};
+
+void publish_volume(const fs::path& directory,std::span<const std::uint8_t> labels,
+                    const std::string& token,std::uint64_t sequence,std::uint64_t marker) {
+  if constexpr(std::endian::native!=std::endian::little)throw std::runtime_error("Occupancy transport requires little endian");
+  if(labels.size()!=voxels || token.size()!=32)throw std::runtime_error("Invalid volume snapshot");
+  const auto timestamp=static_cast<std::uint64_t>(std::chrono::duration_cast<std::chrono::milliseconds>(
+      std::chrono::system_clock::now().time_since_epoch()).count());
+  const std::array<std::uint64_t,3> header{sequence,marker,timestamp};
+  const auto temporary=directory/"latest.occ.tmp";
+  {
+    std::ofstream file(temporary,std::ios::binary);
+    file.write("FOCC3D01",8);file.write(reinterpret_cast<const char*>(header.data()),sizeof(header));
+    file.write(token.data(),32);file.write(reinterpret_cast<const char*>(labels.data()),labels.size());
+    file.close();if(!file)throw std::runtime_error("Cannot publish 3D occupancy snapshot");
+  }
+  fs::rename(temporary,directory/"latest.occ");
+}
 
 #ifndef FLASHOCC_INSIGHT_TEST
 int main(int argc,char** argv) {
@@ -223,50 +271,96 @@ int main(int argc,char** argv) {
   try {
     fs::path config_path="/workspace/GitHub/occupancy-prediction/artifacts/insight-demo/config.json";
     fs::path output="/workspace/GitHub/occupancy-prediction/artifacts/insight-device";
-    int max_frames=0;
+    int max_frames=0,volume_fps=-1;Json overrides=Json::object();
     for(int i=1;i<argc;++i) {
       std::string key=argv[i];
-      if(key=="--help"){std::cout<<"flashocc_insight [--config JSON] [--output-dir DIR] [--frames N]\n";return 0;}
+      if(key=="--help"){std::cout<<"flashocc_insight [--config JSON] [--output-dir DIR] [--frames N] [--volume-fps N]\n"
+        "  [--execution JSON] [--camera-input arm-fp32|ev74-bgr|ev74-nv12]\n"
+        "  [--camera-mode sequential|packed] [--camera-guard-width N]\n"
+        "  [--camera-pre-target AUTO|EV74|A65] [--camera-post-target AUTO|EV74|A65]\n"
+        "  [--bev-pre-target AUTO|EV74|A65] [--bev-post-target AUTO|EV74|A65]\n"
+        "  [--camera-model TAR] [--camera-model-order BGR|RGB] [--bev-model TAR] [--timeout-ms N]\n"
+        "  [--pool-threads N] [--argmax-threads N] [--render-threads N] [--visualization true|false]\n";return 0;}
       if(i+1==argc)throw std::invalid_argument("Missing argument");
       std::string value=argv[++i];
       if(key=="--config")config_path=value;else if(key=="--output-dir")output=value;
-      else if(key=="--frames")max_frames=std::stoi(value);else throw std::invalid_argument("Unknown option: "+key);
+      else if(key=="--frames")max_frames=std::stoi(value);else if(key=="--volume-fps")volume_fps=std::stoi(value);
+      else if(key=="--execution") {Json file;std::ifstream f(value);f>>file;if(!file.is_object())throw std::invalid_argument("Execution override must be object");overrides.update(file);}
+      else if(key=="--camera-input")overrides["camera_input"]=value;
+      else if(key=="--camera-mode")overrides["camera_mode"]=value;
+      else if(key=="--camera-guard-width")overrides["camera_guard_width"]=std::stoi(value);
+      else if(key=="--camera-model-order")overrides["camera_model_order"]=value;
+      else if(key=="--camera-model")overrides["camera_model"]=value;
+      else if(key=="--bev-model")overrides["bev_model"]=value;
+      else if(key=="--timeout-ms")overrides["timeout_ms"]=std::stoi(value);
+      else if(key=="--camera-pre-target")overrides["camera_pre_target"]=value;
+      else if(key=="--camera-post-target")overrides["camera_post_target"]=value;
+      else if(key=="--bev-pre-target")overrides["bev_pre_target"]=value;
+      else if(key=="--bev-post-target")overrides["bev_post_target"]=value;
+      else if(key=="--pool-threads")overrides["pool_threads"]=std::stoi(value);
+      else if(key=="--argmax-threads")overrides["argmax_threads"]=std::stoi(value);
+      else if(key=="--render-threads")overrides["render_threads"]=std::stoi(value);
+      else if(key=="--visualization") {if(value!="true" && value!="false")throw std::invalid_argument("visualization must be true or false");overrides["visualization"]=value=="true";}
+      else throw std::invalid_argument("Unknown option: "+key);
     }
-    if(max_frames<0)throw std::invalid_argument("Invalid frame limit");
+    if(max_frames<0 || volume_fps < -1 || volume_fps>30)throw std::invalid_argument("Invalid frame or volume FPS limit");
     Json config;{std::ifstream f(config_path);f>>config;}
     if(config.at("clips").size()!=6 || config.at("frames").empty() || config.at("frames").size()>256 ||
-       config.at("fps")!=2 || config.at("width")!=704 || config.at("height")!=288)
+       !config.at("fps").is_number_integer() || config.at("fps").get<int>()<1 ||
+       config.at("fps").get<int>()>30 || config.at("width")!=704 || config.at("height")!=288)
       throw std::runtime_error("Invalid six-camera demo configuration");
     std::signal(SIGINT,signal_handler);std::signal(SIGTERM,signal_handler);std::signal(SIGHUP,signal_handler);
     fs::create_directories(output);
     Options options;options.output=output;
-    options.camera=options.workspace/"artifacts/compile-real/camera/flashocc_m0_camera_mpk.tar.gz";
-    options.bev=options.workspace/"artifacts/compile-real-mixed/bev/flashocc_m0_bev_mpk.tar.gz";
+    Json execution=config.value("execution",Json::object());
+    if(!execution.is_object())throw std::invalid_argument("execution must be object");
+    execution.update(overrides);configure_execution(options,execution);options=finalize_execution(std::move(options));
+    if(volume_fps<0)volume_fps=config.value("volume_fps",2);
+    if(volume_fps<0 || volume_fps>30)throw std::invalid_argument("Invalid configured volume FPS");
+    const bool nv12=options.camera_input=="ev74-nv12";
+    std::cout<<Json{{"execution",execution_config(options)},{"volume_fps",volume_fps}}.dump()<<'\n';
+    {std::ofstream f(output/"execution.json");f<<execution_config(options).dump(2)<<'\n';}
     Pipeline pipeline(options);
-    auto sender_options=neat::nodes::groups::VideoSenderOptions::H264RtpUdpFromRaw(1536,864,2);
+    const int fps=config.at("fps");
+    auto sender_options=neat::nodes::groups::VideoSenderOptions::H264RtpUdpFromRaw(1536,864,fps);
     sender_options.host=config.at("insight_host");sender_options.channel=config.at("channel");
     sender_options.video_port_base=config.at("video_port");sender_options.encoder.bitrate_kbps=3500;
     neat::InputOptions input;input.payload_type=neat::PayloadType::Image;input.format=neat::FormatTag::BGR;
-    input.width=1536;input.height=864;input.fps_n=2;input.memory_policy=neat::InputMemoryPolicy::Ev74;
+    input.width=1536;input.height=864;input.fps_n=fps;input.memory_policy=neat::InputMemoryPolicy::Ev74;
     neat::Graph video("flashocc_insight_video");video.connect(neat::nodes::Input("video",input),neat::nodes::groups::VideoSender(sender_options));
-    RunGuard sender;neat::RunOptions runtime;runtime.queue_depth=2;sender.run=video.build(runtime);
+    RunGuard sender;neat::RunOptions runtime;runtime.queue_depth=2;if(options.visualization)sender.run=video.build(runtime);
     Synchronizer sync;Readers readers(sync);
     const int frame_count=config.at("frames").size();
     for(auto& counts:sync.marker_received)counts.resize(frame_count,0);
-    for(int camera=0;camera<6;++camera)readers.cameras.push_back(std::make_unique<CameraReader>(config.at("clips")[camera],camera,frame_count,sync));
+    for(int camera=0;camera<6;++camera)readers.cameras.push_back(std::make_unique<CameraReader>(config.at("clips")[camera],camera,frame_count,fps,sync,nv12));
     std::ofstream log(output/"frames.jsonl");Json records=Json::array();
     std::vector<std::uint64_t> marker_counts(frame_count,0);
-    int sequence=-1,processed=0;
+    int sequence=-1,processed=0;const auto measurement_start=Clock::now();
+    auto next_volume=Clock::now();
     while(!stop_signal && (max_frames==0 || processed<max_frames)) {
       std::array<cv::Mat,6> views;
       if(!synchronized_frame(sync,sequence,frame_count,views))break;
       const auto start=Clock::now();const int marker=sequence%frame_count;
       const auto& record=config.at("frames")[marker];
       auto geometry=load_geometry(record.at("geometry").get<std::string>());
-      normalize_views(views,geometry.frame);auto prepare_ms=elapsed(start);
+      neat::TensorList image_inputs;
+      if(options.camera_input=="arm-fp32")normalize_views(views,geometry.frame,options);
+      else for(const auto& view:views)image_inputs.push_back(camera_image_tensor(view,nv12,options.camera_model_order=="RGB"));
+      auto prepare_ms=elapsed(start);
       std::vector<std::uint8_t> labels;
-      auto result=pipeline.run(geometry.frame,record.at("token"),false,sequence/frame_count,&labels);
-      auto draw=Clock::now();auto rendered=render(views,labels,geometry,config,marker,result.at("compute_ms"));
+      auto result=pipeline.run(geometry.frame,record.at("token"),false,sequence/frame_count,&labels,
+                               image_inputs.empty()?nullptr:&image_inputs);
+      auto published=Clock::now();
+      if(volume_fps>0 && published>=next_volume) {
+        publish_volume(output,labels,record.at("token").get<std::string>(),sequence,marker);
+        const auto period=std::chrono::microseconds(1000000/volume_fps);
+        do{next_volume+=period;}while(next_volume<=published);
+      }
+      result["volume_publish_ms"]=elapsed(published);
+      auto draw=Clock::now();
+      if(options.visualization) {
+      if(nv12)for(auto& view:views){cv::Mat bgr;cv::cvtColor(view,bgr,cv::COLOR_YUV2BGR_NV12);view=std::move(bgr);}
+      auto rendered=render(views,labels,geometry,config,marker,result.at("compute_ms"),options.render_threads);
       result["render_ms"]=elapsed(draw);result["preparation_ms"]=prepare_ms;
       auto encoded=neat::Tensor::from_cv_mat(rendered,neat::ImageSpec::PixelFormat::BGR,neat::TensorMemory::EV74);
       if(!sender.run.push(neat::TensorList{encoded}))throw std::runtime_error("Insight video push rejected");
@@ -274,15 +368,18 @@ int main(int argc,char** argv) {
         if(!cv::imwrite((output/"latest.jpg").string(),rendered))throw std::runtime_error("Cannot save preview");
         save(output/"latest.labels.u8",labels.data(),labels.size());
       }
+      } else {result["render_ms"]=0.;result["preparation_ms"]=prepare_ms;}
       result["sequence"]=sequence;result["marker"]=marker;result["application_ms"]=elapsed(start);
-      if(processed%20==0){std::lock_guard lock(sync.mutex);result["camera_marker_counts"]=sync.marker_received;}
+      result["completed_ms"]=elapsed(measurement_start);result["input_fps"]=fps;
+      if(processed%20==0){std::lock_guard lock(sync.mutex);result["camera_marker_counts"]=sync.marker_received;
+        result["camera_received"]=sync.received;result["invalid_markers"]=sync.invalid;}
       records.push_back(result);if(records.size()>256)records.erase(records.begin());
       ++marker_counts[marker];log<<result.dump()<<'\n';log.flush();std::cout<<result.dump()<<'\n';++processed;
     }
     Json summary={{"frames",records},{"signal",static_cast<int>(stop_signal)},
                   {"config",config_path.string()},{"ground_truth_accuracy",false},
                   {"total_processed",processed},{"marker_counts",marker_counts},
-                  {"retained_frame_records",256}};
+                  {"retained_frame_records",256},{"execution",execution_config(options)}};
     {std::lock_guard lock(sync.mutex);summary["camera_received"]=sync.received;summary["invalid_markers"]=sync.invalid;
      summary["camera_marker_counts"]=sync.marker_received;}
     {std::ofstream file(output/"summary.json");file<<summary.dump(2)<<'\n';}

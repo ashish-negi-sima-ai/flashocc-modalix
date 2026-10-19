@@ -28,7 +28,7 @@ int main(int argc,char** argv) {
     Json summary={{"device_neon",flashocc::neon_available()},{"camera_model",options.camera.string()},
                   {"bev_model",options.bev.string()},{"reference_is_ground_truth",false},
                   {"signal",static_cast<int>(stop_signal)},{"frames",results},
-                  {"timing_scope","compute_ms includes plan, input copies, six camera inferences, pooling, BEV inference, output copies and argmax; excludes validation comparisons and file IO. frame_ms includes validation and output writes; input_io_ms is separate."}};
+                  {"timing_scope","compute_ms includes plan, input copies/packing, camera inference calls, output unpacking, pooling, BEV inference and argmax; excludes validation comparisons and file IO. frame_ms includes validation and output writes; input_io_ms is separate."}};
     {std::ofstream f(options.output/"summary.json");f<<summary.dump(2)<<'\n';}
     return stop_signal?128+stop_signal:0;
   } catch(const neat::NeatError& e) {

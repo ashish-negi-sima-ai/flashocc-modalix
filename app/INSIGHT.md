@@ -1,5 +1,24 @@
 # FlashOCC in Insight
 
+For an orbitable live 3D voxel view on the host, see the
+[host 3D viewer](../viewer/README.md), available at http://10.42.0.1:8090/.
+The Insight video mosaic remains available separately.
+
+The [visual application walkthrough](../artifacts/application-flow/index.html)
+shows actual camera images, measured intermediate tensors, component operations
+and compute-unit placement in parallel input/component/output columns:
+
+- [RTSP and preprocessing](../artifacts/application-flow/01-rtsp-and-preprocessing.png)
+- [Inference and pooling](../artifacts/application-flow/02-inference-and-pooling.png)
+- [Rendering and Insight delivery](../artifacts/application-flow/03-rendering-and-insight.png)
+
+Generate these local illustrations from the existing device tensor dumps and
+raycast comparison artifacts with
+`/sdk-extensions/model-compiler/bin/python scripts/visualize_application_flow.py`.
+Heatmaps summarize tensor magnitudes or scores; they are not additional semantic
+predictions. Packet bytes and NV12 layout are explicitly schematic. The 3D
+point view samples real occupied voxel centres with vertical scale exaggerated.
+
 The live application consumes six RTSP feeds on Modalix, executes the compiled
 FlashOCC camera and BEV models with ARM NEON pooling, and sends an annotated
 H.264 mosaic to Insight channel 0. Inference uses the decoded stream pixels;
@@ -100,6 +119,99 @@ produced misleading horizontal bands. The full-volume renderer replaces it.
 These are projected occupancy predictions with 0.4 m voxels, so their boundaries
 remain coarser than image pixels.
 
+### FP32 camera-overlay comparison
+
+Four frames from this scene were compared using the FP32 ONNX reference and
+previously recorded Modalix hardware outputs. Their preprocessed images, pooling
+ranks and camera calibration were checked for exact equality, and both branches
+used the same C++ ray traversal as the live renderer. Live H.264 compression was
+excluded from both branches for this comparison.
+
+| Frame | 3D voxel class agreement | Visible camera-ray class agreement |
+|---|---:|---:|
+| 0 | 98.92% | 99.88% |
+| 13 | 99.40% | 98.42% |
+| 26 | 99.29% | 98.88% |
+| 39 | 99.29% | 99.32% |
+
+Side-by-side overlays show the same broad shapes and boundary errors in FP32.
+Deployment precision therefore does not explain most of the observed visual
+errors on these frames. This is agreement between two predictions, not accuracy:
+shared model/preprocessing/projection problems can affect both. In particular,
+roundtrip calibration tests establish internal consistency but cannot prove
+alignment to real scene surfaces. Occupancy ground truth and an untouched
+upstream evaluation are still needed to attribute the remaining errors.
+
+The FP32 reference uses our strict-checkpoint CPU/export adapter described in
+the root README. Comparison figures (FP32, Modalix, visible-class changes) and
+metrics are saved under `artifacts/fp32-raycast-comparison/`.
+
+```bash
+cmake --build artifacts/build-pool-native --target raycast_volume
+/sdk-extensions/model-compiler/bin/python scripts/compare_fp32_raycast.py
+```
+
+## Faster replay and throughput measurement
+
+The application reads integer `fps` (1–30) from its config and applies it to all
+six decoder contracts, video input caps and the Insight encoder. Each processed
+frame group still contains six synchronized camera views.
+
+```bash
+python3 scripts/run_insight_demo.py stop
+python3 scripts/benchmark_insight_fps.py --rates 2 4 6 8 --frames 180 --warmup 60
+```
+
+Run only one application instance. The benchmark retimestamps each existing
+clip, updates H.264 timing metadata, and verifies identical decoded pixels using
+SHA-256. It uploads each rate to the same six owned Insight source slots, runs a
+finite device test, and stops those publishers before the next rate. Faster
+replay speeds up the recorded scene; it does not create new camera observations.
+
+Results are saved under `artifacts/fps-runs/`, with per-rate summaries, browser
+screenshots, ingest/egress statistics and clip verification. Sustained app FPS is
+the number of completed groups divided by their wall-clock completion interval,
+after excluding the initial 60 groups. Sequence gaps measure groups skipped
+before inference; these are separate from browser video drops. The browser probe
+measures a 20-second playback window and requires the optional Playwright Python
+environment selected by `--browser-python`.
+
+To leave the 4 FPS replay running after a benchmark:
+
+```bash
+python3 scripts/run_insight_demo.py start \
+  --config artifacts/fps-inputs/4/config.json
+```
+
+Use the same `--config` with `stop` or `status`. The ordinary demo assets remain
+at 2 FPS. `completed_ms` in `frames.jsonl` is a monotonic application timestamp;
+its differences include input waiting, application work and logging between
+completions. `application_ms` covers work for one group and is not, by itself, a
+measurement of sustained FPS.
+
+Measured on Modalix on 2026-10-15, with the full six-camera decode, MLA inference,
+ARM NEON pooling/label selection, 3D occupancy overlays and Insight encoding:
+
+| Input FPS per camera | Sustained six-camera updates/s | Groups skipped before inference |
+|---|---:|---:|
+| 2 | 2.00 | 0% |
+| 4 | 4.01 | 0% |
+| 6 | 4.40 | 26.5% |
+| 8 | 4.36 | 44.9% |
+
+Each run processed 180 groups; the last 120 form the steady measurement window.
+All six cameras reported zero invalid markers at every rate. Independent
+20-second browser windows measured approximately 2.00, 4.10, 4.35 and 4.35 FPS,
+respectively, with no browser video drops or JavaScript errors. The browser
+windows differ from the app measurement windows and include normal arrival
+bursts. Detailed data is in `artifacts/fps-runs/summary.json`.
+
+Use **4 FPS** for the current visualization app. Raising input to 6 or 8 FPS
+does not improve output beyond roughly 4.4 FPS and causes synchronized groups
+to be skipped. This is measured full-application throughput, including normal
+input handling and output submission; it is distinct from the roughly 7 FPS
+inference-compute estimate.
+
 All graphics are drawn into the outgoing video on Modalix. Insight's ordinary
 WebRTC viewer displays the result without a custom frontend or occupancy
 metadata schema. Metadata counters are consequently zero. The output consumes
@@ -172,3 +284,11 @@ ingest. With the viewer open, check advancing browser `frames_decoded` in egress
 stats. A stopped viewer can leave historical peer records; use recent active
 peer reports. If the application exits, inspect `live.log`, check all six source
 states, then restart with the controller.
+# Execution placement and preprocessing
+
+Camera inference can use six sequential calls or one spatially packed call.
+Select `app/execution-packed.json` when starting the controller to use the packed
+archive throughout the full RTSP-to-Insight app. Camera preprocessing can run
+on ARM or EV74 in sequential mode; packed mode uses ARM normalization and A65
+tensor conversion. See [execution configuration](EXECUTION.md) for presets,
+channel-order handling, validation, performance evidence and commands.

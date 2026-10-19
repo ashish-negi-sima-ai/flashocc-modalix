@@ -1,10 +1,17 @@
 # FlashOCC on Modalix
 
+The [host 3D viewer](viewer/README.md) provides live orbitable semantic voxels,
+class and height filtering, and per-voxel inspection alongside the Insight video.
+
 The complete C++ application runs the compiled camera and BEV networks on MLA
 with threaded ARM NEON pooling and label selection. The
 [Insight demo](app/INSIGHT.md) consumes six RTSP clips and displays live occupancy
 projections and BEV grids. The [batch replay application](app/README.md) provides
 reference comparisons and tensor dumps.
+
+The [batch-six camera experiment](app/CAMERA_BATCH.md) compiles and benchmarks
+all six views in one invocation. It lowers camera latency, but its current FP32
+fidelity is worse, so the live application continues using batch one.
 
 The preferred hardware-validated candidate uses a BF16 camera network and a BF16 BEV
 network with INT8 Softplus. Both compiled for Modalix. Complete six-camera host
@@ -168,6 +175,12 @@ They still produced 12 weight-zeroing warnings and camera feature relative RMSE
 of approximately 16–30% across 12 checked holdout camera images. They are not the
 preferred camera artifacts.
 
+[Layerwise PTQ analysis](app/PTQ_ANALYSIS.md) now separates local operator error
+from accumulated error for both INT8 networks. The camera's zeroed filters had
+negligible original FP32 weight energy, so those warnings alone do not explain
+its prediction differences. The largest measured local errors occur at BEV
+residual merges; the report includes ranked errors and reproduction commands.
+
 The BF16 camera compiled successfully without weight-zeroing warnings and is
 stored in `artifacts/compile-real/camera/`. Two real camera checks with the JAX
 executor measured feature relative RMSE of approximately 1.47–2.10%. The first
@@ -281,4 +294,8 @@ independent tensor checks confirmed exact CPU pooling and label selection.
 
 The [Insight demo](app/INSIGHT.md) consumes six real RTSP camera clips on Modalix
 and displays live occupancy projections and BEV grids in the Insight viewer.
+Its [execution settings](app/EXECUTION.md) select six sequential camera calls or
+one spatially packed call, ARM or EV74 camera preprocessing, independent
+camera/BEV pre/post placement, model archives and CPU worker counts. Use
+`app/execution-packed.json` to run the packed camera model in the complete app.
 
