@@ -1,5 +1,6 @@
 {
   "camera_mode": "packed",
+  "camera_pack_size": 6,
   "camera_input": "arm-fp32",
   "camera_guard_width": 32,
   "camera_pre_target": "A65",

@@ -24,8 +24,9 @@ def main():
     parser.add_argument('--threads', type=int, default=4)
     args = parser.parse_args()
     metadata = json.loads((args.model_dir/'packing.json').read_text())
-    if metadata['cameras'] != 6:
-        parser.error('The saved validation groups contain exactly six cameras')
+    cameras = metadata['cameras']
+    if cameras not in (2, 3, 6):
+        parser.error('Camera pack size must divide the saved six-camera groups')
     for name, checksum in metadata['files_sha256'].items():
         if hashlib.sha256((args.model_dir/name).read_bytes()).hexdigest() != checksum:
             raise ValueError(f'Export changed since packing: {name}')
@@ -43,7 +44,8 @@ def main():
     manifest = json.loads((root/'artifacts/app-replay-inputs/manifest.json').read_text())
     records = []
     first_input = first_outputs = None
-    report = {'comparison': 'Packed versus six separate runs of our original FP32 camera ONNX',
+    report = {'comparison': 'Packed versus separate runs of our original FP32 camera ONNX',
+              'cameras_per_input': cameras, 'calls_per_six_camera_group': 6//cameras,
               'atol': 1e-6, 'rtol': 1e-5, 'samples': records,
               'compiled': False, 'hardware_validated': False, 'ground_truth_accuracy_measured': False}
     for sample in manifest['samples']:
@@ -52,15 +54,20 @@ def main():
                                 for i in range(6)])
         reference_views = [original.run(None, {'camera_input': view[None]}) for view in views]
         expected = [np.concatenate([v[i] for v in reference_views]) for i in range(2)]
-        actual = scene.run(None, {'camera_input': views[None]})
-        direct = spatial.run(None, {'camera_input': pack_images(views, metadata['input_guard_width'])})
+        packs = [views[first:first+cameras] for first in range(0, 6, cameras)]
+        actual_packs = [scene.run(None, {'camera_input': pack[None]}) for pack in packs]
+        direct_packs = [spatial.run(None, {'camera_input': pack_images(pack, metadata['input_guard_width'])})
+                        for pack in packs]
         record = {'token': token, 'outputs': {}}
         for i, name in enumerate(('depth', 'features')):
-            np.testing.assert_array_equal(actual[i], direct[i])
-            unpacked = unpack_output(actual[i], guard_width=metadata['input_guard_width'])
+            for actual, direct in zip(actual_packs, direct_packs, strict=True):
+                np.testing.assert_array_equal(actual[i], direct[i])
+            unpacked = np.concatenate([unpack_output(actual[i], cameras=cameras,
+                          guard_width=metadata['input_guard_width']) for actual in actual_packs])
             np.testing.assert_allclose(unpacked, expected[i], atol=report['atol'], rtol=report['rtol'])
-            nhwc = unpack_output(actual[i].transpose(0, 2, 3, 1),
-                                 guard_width=metadata['input_guard_width'], layout='NHWC')
+            nhwc = np.concatenate([unpack_output(actual[i].transpose(0, 2, 3, 1), cameras=cameras,
+                                   guard_width=metadata['input_guard_width'], layout='NHWC')
+                                   for actual in actual_packs])
             assert nhwc.flags.c_contiguous and unpacked.flags.c_contiguous
             np.testing.assert_array_equal(nhwc, unpacked.transpose(0, 2, 3, 1))
             if name == 'depth':
@@ -69,15 +76,15 @@ def main():
             record['outputs'][name]['per_camera'] = [error(unpacked[j], expected[i][j]) for j in range(6)]
         records.append(record)
         if first_input is None:
-            first_input, first_outputs = views.copy(), [x.copy() for x in actual]
+            first_input, first_outputs = packs[0].copy(), [x.copy() for x in actual_packs[0]]
         print(json.dumps({'token': token, 'depth': record['outputs']['depth']['max_abs_error'],
                           'features': record['outputs']['features']['max_abs_error']}), flush=True)
     # Check camera independence directly, in addition to the six-view references.
     first_input[1:] = 0
     isolated = scene.run(None, {'camera_input': first_input[None]})
     for i in range(2):
-        np.testing.assert_array_equal(unpack_output(isolated[i], guard_width=metadata['input_guard_width'])[0],
-                                      unpack_output(first_outputs[i], guard_width=metadata['input_guard_width'])[0])
+        np.testing.assert_array_equal(unpack_output(isolated[i], cameras=cameras, guard_width=metadata['input_guard_width'])[0],
+                                      unpack_output(first_outputs[i], cameras=cameras, guard_width=metadata['input_guard_width'])[0])
     report.update(passed=True, groups=len(records), camera_images=6*len(records),
                   camera0_unchanged_when_others_zero=True, scene_vs_spatial_bit_exact=True,
                   nchw_nhwc_unpack_equivalent=True, depth_probabilities_normalized=True,

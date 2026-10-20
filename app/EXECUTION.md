@@ -19,7 +19,7 @@ the controller does not reconfigure an existing process.
 
 Settings can also live in the source config's `execution` object. An
 `--execution FILE` supplies an object of overrides. Direct CLI overrides include
-`--camera-mode`, `--camera-guard-width`, `--camera-input`, `--camera-pre-target`, `--camera-post-target`,
+`--camera-mode`, `--camera-pack-size`, `--camera-guard-width`, `--camera-input`, `--camera-pre-target`, `--camera-post-target`,
 `--bev-pre-target`, `--bev-post-target`, `--pool-threads`, `--argmax-threads`,
 `--render-threads`, `--camera-model`, `--camera-model-order`, `--bev-model`,
 `--timeout-ms`, and `--visualization true|false`. CLI options are processed in
@@ -27,7 +27,8 @@ order, with later values winning. Restart to apply changes.
 
 | Setting | Default | Meaning |
 | --- | --- | --- |
-| `camera_mode` | `sequential` | Six batch-one calls, or `packed` for one spatially packed call |
+| `camera_mode` | `sequential` | Six batch-one calls, or `packed` for 6 / `camera_pack_size` spatially packed calls |
+| `camera_pack_size` | 6 | Cameras per packed call: 2, 3 or 6; requires a matching compiled archive |
 | `camera_guard_width` | 32 | Packed input gap in pixels; must match the compiled archive |
 | `camera_input` | `arm-fp32` | `arm-fp32`, `ev74-bgr`, or `ev74-nv12` |
 | `camera_model_order` | `BGR` | Input channel order of the selected camera archive: `BGR` or `RGB` |
@@ -88,9 +89,72 @@ size and output shapes at startup, rejecting an archive that does not match
 the selected mode and guard width. Changing `camera_guard_width` requires a
 matching re-exported and compiled model; it does not modify archive geometry.
 The supplied archive uses 32 pixels. Runtime timing records include
-`camera_calls` (one or six), `camera_pack_ms`, `camera_route_ms` and
+`camera_calls` (one, two, three or six), `camera_pack_ms`, `camera_route_ms` and
 `camera_unpack_ms`. `camera_route_ms` includes model input/output conversion,
 MLA execution and runtime overhead; it is not pure accelerator time.
+
+For the intermediate two-call approach, use `app/execution-packed3.json`:
+
+```bash
+python3 scripts/run_insight_demo.py stop
+python3 scripts/run_insight_demo.py start \
+  --config artifacts/fps-inputs/4/config.json \
+  --execution app/execution-packed3.json
+```
+
+`camera_pack_size=3` packs cameras 0–2 for the first call and cameras 3–5 for
+the second. Each input is 256×2176×3 with two 32-pixel guards. Each call returns
+16×136×44 depth and 16×136×64 features; the app removes the guard columns and
+restores the original six-camera ordering before pooling. Network batch remains
+one. The default archive for this configuration is
+`artifacts/compile-packed3/camera/flashocc_m0_camera_mpk.tar.gz`.
+CLI overrides are `--camera-mode packed --camera-pack-size 3`. Selecting a
+different pack size requires the corresponding compiled model; startup rejects
+an incompatible output shape.
+
+Validated on Modalix on 2026-10-20: all depth, feature and occupancy-label files
+were byte-identical to the sequential BF16 pipeline on eight six-camera groups
+(48 images). FP32 equivalence checks also passed bit for bit. Neat measured
+23.376 ms per three-camera call, or 46.752 ms for two calls; see
+[model comparisons](MODEL_BENCHMARK.md) for the single- and six-camera results.
+
+With overlays, Insight video and 2 Hz 3D snapshots enabled, this preset sustained
+3.32 updates/s at 4 FPS input and 3.30 updates/s at 8 FPS input. Each run processed
+180 groups and excluded 60 warmups, with no invalid camera markers. Browser
+checks delivered approximately 3.30 FPS with no JavaScript errors; their
+20-second windows recorded one dropped video frame at 4 FPS input and none at
+8 FPS input. This option works as an intermediate call grouping, but does not
+show a meaningful full-application FPS improvement in these measurements.
+Evidence is in `artifacts/packed3-app/equivalence.json` and
+`artifacts/packed3-app/live/summary.json`.
+
+For three sequential calls with two cameras per input, select
+`app/execution-packed2.json` instead. It sets `camera_mode=packed` and
+`camera_pack_size=2`, grouping camera indices 0–1, 2–3 and 4–5. Each input is
+256×1440×3, including one 32-pixel guard; each output is 16×90×44 depth or
+16×90×64 features. The archive defaults to
+`artifacts/compile-packed2/camera/flashocc_m0_camera_mpk.tar.gz`.
+Network batch size remains one, and the six outputs are restored to their
+original order before pooling. The same stop/start commands apply with
+`--execution app/execution-packed2.json`.
+
+Validated on Modalix on 2026-10-20: all 48 held-out camera images produced
+byte-identical depth/features and occupancy labels to the original sequential
+BF16 pipeline, with exactly three camera calls per group. FP32 equivalence
+also passed bit for bit. Neat measured 14.028 ms per call, or 42.085 ms for all
+six cameras, using BF16 and A65 input/output conversion. This is the lowest
+camera-route latency among the tested pack sizes; see
+[the four-mode comparison](MODEL_BENCHMARK.md).
+
+With overlays, Insight video and 2 Hz 3D snapshots enabled, this preset sustained
+3.36 updates/s at 4 FPS input and 3.33 updates/s at 8 FPS input. Each run
+processed 180 groups and excluded 60 warmups, with no invalid camera markers.
+Browser checks delivered approximately 3.35 and 3.30 FPS, respectively, with
+no JavaScript errors; their 20-second measurement windows recorded zero and two
+dropped video frames. The full-app gain is small because the camera route is
+only part of the complete processing time. Evidence is in
+`artifacts/packed2-app/equivalence.json` and
+`artifacts/packed2-app/live/summary.json`.
 
 The shared replay executable also accepts the new mode:
 

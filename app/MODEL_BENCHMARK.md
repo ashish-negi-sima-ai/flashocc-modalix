@@ -1,5 +1,72 @@
-Neat model benchmarks on Modalix, 2026-10-15
-==========================================
+Neat model benchmarks on Modalix
+================================
+
+Camera packing comparison, 2026-10-20
+-------------------------------------
+
+The app supports one, two or three spatially packed calls per six-camera update,
+as well as six single-camera calls. All four variants below were measured using the
+installed, unmodified Neat runtime, BF16 archives, A65 input/output conversion,
+50 warmups and 300 measured samples per latency and throughput window.
+
+| Mode | Cameras per call | Calls per six-camera update | Mean latency per call | Six-camera route latency | Async six-camera equivalent groups/s |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Single camera | 1 | 6 | 7.691 ms | 46.148 ms | 35.31 |
+| Packed two | 2 | 3 | 14.028 ms | 42.085 ms | 34.80 |
+| Packed three | 3 | 2 | 23.376 ms | 46.752 ms | 30.11 |
+| Packed six | 6 | 1 | 45.218 ms | 45.218 ms | 27.78 |
+
+Six-camera latency is derived as call latency multiplied by call count.
+Throughput comes from a separate asynchronous measurement and is normalized
+by cameras per input. These are model-route measurements, including required
+conversion and runtime overhead; they exclude application packing/unpacking,
+pooling, BEV inference, RTSP and visualization. They are not pure MLA time or
+full application FPS.
+
+The two-camera variant has the lowest measured six-camera route latency:
+approximately 8.8% below six single-camera calls and 6.9% below one six-camera
+packed call. Its asynchronous throughput is close to the single-camera model's
+six-camera equivalent throughput. These results use the same BF16/A65 settings;
+application performance is measured separately.
+
+The three-camera option preserves network batch one. Its 256×2176 input has
+two 32-pixel zero guards, with masks inside the model to keep cameras
+independent. The shared C++ pipeline restores all six outputs before pooling.
+On eight groups (48 cameras), its depth, features and occupancy labels were
+byte-identical to the original sequential BF16 pipeline. The FP32 exports also
+matched the original FP32 model bit for bit on those images. This is numerical
+agreement, not a ground-truth accuracy measurement.
+
+The two-camera variant also preserves network batch one. Its 256×1440 input
+contains one 32-pixel guard. Three calls process cameras 0–1, 2–3 and 4–5.
+Its FP32 outputs and its hardware depth/features/occupancy labels matched the
+respective sequential references bit for bit across all 48 validation images.
+The existing BEV network and pooler are shared by every mode.
+
+Use `app/execution-packed3.json`; see [execution settings](EXECUTION.md) for
+startup commands. Exact reports and hashes are in
+`artifacts/compile-packed3/benchmark/comparison.json`, with hardware evidence in
+`artifacts/packed3-app/equivalence.json`.
+
+Use `app/execution-packed2.json` for three calls with two cameras per input.
+The combined four-variant report is
+`artifacts/compile-packed2/benchmark/comparison.json`, with accuracy evidence in
+`artifacts/packed2-app/equivalence.json`. To reproduce its Neat benchmark, change
+the command below to `compile-packed2`, `--input-width 1440` and
+`--cameras-per-input 2`.
+
+To benchmark the three-camera archive on Modalix with the live app stopped:
+
+```bash
+~/pyneat/bin/python scripts/benchmark_models.py camera --samples 300 \
+  --model artifacts/compile-packed3/camera/flashocc_m0_camera_mpk.tar.gz \
+  --input-width 2176 --cameras-per-input 3 --expected-batch 1 \
+  --pre-target A65 --post-target A65 \
+  --output-dir artifacts/compile-packed3/benchmark/packed3
+```
+
+Original model measurements, 2026-10-15
+---------------------------------------
 
 Measured with the deployed camera BF16 and BEV BF16/INT8-Softplus packages,
 with the live application stopped to avoid accelerator contention.

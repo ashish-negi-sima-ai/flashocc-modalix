@@ -55,7 +55,7 @@ def main():
         'scope': 'Neat model route, including required boundary conversions; excludes application CPU work',
         'latency_ms': report.latency_ms, 'fps': report.fps,
         'latency_scope': 'one model batch; warmed-up single-flight mean',
-        'fps_unit': ('packed six-camera inputs/s' if args.cameras_per_input == 6 else 'logical images/s')
+        'fps_unit': (f'packed {args.cameras_per_input}-camera inputs/s' if args.cameras_per_input > 1 else 'logical images/s')
                     if args.network == 'camera' else 'logical inputs/s',
         'batches_per_second': report.fps / batch,
         'amortized_latency_per_input_ms': report.latency_ms / batch,

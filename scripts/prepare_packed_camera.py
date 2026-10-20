@@ -155,7 +155,7 @@ def build(source, cameras, guard):
     del scene.graph.node[:]
     scene.graph.node.extend(wrapper + body)
     del scene.graph.value_info[:]
-    scene.graph.name = 'flashocc_m0_camera_six_view_packed'
+    scene.graph.name = f'flashocc_m0_camera_{cameras}_view_packed'
     scene = onnx.shape_inference.infer_shapes(scene, strict_mode=True)
     onnx.checker.check_model(scene, full_check=True)
     # Verify all learned convolution weights and biases are unchanged byte for byte.
@@ -178,12 +178,14 @@ def main():
     root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, default=root/'artifacts/onnx-modalix/camera.onnx')
-    parser.add_argument('--output-dir', type=Path, default=root/'artifacts/onnx-packed')
+    parser.add_argument('--output-dir', type=Path, help='default: artifacts/onnx-packed, or onnx-packedN for N cameras')
     parser.add_argument('--cameras', type=int, default=6)
     parser.add_argument('--guard-width', type=int, default=32)
     args = parser.parse_args()
     if args.cameras < 2 or args.guard_width < 32 or args.guard_width % 32:
         parser.error('Use at least two cameras and guard width a positive multiple of 32')
+    if args.output_dir is None:
+        args.output_dir = root/'artifacts'/('onnx-packed' if args.cameras == 6 else f'onnx-packed{args.cameras}')
     # Audit sidecars are produced by the model-surgery guard before surgery.
     for dtype in ('int8', 'bfloat16'):
         audit = json.loads(args.source.with_suffix('.'+dtype+'.audit.json').read_text())

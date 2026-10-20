@@ -36,14 +36,15 @@ struct Options {
   std::string camera_model_order="BGR";
   std::string camera_mode="sequential";
   int camera_guard_width=32;
+  int camera_pack_size=6;
   int pool_threads=8,argmax_threads=8,render_threads=6;
   std::array<float,3> mean{123.675f,116.28f,103.53f},stddev{58.395f,57.12f,57.375f};
   bool visualization=true;
   bool inspect=false,dump=false;
 };
 Options finalize_execution(Options o);
-int camera_input_width(const Options& o) {return o.camera_mode=="packed"?6*704+5*o.camera_guard_width:704;}
-int camera_output_width(const Options& o) {return o.camera_mode=="packed"?6*44+5*(o.camera_guard_width/16):44;}
+int camera_input_width(const Options& o) {return o.camera_mode=="packed"?o.camera_pack_size*704+(o.camera_pack_size-1)*o.camera_guard_width:704;}
+int camera_output_width(const Options& o) {return o.camera_mode=="packed"?o.camera_pack_size*44+(o.camera_pack_size-1)*(o.camera_guard_width/16):44;}
 Options parse(int argc,char** argv) {
   Options o;
   for(int i=1;i<argc;++i) {
@@ -56,6 +57,7 @@ Options parse(int argc,char** argv) {
                   "  [--warmup N] [--timeout-ms N] [--limit N] [--cvu-target EV74|A65|AUTO]\n"
                   "  [--camera-pre-target TARGET] [--camera-post-target TARGET]\n"
                   "  [--camera-mode sequential|packed] [--camera-guard-width N]\n"
+                  "  [--camera-pack-size 2|3|6]\n"
                   "  [--bev-pre-target TARGET] [--bev-post-target TARGET]\n"
                   "  [--inspect] [--dump-tensors]\n";
       std::exit(0);
@@ -66,6 +68,7 @@ Options parse(int argc,char** argv) {
     else if(key=="--camera-model") o.camera=value;
     else if(key=="--camera-mode") o.camera_mode=value;
     else if(key=="--camera-guard-width") o.camera_guard_width=std::stoi(value);
+    else if(key=="--camera-pack-size") o.camera_pack_size=std::stoi(value);
     else if(key=="--bev-model") o.bev=value;
     else if(key=="--input-dir") o.inputs=value;
     else if(key=="--output-dir") o.output=value;
@@ -98,7 +101,8 @@ Options parse(int argc,char** argv) {
 std::string target_or(const std::string& specific,const Options& o) {return specific.empty()?o.cvu_target:specific;}
 Json execution_config(const Options& o) {
   return {{"camera_input",o.camera_input},{"camera_model_order",o.camera_model_order},{"camera_mode",o.camera_mode},
-          {"camera_guard_width",o.camera_guard_width},{"camera_model",o.camera.string()},{"bev_model",o.bev.string()},
+          {"camera_guard_width",o.camera_guard_width},{"camera_pack_size",o.camera_pack_size},
+          {"camera_model",o.camera.string()},{"bev_model",o.bev.string()},
           {"camera_pre_target",target_or(o.camera_pre_target,o)},
           {"camera_post_target",target_or(o.camera_post_target,o)},{"bev_pre_target",target_or(o.bev_pre_target,o)},
           {"bev_post_target",target_or(o.bev_post_target,o)},{"pool_threads",o.pool_threads},
@@ -109,7 +113,7 @@ void configure_execution(Options& o,const Json& config) {
   if(!config.is_object())throw std::invalid_argument("execution must be an object");
   const std::vector<std::string> keys{"camera_input","camera_pre_target","camera_post_target","bev_pre_target","bev_post_target",
     "pool_threads","argmax_threads","render_threads","visualization","mean","stddev","timeout_ms","camera_model","bev_model","camera_model_order",
-    "camera_mode","camera_guard_width"};
+    "camera_mode","camera_guard_width","camera_pack_size"};
   for(const auto& [key,value]:config.items())if(std::find(keys.begin(),keys.end(),key)==keys.end())
     throw std::invalid_argument("Unknown execution setting: "+key);
   auto text_option=[&](const char* key,std::string& destination){if(config.contains(key))destination=config.at(key).get<std::string>();};
@@ -118,6 +122,12 @@ void configure_execution(Options& o,const Json& config) {
   text_option("camera_model_order",o.camera_model_order);
   text_option("camera_mode",o.camera_mode);
   if(o.camera_mode!="sequential" && o.camera_mode!="packed")throw std::invalid_argument("camera_mode must be sequential or packed");
+  if(config.contains("camera_pack_size")) {
+    if(!config.at("camera_pack_size").is_number_integer())throw std::invalid_argument("camera_pack_size must be an integer");
+    o.camera_pack_size=config.at("camera_pack_size");
+  }
+  if(o.camera_pack_size!=2 && o.camera_pack_size!=3 && o.camera_pack_size!=6)
+    throw std::invalid_argument("camera_pack_size must be 2, 3 or 6 and match the compiled model");
   if(config.contains("camera_guard_width")) {
     if(!config.at("camera_guard_width").is_number_integer())throw std::invalid_argument("camera_guard_width must be an integer");
     o.camera_guard_width=config.at("camera_guard_width");
@@ -153,9 +163,12 @@ void configure_execution(Options& o,const Json& config) {
 }
 Options finalize_execution(Options o) {
   configure_execution(o,Json::object());
-  if(o.camera.empty())o.camera=o.workspace/(o.camera_mode=="packed"?
-      "artifacts/compile-packed/camera/flashocc_m0_camera_mpk.tar.gz":
+  if(o.camera.empty()) {
+    const std::string variant=o.camera_pack_size==6?"compile-packed":"compile-packed"+std::to_string(o.camera_pack_size);
+    o.camera=o.workspace/(o.camera_mode=="packed"?
+      "artifacts/"+variant+"/camera/flashocc_m0_camera_mpk.tar.gz":
       "artifacts/compile-real/camera/flashocc_m0_camera_mpk.tar.gz");
+  }
   if(o.bev.empty())o.bev=o.workspace/"artifacts/compile-real-mixed/bev/flashocc_m0_bev_mpk.tar.gz";
   if(o.camera_mode=="packed" && o.camera_pre_target.empty() && o.cvu_target=="AUTO")o.camera_pre_target="A65";
   return o;
@@ -230,20 +243,22 @@ void save(const fs::path& path,const void* data,std::size_t bytes) {
   std::ofstream f(path,std::ios::binary);
   if(!f.write(static_cast<const char*>(data),static_cast<std::streamsize>(bytes)))throw std::runtime_error("Cannot write "+path.string());
 }
-void pack_camera_values(std::span<const float> images,std::span<float> packed,int guard_width) {
-  const std::size_t width=6*704+5*guard_width;
-  if(guard_width<32 || guard_width%32 || images.size()!=6*256*704*3 || packed.size()!=256*width*3)
+void pack_camera_values(std::span<const float> images,std::span<float> packed,int guard_width,int cameras=6) {
+  if(cameras<1 || cameras>6)throw std::invalid_argument("Invalid camera pack size");
+  const std::size_t width=cameras*704+(cameras-1)*guard_width;
+  if(guard_width<32 || guard_width%32 || images.size()!=static_cast<std::size_t>(cameras)*256*704*3 || packed.size()!=256*width*3)
     throw std::invalid_argument("Invalid packed camera input buffers");
   std::fill(packed.begin(),packed.end(),0.f);
-  for(std::size_t view=0;view<6;++view)for(std::size_t row=0;row<256;++row)
+  for(std::size_t view=0;view<static_cast<std::size_t>(cameras);++view)for(std::size_t row=0;row<256;++row)
     std::copy_n(images.data()+(view*256+row)*704*3,704*3,
                 packed.data()+(row*width+view*(704+guard_width))*3);
 }
-void unpack_camera_values(std::span<const float> packed,std::span<float> images,std::size_t count,int guard_width) {
-  const std::size_t width=6*44+5*(guard_width/16);
-  if(guard_width<32 || guard_width%32 || packed.size()!=16*width*count || images.size()!=6*pixels*count)
+void unpack_camera_values(std::span<const float> packed,std::span<float> images,std::size_t count,int guard_width,int cameras=6) {
+  if(cameras<1 || cameras>6)throw std::invalid_argument("Invalid camera pack size");
+  const std::size_t width=cameras*44+(cameras-1)*(guard_width/16);
+  if(guard_width<32 || guard_width%32 || packed.size()!=16*width*count || images.size()!=cameras*pixels*count)
     throw std::invalid_argument("Invalid packed camera output buffers");
-  for(std::size_t view=0;view<6;++view)for(std::size_t row=0;row<16;++row)
+  for(std::size_t view=0;view<static_cast<std::size_t>(cameras);++view)for(std::size_t row=0;row<16;++row)
     std::copy_n(packed.data()+(row*width+view*(44+guard_width/16))*count,44*count,
                 images.data()+(view*pixels+row*44)*count);
 }
@@ -273,7 +288,7 @@ struct Pipeline {
       have_features|=shape==std::vector<std::int64_t>{16,camera_output_width(options),64};
     }
     if(output_specs.size()!=2 || !have_depth || !have_features)
-      throw std::invalid_argument("Camera archive outputs do not match camera_mode and camera_guard_width: "+specs(output_specs).dump());
+      throw std::invalid_argument("Camera archive outputs do not match camera_mode, camera_pack_size and camera_guard_width: "+specs(output_specs).dump());
     if(options.camera_mode=="packed")packed_images.resize(256*camera_input_width(options)*3);
   }
   Json contracts() {return Json{{"camera",{{"inputs",specs(camera.input_specs())},{"outputs",specs(camera.output_specs())}}},
@@ -295,9 +310,15 @@ struct Pipeline {
     constexpr std::size_t image_values=256*704*3;
     metrics["camera_pack_ms"]=0.;
     if(options.camera_mode=="packed") {
-      pack_camera_values(frame.images,packed_images,options.camera_guard_width);
-      metrics["camera_pack_ms"]=elapsed(begin);
-      inputs.push_back(neat::Tensor::from_vector(packed_images,{256,camera_input_width(options),3},neat::TensorMemory::EV74));
+      double pack_ms=0;
+      for(std::size_t first=0;first<6;first+=options.camera_pack_size) {
+        const auto pack_start=Clock::now();
+        pack_camera_values(std::span<const float>(frame.images).subspan(first*image_values,options.camera_pack_size*image_values),
+                           packed_images,options.camera_guard_width,options.camera_pack_size);
+        pack_ms+=elapsed(pack_start);
+        inputs.push_back(neat::Tensor::from_vector(packed_images,{256,camera_input_width(options),3},neat::TensorMemory::EV74));
+      }
+      metrics["camera_pack_ms"]=pack_ms;
     } else if(camera_images)inputs=*camera_images;
     else for(std::size_t i=0;i<6;++i) {
       std::vector<float> values(frame.images.begin()+i*image_values,frame.images.begin()+(i+1)*image_values);
@@ -328,7 +349,9 @@ struct Pipeline {
             if(t.dtype!=neat::TensorDType::Float32 || !t.is_contiguous())throw std::runtime_error("Invalid packed output dtype/layout");
             const auto mapped=t.view_read();const auto size=16*output_width*count;
             if(!mapped.data || mapped.size_bytes<size*sizeof(float))throw std::runtime_error("Short packed camera output");
-            unpack_camera_values({reinterpret_cast<const float*>(mapped.data),size},destination,count,options.camera_guard_width);
+            unpack_camera_values({reinterpret_cast<const float*>(mapped.data),size},
+              std::span<float>(destination).subspan(i*options.camera_pack_size*pixels*count,options.camera_pack_size*pixels*count),
+              count,options.camera_guard_width,options.camera_pack_size);
           }
         };
         if(shape==std::vector<std::int64_t>{16,output_width,44}) {if(have_depth)throw std::runtime_error("Duplicate depth output");copy(depth,depth_bins);have_depth=true;}

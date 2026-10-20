@@ -277,6 +277,7 @@ int main(int argc,char** argv) {
       if(key=="--help"){std::cout<<"flashocc_insight [--config JSON] [--output-dir DIR] [--frames N] [--volume-fps N]\n"
         "  [--execution JSON] [--camera-input arm-fp32|ev74-bgr|ev74-nv12]\n"
         "  [--camera-mode sequential|packed] [--camera-guard-width N]\n"
+        "  [--camera-pack-size 2|3|6]\n"
         "  [--camera-pre-target AUTO|EV74|A65] [--camera-post-target AUTO|EV74|A65]\n"
         "  [--bev-pre-target AUTO|EV74|A65] [--bev-post-target AUTO|EV74|A65]\n"
         "  [--camera-model TAR] [--camera-model-order BGR|RGB] [--bev-model TAR] [--timeout-ms N]\n"
@@ -289,6 +290,7 @@ int main(int argc,char** argv) {
       else if(key=="--camera-input")overrides["camera_input"]=value;
       else if(key=="--camera-mode")overrides["camera_mode"]=value;
       else if(key=="--camera-guard-width")overrides["camera_guard_width"]=std::stoi(value);
+      else if(key=="--camera-pack-size")overrides["camera_pack_size"]=std::stoi(value);
       else if(key=="--camera-model-order")overrides["camera_model_order"]=value;
       else if(key=="--camera-model")overrides["camera_model"]=value;
       else if(key=="--bev-model")overrides["bev_model"]=value;

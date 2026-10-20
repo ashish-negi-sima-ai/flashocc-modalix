@@ -298,4 +298,9 @@ Its [execution settings](app/EXECUTION.md) select six sequential camera calls or
 one spatially packed call, ARM or EV74 camera preprocessing, independent
 camera/BEV pre/post placement, model archives and CPU worker counts. Use
 `app/execution-packed.json` to run the packed camera model in the complete app.
+Use `app/execution-packed3.json` for the intermediate configuration: two
+sequential calls with three cameras packed into each input. Use
+`app/execution-packed2.json` for three calls with two cameras per input. All packed
+variants keep network batch size one; [model benchmarks](app/MODEL_BENCHMARK.md)
+compare their measured performance.
 

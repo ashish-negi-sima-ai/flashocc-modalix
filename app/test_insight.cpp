@@ -55,30 +55,35 @@ int main() {
     require(packed_settings.camera_pre_target=="A65" && camera_input_width(packed_settings)==4384 &&
             camera_output_width(packed_settings)==274,"Packed defaults lost");
     require(packed_settings.camera.string().find("compile-packed")!=std::string::npos,"Packed mode selected sequential archive");
+    Options triple;configure_execution(triple,{{"camera_mode","packed"},{"camera_pack_size",3}});
+    triple=finalize_execution(triple);
+    require(camera_input_width(triple)==2176 && camera_output_width(triple)==136 &&
+            triple.camera.string().find("compile-packed3")!=std::string::npos,"Three-camera model contract lost");
     configure_execution(packed_settings,{{"camera_pre_target","EV74"}});
     require(finalize_execution(packed_settings).camera_pre_target=="EV74","Explicit packed target override lost");
     require(finalize_execution(legacy).camera_mode=="sequential" && camera_input_width(legacy)==704,"Changed sequential defaults");
     for(const Json invalid:{Json{{"camera_mode","other"}},Json{{"camera_mode","packed"},{"camera_input","ev74-bgr"}},
-                           Json{{"camera_mode","packed"},{"camera_guard_width",31}},Json{{"camera_guard_width",32.5}}}) {
+                           Json{{"camera_mode","packed"},{"camera_guard_width",31}},Json{{"camera_guard_width",32.5}},
+                           Json{{"camera_pack_size",4}},Json{{"camera_pack_size",3.5}}}) {
       rejected=false;try{Options o;configure_execution(o,invalid);}catch(const std::exception&){rejected=true;}
       require(rejected,"Incompatible packed configuration accepted");
     }
-    for(int gap:{32,64}) {
-      std::vector<float> images(6*256*704*3);
+    for(int cameras:{2,3,6})for(int gap:{32,64}) {
+      std::vector<float> images(cameras*256*704*3);
       for(std::size_t i=0;i<images.size();++i)images[i]=static_cast<float>(i+1);
-      const int width=6*704+5*gap;std::vector<float> packed(256*width*3,-1.f);
-      pack_camera_values(images,packed,gap);
-      for(int row=0;row<256;++row)for(int view=0;view<6;++view) {
+      const int width=cameras*704+(cameras-1)*gap;std::vector<float> packed(256*width*3,-1.f);
+      pack_camera_values(images,packed,gap,cameras);
+      for(int row=0;row<256;++row)for(int view=0;view<cameras;++view) {
         const auto input=images.begin()+(view*256+row)*704*3;
         const auto output=packed.begin()+(row*width+view*(704+gap))*3;
         require(std::equal(input,input+704*3,output),"Packing changed camera pixels or order");
-        if(view<5)require(std::all_of(output+704*3,output+(704+gap)*3,[](float x){return x==0.f;}),"Normalized guards are not zero");
+        if(view<cameras-1)require(std::all_of(output+704*3,output+(704+gap)*3,[](float x){return x==0.f;}),"Normalized guards are not zero");
       }
       for(std::size_t count:{44,64}) {
-        const int out_width=6*44+5*(gap/16);std::vector<float> wide(16*out_width*count),unpacked(6*pixels*count);
+        const int out_width=cameras*44+(cameras-1)*(gap/16);std::vector<float> wide(16*out_width*count),unpacked(cameras*pixels*count);
         for(std::size_t i=0;i<wide.size();++i)wide[i]=static_cast<float>(i);
-        unpack_camera_values(wide,unpacked,count,gap);
-        for(std::size_t view=0;view<6;++view)for(std::size_t row=0;row<16;++row)
+        unpack_camera_values(wide,unpacked,count,gap,cameras);
+        for(std::size_t view=0;view<static_cast<std::size_t>(cameras);++view)for(std::size_t row=0;row<16;++row)
           for(std::size_t x=0;x<44;++x)for(std::size_t c=0;c<count;++c)
             require(unpacked[((view*16+row)*44+x)*count+c]==wide[(row*out_width+view*(44+gap/16)+x)*count+c],
                     "Unpacking changed camera, pixel or channel order");
