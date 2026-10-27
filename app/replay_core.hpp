@@ -40,8 +40,17 @@ struct Options {
   int pool_threads=8,argmax_threads=8,render_threads=6;
   std::array<float,3> mean{123.675f,116.28f,103.53f},stddev{58.395f,57.12f,57.375f};
   bool visualization=true;
+  bool check_finite_logits=true;
   bool inspect=false,dump=false;
 };
+bool parse_boolean(const std::string& value,const std::string& name) {
+  if(value!="true" && value!="false")throw std::invalid_argument(name+" must be true or false");
+  return value=="true";
+}
+void validate_finite_logits(std::span<const float> logits,bool enabled) {
+  if(enabled && !std::all_of(logits.begin(),logits.end(),[](float v){return std::isfinite(v);}))
+    throw std::runtime_error("Non-finite logits");
+}
 Options finalize_execution(Options o);
 int camera_input_width(const Options& o) {return o.camera_mode=="packed"?o.camera_pack_size*704+(o.camera_pack_size-1)*o.camera_guard_width:704;}
 int camera_output_width(const Options& o) {return o.camera_mode=="packed"?o.camera_pack_size*44+(o.camera_pack_size-1)*(o.camera_guard_width/16):44;}
@@ -59,6 +68,7 @@ Options parse(int argc,char** argv) {
                   "  [--camera-mode sequential|packed] [--camera-guard-width N]\n"
                   "  [--camera-pack-size 2|3|6]\n"
                   "  [--bev-pre-target TARGET] [--bev-post-target TARGET]\n"
+                  "  [--check-finite-logits true|false]\n"
                   "  [--inspect] [--dump-tensors]\n";
       std::exit(0);
     }
@@ -82,6 +92,7 @@ Options parse(int argc,char** argv) {
     else if(key=="--camera-post-target") o.camera_post_target=value;
     else if(key=="--bev-pre-target") o.bev_pre_target=value;
     else if(key=="--bev-post-target") o.bev_post_target=value;
+    else if(key=="--check-finite-logits") o.check_finite_logits=parse_boolean(value,"check_finite_logits");
     else throw std::invalid_argument("Unknown option: "+key);
   }
   if(o.threads<1 || o.threads>256 || o.repeats<1 || o.repeats>10000 || o.warmup<0 || o.warmup>100 || o.timeout<1 || o.limit<0)
@@ -107,13 +118,14 @@ Json execution_config(const Options& o) {
           {"camera_post_target",target_or(o.camera_post_target,o)},{"bev_pre_target",target_or(o.bev_pre_target,o)},
           {"bev_post_target",target_or(o.bev_post_target,o)},{"pool_threads",o.pool_threads},
           {"argmax_threads",o.argmax_threads},{"render_threads",o.render_threads},{"visualization",o.visualization},
+          {"check_finite_logits",o.check_finite_logits},
           {"mean",o.mean},{"stddev",o.stddev},{"timeout_ms",o.timeout}};
 }
 void configure_execution(Options& o,const Json& config) {
   if(!config.is_object())throw std::invalid_argument("execution must be an object");
   const std::vector<std::string> keys{"camera_input","camera_pre_target","camera_post_target","bev_pre_target","bev_post_target",
     "pool_threads","argmax_threads","render_threads","visualization","mean","stddev","timeout_ms","camera_model","bev_model","camera_model_order",
-    "camera_mode","camera_guard_width","camera_pack_size"};
+    "camera_mode","camera_guard_width","camera_pack_size","check_finite_logits"};
   for(const auto& [key,value]:config.items())if(std::find(keys.begin(),keys.end(),key)==keys.end())
     throw std::invalid_argument("Unknown execution setting: "+key);
   auto text_option=[&](const char* key,std::string& destination){if(config.contains(key))destination=config.at(key).get<std::string>();};
@@ -150,6 +162,10 @@ void configure_execution(Options& o,const Json& config) {
   integer_option("pool_threads",o.pool_threads,256);integer_option("argmax_threads",o.argmax_threads,256);
   integer_option("render_threads",o.render_threads,6);integer_option("timeout_ms",o.timeout,120000);
   if(config.contains("visualization"))o.visualization=config.at("visualization").get<bool>();
+  if(config.contains("check_finite_logits")) {
+    if(!config.at("check_finite_logits").is_boolean())throw std::invalid_argument("check_finite_logits must be boolean");
+    o.check_finite_logits=config.at("check_finite_logits").get<bool>();
+  }
   for(const auto* key:{"mean","stddev"})if(config.contains(key) && (!config.at(key).is_array() || config.at(key).size()!=3))
     throw std::invalid_argument(std::string(key)+" must have three channel values");
   if(config.contains("mean"))o.mean=config.at("mean").get<std::array<float,3>>();
@@ -373,7 +389,8 @@ struct Pipeline {
     selector.run(logits,labels);
     metrics["argmax_ms"]=elapsed(begin);metrics["compute_ms"]=elapsed(total);
     begin=Clock::now();
-    if(!std::all_of(logits.begin(),logits.end(),[](float v){return std::isfinite(v);}))throw std::runtime_error("Non-finite logits");
+    validate_finite_logits(logits,options.check_finite_logits);
+    metrics["logit_finite_check_ms"]=options.check_finite_logits?elapsed(begin):0.;
     std::size_t equal=0,occupied=0,occupied_equal=0;
     if(!frame.reference.empty()) {
     for(std::size_t i=0;i<voxels;++i) {equal+=(labels[i]==frame.reference[i]);if(labels[i]!=17 || frame.reference[i]!=17){++occupied;occupied_equal+=(labels[i]==frame.reference[i]);}}

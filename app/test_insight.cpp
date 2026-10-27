@@ -1,9 +1,32 @@
 #define FLASHOCC_INSIGHT_TEST
 #include "insight.cpp"
+#include <limits>
 
 void require(bool value,const char* message){if(!value)throw std::runtime_error(message);}
 int main() {
   try {
+    Options validity;
+    require(validity.check_finite_logits,"Logit validity check must default to enabled");
+    configure_execution(validity,{{"check_finite_logits",false}});
+    require(!execution_config(validity).at("check_finite_logits").get<bool>(),"Disabled validity setting lost");
+    const std::array<float,4> nonfinite{0.f,std::numeric_limits<float>::quiet_NaN(),
+      std::numeric_limits<float>::infinity(),-std::numeric_limits<float>::infinity()};
+    validate_finite_logits(nonfinite,validity.check_finite_logits);
+    configure_execution(validity,{{"check_finite_logits",true}});
+    for(float value:nonfinite) {
+      const std::array<float,1> logits{value};bool failed=false;
+      try{validate_finite_logits(logits,validity.check_finite_logits);}catch(const std::runtime_error&){failed=true;}
+      require(failed==!std::isfinite(value),"Enabled check failed to distinguish finite and non-finite logits");
+    }
+    for(const Json invalid:{Json("false"),Json(0),Json(nullptr)}) {
+      bool failed=false;
+      try{configure_execution(validity,{{"check_finite_logits",invalid}});}catch(const std::exception&){failed=true;}
+      require(failed,"Non-boolean validity setting accepted");
+    }
+    require(parse_boolean("true","check_finite_logits") && !parse_boolean("false","check_finite_logits"),"Boolean CLI values lost");
+    bool invalid_boolean=false;
+    try{parse_boolean("0","check_finite_logits");}catch(const std::invalid_argument&){invalid_boolean=true;}
+    require(invalid_boolean,"Invalid boolean CLI value accepted");
     Synchronizer sync;std::array<cv::Mat,6> views;int sequence=24;
     for(int camera=0;camera<6;++camera)for(int marker=25;marker<=29;++marker)
       sync.frames[camera][marker+(camera?0:40)]=cv::Mat(1,1,CV_8UC1,cv::Scalar(marker));
@@ -103,7 +126,7 @@ int main() {
     require(std::memcmp(old.data(),"FOCC3D01",8)==0,"Invalid snapshot magic");
     require(old[64+123]==4 && current[64+123]==7,"Atomic replacement mixed snapshots");
     require(!fs::exists(temporary/"latest.occ.tmp"),"Snapshot temporary file was retained");fs::remove_all(temporary);
-    std::cout<<"Burst ordering, loop generation, camera pairing, marker validation and atomic snapshot tests passed.\n";
+    std::cout<<"Logit validity settings, non-finite rejection, burst ordering, loop generation, camera pairing, marker validation and atomic snapshot tests passed.\n";
     return 0;
   } catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}
 }

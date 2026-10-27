@@ -11,9 +11,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--directory', type=Path, default=Path(__file__).resolve().parents[1] / 'artifacts/preprocess-validation')
     parser.add_argument('--variants', nargs='+', default=['ev74-bgr', 'ev74-nv12'])
+    parser.add_argument('--reference', default='Current ARM preprocessing + BF16 models on identical decoded NV12 inputs',
+                        help='Describe the models used by the ARM preprocessing reference')
     args = parser.parse_args()
     baseline = args.directory / 'arm-fp32'
-    report = {'reference': 'Current ARM preprocessing + BF16 models on identical decoded NV12 inputs',
+    report = {'reference': args.reference,
               'ground_truth_accuracy': False, 'variants': {}}
     for mode in ['arm-fp32'] + args.variants:
         directory = args.directory / mode

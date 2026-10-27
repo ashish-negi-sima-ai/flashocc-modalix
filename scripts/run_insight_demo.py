@@ -16,6 +16,7 @@ def main():
     parser.add_argument('--api',default='https://10.42.0.1:9900')
     parser.add_argument('--volume-fps',type=int,help='override configured volume_fps (default 2)')
     parser.add_argument('--execution',type=Path,help='JSON object overriding config.execution')
+    parser.add_argument('--check-finite-logits',choices=['true','false'],help='enable/disable the full output-logit validity scan; defaults to execution settings (enabled)')
     parser.add_argument('--binary',type=Path,default=ROOT/'artifacts/build-app/flashocc_insight')
     args=parser.parse_args()
     if args.volume_fps is not None and not 0<=args.volume_fps<=30:parser.error('--volume-fps must be 0–30')
@@ -25,6 +26,8 @@ def main():
     if args.execution:
         if not args.execution.is_file():parser.error('Missing execution JSON')
         extra.extend(['--execution',str(args.execution.resolve())])
+    if args.check_finite_logits is not None:
+        extra.extend(['--check-finite-logits',args.check_finite_logits])
     launch_extra=' '.join(shlex.quote(value) for value in extra)
     config=args.config.resolve();output=args.output_dir.resolve()
     header=f'''binary={shlex.quote(str(binary))}

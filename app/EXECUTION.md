@@ -22,7 +22,7 @@ Settings can also live in the source config's `execution` object. An
 `--camera-mode`, `--camera-pack-size`, `--camera-guard-width`, `--camera-input`, `--camera-pre-target`, `--camera-post-target`,
 `--bev-pre-target`, `--bev-post-target`, `--pool-threads`, `--argmax-threads`,
 `--render-threads`, `--camera-model`, `--camera-model-order`, `--bev-model`,
-`--timeout-ms`, and `--visualization true|false`. CLI options are processed in
+`--timeout-ms`, `--check-finite-logits true|false`, and `--visualization true|false`. CLI options are processed in
 order, with later values winning. Restart to apply changes.
 
 | Setting | Default | Meaning |
@@ -39,6 +39,7 @@ order, with later values winning. Restart to apply changes.
 | `argmax_threads` | 8 | ARM NEON label-selection workers, 1–256 |
 | `render_threads` | 6 | ARM camera-overlay workers, 1–6 |
 | `visualization` | true | Enable raycasting, mosaic and Insight video; false leaves inference/volume export running |
+| `check_finite_logits` | true | Scan every BEV output score for NaN/infinity; false skips that scan |
 | `mean` | `[123.675,116.28,103.53]` | Raw-pixel means in BGR channel order |
 | `stddev` | `[58.395,57.12,57.375]` | Raw-pixel standard deviations in BGR order |
 | `timeout_ms` | 20000 | Model call timeout, 1–120000 ms |
@@ -50,6 +51,64 @@ Unknown execution keys, invalid thread counts and incompatible image-preproc
 targets are rejected before the pipeline starts. `execution.json`, each frame
 record and the final summary record the requested settings and model paths.
 `AUTO` is a runtime placement request, not proof that a stage executed on EV74.
+
+The output-logit validity scan can be disabled in any execution preset by adding
+`"check_finite_logits": false`, or overridden when launching the live app:
+
+```bash
+python3 scripts/run_insight_demo.py start \
+  --config artifacts/fps-inputs/8/config.json \
+  --execution app/execution-bev-small-mixed.json \
+  --output-dir artifacts/bev-small-mixed/running \
+  --check-finite-logits false
+```
+
+Stop an existing app before starting it with a changed setting. Pass `true` to
+enable the check again. Both `flashocc_insight` and `flashocc_replay` accept the
+same `--check-finite-logits true|false` flag. With no override, the check remains
+enabled. The selected value is recorded in execution settings and frame logs;
+`logit_finite_check_ms` records the scan duration, or exactly zero when disabled.
+This duration is included in the existing `validation_ms` metric. Replay
+reference comparisons continue to run independently of the finite-logit check.
+
+For EV74 BGR preprocessing with the supplied small mixed-precision BEV archive,
+use `app/execution-bev-small-mixed-ev74-bgr.json`. The camera archive stays the
+original BF16 single-camera model, with six sequential calls per update. This
+preset enables the logit check; its CLI override remains available:
+
+```bash
+python3 scripts/run_insight_demo.py stop \
+  --config artifacts/fps-inputs/8/config.json \
+  --output-dir artifacts/bev-small-mixed/running
+python3 scripts/run_insight_demo.py start \
+  --config artifacts/fps-inputs/8/config.json \
+  --execution app/execution-bev-small-mixed-ev74-bgr.json \
+  --output-dir artifacts/bev-small-mixed/running \
+  --check-finite-logits false
+```
+
+Measured full-app throughput was 5.39 FPS with the check enabled and 6.68 FPS
+with it disabled, using 8 FPS streams, overlays and 2 Hz 3D snapshots. ARM retains
+NV12-to-BGR conversion; EV74 handles normalization and model-input preparation.
+See [the benchmark report](MODEL_BENCHMARK.md) for preprocessing agreement and
+browser drop counts.
+
+QAT W8A8 camera and BEV
+----------------------
+
+`app/execution-qat-ev74-bgr.json` selects both supplied archives from
+`artifacts/compile_with_qat_better_accuracy/`, with six sequential camera calls
+and EV74 BGR preprocessing. First create the compatible BEV package using
+`scripts/prepare_qat_runtime_archives.py`: the supplied BEV archive has a
+singleton-dimension mismatch between MLA output and its dequantization stage
+on Neat 0.5.0. The adapter changes only those shape fields in a separate archive;
+the compiled ELF and quantization parameters remain unchanged.
+
+Measured full-app throughput with 12 FPS inputs was 8.26 FPS with the logit scan
+disabled and 6.43 FPS with it enabled, including overlays and 2 Hz snapshots.
+The preset keeps the scan enabled. See [QAT application results](QAT_APPLICATION.md)
+for package preparation, commands, the controlled comparison, and the numerical
+difference between ARM and EV74 preprocessing.
 
 Packed camera inference
 -----------------------
@@ -137,6 +196,15 @@ For three sequential calls with two cameras per input, select
 Network batch size remains one, and the six outputs are restored to their
 original order before pooling. The same stop/start commands apply with
 `--execution app/execution-packed2.json`.
+
+To use this packing configuration with the supplied small mixed-precision BEV
+archive, select `app/execution-bev-small-mixed-packed2.json`. It uses the same
+packed camera archive and ARM FP32 preprocessing; `--check-finite-logits false`
+can override its enabled logit check. On Modalix it measured 3.96 FPS with the
+check enabled and 4.58 FPS with it disabled. Sequential EV74 preprocessing with
+the same BEV archive measured 5.39 and 6.68 FPS respectively, so it remains the
+faster complete-app configuration. See [the benchmark report](MODEL_BENCHMARK.md)
+for test settings and output-equivalence results.
 
 Validated on Modalix on 2026-10-20: all 48 held-out camera images produced
 byte-identical depth/features and occupancy labels to the original sequential
@@ -229,9 +297,21 @@ the synchronization footer is stripped on ARM. The NV12 path copies the Y and
 UV regions separately so the footer is never included in model input. It is
 not a zero-copy decoder-to-MLA pipeline.
 
-The existing BEV output conversion failed when forced to EV74. The supplied
-presets explicitly use A65 for that stage. Pooling, argmax and raycasting remain
-ARM algorithms; their thread settings do not imply EV74 implementations.
+The older BF16 BEV archive's output conversion failed when forced to EV74.
+The supplied small mixed-precision archive instead has INT8 output with an
+INT8-to-FP32 dequantization stage; that stage now runs correctly on EV74, as does
+the single-camera model's detessellation/cast. On identical decoded fixtures,
+both choices produced byte-identical tensors and labels to A65 output conversion.
+However, the current full app measured 6.64 FPS with A65 output conversion,
+6.56 FPS with only camera output conversion on EV74, and 5.96 FPS with both camera
+and BEV output conversion on EV74 (all with EV74 input preprocessing and the
+logit check disabled). The presets retain A65 output conversion for performance.
+Explicit overrides remain `--camera-post-target EV74` and `--bev-post-target EV74`,
+or the matching `camera_post_target` / `bev_post_target` execution settings.
+See [the benchmark report](MODEL_BENCHMARK.md) and
+`artifacts/ev74-output-conversion/` for the comparison. Pooling, argmax and
+raycasting remain ARM algorithms; their thread settings do not imply EV74
+implementations.
 
 RGB camera artifact
 -------------------

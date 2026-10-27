@@ -281,7 +281,8 @@ int main(int argc,char** argv) {
         "  [--camera-pre-target AUTO|EV74|A65] [--camera-post-target AUTO|EV74|A65]\n"
         "  [--bev-pre-target AUTO|EV74|A65] [--bev-post-target AUTO|EV74|A65]\n"
         "  [--camera-model TAR] [--camera-model-order BGR|RGB] [--bev-model TAR] [--timeout-ms N]\n"
-        "  [--pool-threads N] [--argmax-threads N] [--render-threads N] [--visualization true|false]\n";return 0;}
+        "  [--pool-threads N] [--argmax-threads N] [--render-threads N] [--visualization true|false]\n"
+        "  [--check-finite-logits true|false]\n";return 0;}
       if(i+1==argc)throw std::invalid_argument("Missing argument");
       std::string value=argv[++i];
       if(key=="--config")config_path=value;else if(key=="--output-dir")output=value;
@@ -303,6 +304,7 @@ int main(int argc,char** argv) {
       else if(key=="--argmax-threads")overrides["argmax_threads"]=std::stoi(value);
       else if(key=="--render-threads")overrides["render_threads"]=std::stoi(value);
       else if(key=="--visualization") {if(value!="true" && value!="false")throw std::invalid_argument("visualization must be true or false");overrides["visualization"]=value=="true";}
+      else if(key=="--check-finite-logits")overrides["check_finite_logits"]=parse_boolean(value,"check_finite_logits");
       else throw std::invalid_argument("Unknown option: "+key);
     }
     if(max_frames<0 || volume_fps < -1 || volume_fps>30)throw std::invalid_argument("Invalid frame or volume FPS limit");
