@@ -1,0 +1,831 @@
+{
+  "schema_version": 1,
+  "asset_root": "repository or restored asset bundle root",
+  "retention_rule": "Do not delete or replace a unique asset until its checksummed copy has been restored and both comparisons rerun.",
+  "files": [
+    {
+      "path": "gt/028a3f3a237e469cb099f6d9c8e7f2f4.npz",
+      "sha256": "8abb0a9cff0fa702e89a7344ad75cafdba5ac2826531a6946e143d3138aaeb24",
+      "size_bytes": 3676341,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/04ebf63518914e0883bdffdb0b6c3f4c.npz",
+      "sha256": "1a2e1b8d996329fe7b8d77763836d2e652acdbd90787d1c85a2461fbf7cae77d",
+      "size_bytes": 3504912,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/0f39f34febc84a6689f08599105d1421.npz",
+      "sha256": "4236054332f3ee957b533e5141c1b2d8e419dd60b18609359f52399cde83ab6f",
+      "size_bytes": 3509649,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/134c7f63827c4b858a2a4ce0582d8f6e.npz",
+      "sha256": "5019c9e1cfb213135a37931b1d3b8890b40b863c977706f08fe9fb86a77f01b5",
+      "size_bytes": 3728004,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/15c59626df6b4f96bb7ef7c5c1797159.npz",
+      "sha256": "d1319f56de2da6a671a79f765e8936bbc91edfea5bd9bab7e701a95388c176f1",
+      "size_bytes": 3726020,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/19ffc60b7e9f429cbca0dbd5e2fc2e03.npz",
+      "sha256": "0a1c5f38fc74fe6ebe004fe6e640d7008a722e52a739aa585bd04e4e407b9619",
+      "size_bytes": 3393140,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/1c81b06c812b47788462c31f58b6c1d0.npz",
+      "sha256": "6a750a3bc15a07cabce4b6793297e07fcfd010fdc90ca137d68a7e2a5e62f42a",
+      "size_bytes": 3681366,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/234b0f37af694571876a745e5bbb5e08.npz",
+      "sha256": "6caa1b35401ed032d42da7c49bd03b0419a6bc0e93b9b541c6a07a848f65d7d4",
+      "size_bytes": 3810020,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/339ead96177c4e338fde8235c188cfaa.npz",
+      "sha256": "bb18aafe7df5959126330945602e435fc263126ff00f55b3a297309bd85d50c1",
+      "size_bytes": 3513296,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/3e8750f331d7499e9b5123e9eb70f2e2.npz",
+      "sha256": "270e7cedc21018064289758773f83c85a4d4d458562c505761d5e5e399fbc56a",
+      "size_bytes": 3496996,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/43cfc03be6f842ae8942c995f8e3f2fb.npz",
+      "sha256": "0e0fcfff8b6674c9fe42a47884dc35361086f1789c45fabbe45dbc49e8835d10",
+      "size_bytes": 3677827,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/4d0d06979c984a72bfb9e6c5e3a35f84.npz",
+      "sha256": "fc94d7ca4531eb22d022ea6e3a9abd9c54c31d2be2f5ed218138adf06544a958",
+      "size_bytes": 3078024,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/6e0955c28ecb405b98d91b089761dbbb.npz",
+      "sha256": "47f83711f81e25730a030a30d3374f8dec327b730bd27414923872bfefc52f06",
+      "size_bytes": 3769448,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/78be3bd5f1f146cdb1b7120bbf8a218c.npz",
+      "sha256": "5705370f0f04ab61528f1f5dd74404226f5d4f394621ba2eb72afddc371ed070",
+      "size_bytes": 3321974,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/79070dca796f4ffb868d84f1b067f9c2.npz",
+      "sha256": "9f51ea4b9ee15574bb16a86a9d3276ecc78d2d32783c70141e80189202419f03",
+      "size_bytes": 3919009,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/806011e8a7114eca971fd0f6b95bcd4b.npz",
+      "sha256": "a85aa6b66bfaf6d5893f7d42e2e6dca5f1351c5af3c7f6ef7d682ab97730a564",
+      "size_bytes": 3500048,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/80c91574d0174206a74435200aba8ba8.npz",
+      "sha256": "b8cb4169fb12ca079d57618ccfc77f1ff62440d907df246a6f84d58533c8ae5c",
+      "size_bytes": 3393076,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/88a090c54cc844cc878f00d08274a683.npz",
+      "sha256": "ed141ebeab84aeb304c7c4614d56588f65cc78d9be63191a5d06bbc2ea7c1179",
+      "size_bytes": 3644768,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/8d56b71c09c04ece827107b3c103498f.npz",
+      "sha256": "25ae0ba4c977fabc23f4f9c692529b71ab0a857f0d77a683c06e09d546958207",
+      "size_bytes": 3433594,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/8e46878ced734164aae0e83567aa02a5.npz",
+      "sha256": "0e14cacb46c5701a911a3a1441b213e24139fb92c85e169aecc85ae30e39f664",
+      "size_bytes": 3346542,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/ad8905836f364a87a7233eb0aef915ea.npz",
+      "sha256": "9068ca7e88e7e7f92ad3fd050b05a6f4a737aa1525ff739f82c332f3526bfec9",
+      "size_bytes": 3407763,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/b9c60cfaf1814c8bb363037dec7abd35.npz",
+      "sha256": "35849cf7757a1545358d1da284fe074669a71de6da30b9032ff2bbdb158ab773",
+      "size_bytes": 3440710,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/b9db804449d34414ba98868e9034abd3.npz",
+      "sha256": "23c045f7afdbd87cba24a5fb2c2c7f4ba0dd0148bda01782e964055d8498421f",
+      "size_bytes": 3576872,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/c292d90b90ec4dbd826dfd11aa361df1.npz",
+      "sha256": "605e4ce89a06bdd36731752a7a748ba648d26b3335fb7892cb4f6de979a50a46",
+      "size_bytes": 3507190,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/d5324133e1d241658a7b763831b3af2e.npz",
+      "sha256": "dc2eb49dc66266932fae9149e482f4b84b01dfaeadc022b22490d7fd01818cfd",
+      "size_bytes": 3632459,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/d62b0f9db06440c695781c52ed71909a.npz",
+      "sha256": "aac21db603222fb157b29f0132409c2ea075703a9f849344401a7424eae879d6",
+      "size_bytes": 3848095,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/e1b5c775be134db696ce22413d195c72.npz",
+      "sha256": "57e4c1d0115955821d5b2497693b9b5a76f928eb9c8b3b63233bf7ef92a7da1e",
+      "size_bytes": 3634919,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/f0e4797551024f9487a016ee9d9e29e1.npz",
+      "sha256": "6dd7b3be28bdff4f76333089c4ed6b0c26a24ef8a29f4b551d27b4418d296a66",
+      "size_bytes": 3647529,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/f1b7b463072e4630b2c1d5ba8b6cd50b.npz",
+      "sha256": "83c094b9a176cfbc2251d38b1263b03a6cd7df0068bc3d32eccc34915d60f761",
+      "size_bytes": 3714662,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/f9475d1f1f96401c81ce511a93578a96.npz",
+      "sha256": "29e4c0b762468c49bea394eeb21f3bfa682e8c7631833f7a370a69c91ef729f7",
+      "size_bytes": 3321099,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/fbd3aa2098234fb1869d34d920e16eda.npz",
+      "sha256": "46b4287a1b61123fc72aca405d9cfe038e043d943a8ad8a69107738e7f06258a",
+      "size_bytes": 3435213,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "gt/fd8420396768425eabec9bdddf7e64b6.npz",
+      "sha256": "b2c911dda15aaa8bc552ff031fe4c391e6829ba98117445fef7e0f3de5f4bd35",
+      "size_bytes": 3615538,
+      "roles": [
+        "accuracy_inputs_and_masks"
+      ]
+    },
+    {
+      "path": "artifacts/compile-real-mixed/bev/flashocc_m0_bev_mpk.tar.gz",
+      "sha256": "d4697d5545f55e22bb571c6c2e86bcc4e54b8158165208d461833e7aaadcf53f",
+      "size_bytes": 46411266,
+      "roles": [
+        "compiled_model"
+      ]
+    },
+    {
+      "path": "artifacts/compile-real/camera/flashocc_m0_camera_mpk.tar.gz",
+      "sha256": "8caa9a3a5efd4e105c0e11c9fc9a8fc37c3f95fb63167d19e07fc4c34e6285e5",
+      "size_bytes": 45054973,
+      "roles": [
+        "compiled_model"
+      ]
+    },
+    {
+      "path": "artifacts/compile_with_qat_better_accuracy/flashocc_m0_camera_mpk.tar.gz",
+      "sha256": "a66706506cccb06385c7a9700675dec7d74d3d4a256627cc159d20f7ea050ad0",
+      "size_bytes": 23197772,
+      "roles": [
+        "compiled_model"
+      ]
+    },
+    {
+      "path": "artifacts/compiled_with_better_quantization/bev_small_mixed_mpk.tar.gz",
+      "sha256": "36c4a5fc3cd02834fa7574c44506c7d9794db9202ee3524e932aa9310225a88e",
+      "size_bytes": 16778551,
+      "roles": [
+        "compiled_model"
+      ]
+    },
+    {
+      "path": "artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+      "sha256": "56e0e8071edf8f7805dac2086cdedd766c6cc585746bc6c3dd796613132f8739",
+      "size_bytes": 14887760,
+      "roles": [
+        "compiled_model"
+      ]
+    },
+    {
+      "path": "artifacts/onnx-modalix/camera.onnx",
+      "sha256": "c6bd781725ba8d75db5a6916449bee35157e2707337c9561afcdef6dbe51896d",
+      "size_bytes": 99586300,
+      "roles": [
+        "fp32_model"
+      ]
+    },
+    {
+      "path": "artifacts/onnx-modalix/bev.onnx",
+      "sha256": "089ff03301b77a11c6b7a94ed0d1fde494d865ff06914678e0d3c8c911d9ad4b",
+      "size_bytes": 60105807,
+      "roles": [
+        "fp32_model"
+      ]
+    },
+    {
+      "path": "artifacts/compile_with_qat_better_accuracy/flashocc_m0_bev_mpk.tar.gz",
+      "sha256": "f18aec7eda8eb1835f54fd2db9915784f734b5a559dc8fa1fc005ac69f63d7d4",
+      "size_bytes": 14887759,
+      "roles": [
+        "original_qat_bev"
+      ]
+    },
+    {
+      "path": "artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.compatibility.json",
+      "sha256": "fea9791f3f9aeeb5406a25bc5dba82d01f0affb82dba0971caa2b58007066ee2",
+      "size_bytes": 1090,
+      "roles": [
+        "compatibility_provenance"
+      ]
+    },
+    {
+      "path": "artifacts/build-app/flashocc_replay",
+      "sha256": "b30c63caa08d1dccd9051f808881fd45d357a130c26aa5055acf84f647883322",
+      "size_bytes": 314968,
+      "roles": [
+        "reference_application_binary"
+      ]
+    },
+    {
+      "path": "artifacts/build-app/flashocc_insight",
+      "sha256": "2328c674603f7589017ebce9b2420cd6b603a4a52e56fd1f876e6b3c67b81406",
+      "size_bytes": 474840,
+      "roles": [
+        "reference_application_binary"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/config.json",
+      "sha256": "5b8a9c73f9745cb9b285710f5696ef47176dafd43d68868c18d5a8120ef7936b",
+      "size_bytes": 8861,
+      "roles": [
+        "source_video_config"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/flashocc-cam_front_left.mp4",
+      "sha256": "32239009b5f436dc1b7b07c51c64ef5e330a12fc3a7a10da3d8588881585d2aa",
+      "size_bytes": 2514164,
+      "roles": [
+        "source_video"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/flashocc-cam_front.mp4",
+      "sha256": "cdb5873794d6c3c8d8287cf02a9f45b255000e99b0276e519411192d2feae1a4",
+      "size_bytes": 2304678,
+      "roles": [
+        "source_video"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/flashocc-cam_front_right.mp4",
+      "sha256": "0c8f03b06584e86089f8e68b4b349608b0ad41348eca896fb6619560afae194f",
+      "size_bytes": 2167412,
+      "roles": [
+        "source_video"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/flashocc-cam_back_left.mp4",
+      "sha256": "2050248f2110794eb24283c04e7b5933d0f7d101393f9c739fd84f445a12cc23",
+      "size_bytes": 2304977,
+      "roles": [
+        "source_video"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/flashocc-cam_back.mp4",
+      "sha256": "52c4518fe1ed8ebb75322b6922bcc252327b6111e4a9b838856fb7403c78b658",
+      "size_bytes": 2122671,
+      "roles": [
+        "source_video"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/flashocc-cam_back_right.mp4",
+      "sha256": "b15af9040da8f0ac61f326c3f398273970ebe4189e366792fcdd33a086b60b8b",
+      "size_bytes": 2080610,
+      "roles": [
+        "source_video"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/000.geom",
+      "sha256": "b58a34cb4af0171aad28c654bc6b3b30dba7ee8cb9a44a1f958b361b134b93b3",
+      "size_bytes": 2628652,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/001.geom",
+      "sha256": "e78322abdc19c67f6338e042f113e0c9db2b80a219156b0c2b030260600d6ea3",
+      "size_bytes": 2628832,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/002.geom",
+      "sha256": "abd6c9f99d84913d4e7096243b31eaba977b6c545c48bbe7e2c41a87b8d36316",
+      "size_bytes": 2628892,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/003.geom",
+      "sha256": "32b362a174a74ca8c1c455d0232a0cfbf69987b9e7ad30403a0ac56c8636e459",
+      "size_bytes": 2628916,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/004.geom",
+      "sha256": "41971dfe1b7629c0b59c1d8dc9fb82501abdffbf7d5e069f0eda49c42c38b2a8",
+      "size_bytes": 2628964,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/005.geom",
+      "sha256": "5ecfbd0536d51bab1e17955d97133bfbe3709db28f0838489ff7543224d472a9",
+      "size_bytes": 2628748,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/006.geom",
+      "sha256": "7d9def64f3d1645390bbf5df8135186f89075cc2b9ed50fbac3bd855ee5fb0c8",
+      "size_bytes": 2628904,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/007.geom",
+      "sha256": "173b1377314243295897d7f34c89bfe23d5493ac252594132e3a2bf99898319f",
+      "size_bytes": 2628820,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/008.geom",
+      "sha256": "53bf2412f86622419210a7ea4236ff7e2892808eb070fb7155723df072479004",
+      "size_bytes": 2628604,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/009.geom",
+      "sha256": "659dc5542184b582dfb2fab02c67a0947d06ace1b1db72266ab39aa7975cab49",
+      "size_bytes": 2628664,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/010.geom",
+      "sha256": "050a0d06136fec9d9fdfc0ea51847cef08871c6c6caf971931411d55c7e37018",
+      "size_bytes": 2628352,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/011.geom",
+      "sha256": "d541ca770cf90f74d184e9139054d94b1dc2532580f0f4fbb24a0418fb7a39e0",
+      "size_bytes": 2628496,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/012.geom",
+      "sha256": "e66bc3b62204af17e86291125f9a0cafe4b8bcb83b968d01d5c8311b73fc141f",
+      "size_bytes": 2628604,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/013.geom",
+      "sha256": "272dafbc4be71ad8ff4979334899a89f1d925a2f36705115ead7fb940fca64fe",
+      "size_bytes": 2628664,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/014.geom",
+      "sha256": "d019a74d3c5925ab640f328b4aa5c06cb7dc2c2250fb500363fb3278cd6659ae",
+      "size_bytes": 2628736,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/015.geom",
+      "sha256": "e0fe2f32956ac929c0f57c59e0991df2837e5c47627582aab83b5168e2ea258b",
+      "size_bytes": 2628832,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/016.geom",
+      "sha256": "2308b23412359c20bd4aac7e54581c21b60d657c57e82bfd768898df3b1987eb",
+      "size_bytes": 2628928,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/017.geom",
+      "sha256": "57d621ab122eee3cb218d44d70e572c0ae0eb7280d1b658e0685d8d6ffe9a67c",
+      "size_bytes": 2628868,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/018.geom",
+      "sha256": "b688d0a2f9a40e94a1ed425c9933b3c8326a41acd9f7d2b23ff90938af4ffac5",
+      "size_bytes": 2628856,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/019.geom",
+      "sha256": "6fa9f98f1f62754c2d718eda41c1c21c6111cfc9c5d0dcd3e1ee0a928ce18072",
+      "size_bytes": 2628868,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/020.geom",
+      "sha256": "8df054ac9198729eec54308235b533c05ab88cc705cf235a09d06e745f9d07e3",
+      "size_bytes": 2628736,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/021.geom",
+      "sha256": "787f8e3b361836f0981f1246c7f1bb6e9bf35a4a3b59c3bcb69cd5bd76f72846",
+      "size_bytes": 2628772,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/022.geom",
+      "sha256": "a5108b8ea8f98b5d7636fbdba2514f73dec4097571aad50add619f183b3ce7db",
+      "size_bytes": 2628748,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/023.geom",
+      "sha256": "cd1c0b18ea1a02ea86731b1d58d64bfc40fd561027bbedadf4e86484bc6c0acf",
+      "size_bytes": 2628700,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/024.geom",
+      "sha256": "f6be1c8e31d462ebcfd34d6d06a5d059916e2e85a921426343201fec9e73899e",
+      "size_bytes": 2628712,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/025.geom",
+      "sha256": "eae438c260db087ff72b78900e291f4522fcde81acce8ecfd76e3845f2058694",
+      "size_bytes": 2628556,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/026.geom",
+      "sha256": "0ec470f16a210dc0463603f17a2f3714d613b2d387dc7b4ffe1b5ca3c56d79a9",
+      "size_bytes": 2628580,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/027.geom",
+      "sha256": "a1de7e8f4576f837f93cb9345d98dbcc03cb599add215739aac02003b7f93216",
+      "size_bytes": 2628700,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/028.geom",
+      "sha256": "a5e903d92214268e958196caf71a8c4b0c642d77fbd9f8851afb98a96eb29203",
+      "size_bytes": 2628532,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/029.geom",
+      "sha256": "01f94d2b5836b599863a3304c78d86449d89b4c5eea72b4ed90d7c28cde03ca9",
+      "size_bytes": 2628472,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/030.geom",
+      "sha256": "3e63e33338e3ffbb49f6e4a26a73b8494983101a3d6568ceebd42fe0d768c0cc",
+      "size_bytes": 2628520,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/031.geom",
+      "sha256": "e8c025b8e7457cc84f62f3bac7cc8c49969d9640c8ad95c75793c7953922a940",
+      "size_bytes": 2628544,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/032.geom",
+      "sha256": "35dadddf96ea6b10d8360b08e6dad9a268d494d086c2ad7bac3da376cfee1d04",
+      "size_bytes": 2628628,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/033.geom",
+      "sha256": "240ef4ca938609ff9e2d3b661ad64f2058233ed8fde22485007065b07436cad3",
+      "size_bytes": 2628496,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/034.geom",
+      "sha256": "797b4b88146f0ecc938cfd81b6a03576c85abbe490222e58f9e5fecb8f181bb9",
+      "size_bytes": 2628472,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/035.geom",
+      "sha256": "e6403554b9907054293de85495170204fa40693e08d699a79231476214e71742",
+      "size_bytes": 2628496,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/036.geom",
+      "sha256": "f67ffdf84be5d45f6aceb7494f3188ecf5bbd79d2c9e935973f30136538d44e8",
+      "size_bytes": 2628532,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/037.geom",
+      "sha256": "8c9aa104cdb60f72e93bf9cccf50d01006c3f199844ad567c13bdf4d167ce243",
+      "size_bytes": 2628376,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/038.geom",
+      "sha256": "285c59bfc357717538e0a1765ef144f5064f89d570b0b8ad36420570592d5a04",
+      "size_bytes": 2628412,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/insight-demo/geometry/039.geom",
+      "sha256": "49d63f13eba4e30b50d7f3bab2c54744e27962de7d9b0f36aded709d4a158910",
+      "size_bytes": 2628520,
+      "roles": [
+        "video_geometry"
+      ]
+    },
+    {
+      "path": "artifacts/fps-inputs/12/clip-verification.json",
+      "sha256": "a4cbc3c4aeed3e29c5cf17a20a231af126333c5d495276ad2299acd91dd0d86a",
+      "size_bytes": 1576,
+      "roles": [
+        "twelve_fps_input_provenance"
+      ]
+    },
+    {
+      "path": "artifacts/fps-inputs/12/config.json",
+      "sha256": "25abfd2df707ace4a31c98eff9ef74d1d420acb23a34202227467063a378ec8e",
+      "size_bytes": 8907,
+      "roles": [
+        "twelve_fps_input_provenance"
+      ]
+    },
+    {
+      "path": "artifacts/fps-inputs/12/flashocc-cam_front_left.mp4",
+      "sha256": "4cd27b1d27dd5bab5d11629dc320d35e919aa9e6105d4eea617b68410561037c",
+      "size_bytes": 2514372,
+      "roles": [
+        "twelve_fps_video"
+      ]
+    },
+    {
+      "path": "artifacts/fps-inputs/12/flashocc-cam_front.mp4",
+      "sha256": "98eafb2c6f9e7cb2814203c80a096a0840a491eb0a94ca34d9cdafa2b22cfdd3",
+      "size_bytes": 2304886,
+      "roles": [
+        "twelve_fps_video"
+      ]
+    },
+    {
+      "path": "artifacts/fps-inputs/12/flashocc-cam_front_right.mp4",
+      "sha256": "0e8a883e1bc658cf848b38edea44e4284e262c22363ce8d4e24611873e1970e4",
+      "size_bytes": 2167620,
+      "roles": [
+        "twelve_fps_video"
+      ]
+    },
+    {
+      "path": "artifacts/fps-inputs/12/flashocc-cam_back_left.mp4",
+      "sha256": "00491c5b2afab53e7e4077ce6049c69b6aaa731ffabbda62464cfefcf87dd79b",
+      "size_bytes": 2305185,
+      "roles": [
+        "twelve_fps_video"
+      ]
+    },
+    {
+      "path": "artifacts/fps-inputs/12/flashocc-cam_back.mp4",
+      "sha256": "4fef5992632323503600188a2a654d26019f568f29caabb935ab291affc4a915",
+      "size_bytes": 2122879,
+      "roles": [
+        "twelve_fps_video"
+      ]
+    },
+    {
+      "path": "artifacts/fps-inputs/12/flashocc-cam_back_right.mp4",
+      "sha256": "286647937421413c13bce5242844c1220256ce398013a1a6df7ca9e5c4d5e638",
+      "size_bytes": 2080818,
+      "roles": [
+        "twelve_fps_video"
+      ]
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/mixed-arm.json",
+      "sha256": "f4bf132fbdd455c1901a0554b07a6945155dd8a90622cd79e5b9fa2b8f407ff5",
+      "size_bytes": 554,
+      "roles": [
+        "reference_execution_config"
+      ]
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/mixed-ev74.json",
+      "sha256": "00f351b4afad19aae3a80bf5fedccd0c0e5f7608fdebf31bd646e82e22cdd604",
+      "size_bytes": 554,
+      "roles": [
+        "reference_execution_config"
+      ]
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/qat-arm.json",
+      "sha256": "ed90e633be7d9f76132a968aa7b73967b1c8b31ec3cc301fc57c9e155a6b8396",
+      "size_bytes": 583,
+      "roles": [
+        "reference_execution_config"
+      ]
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/qat-ev74.json",
+      "sha256": "bd2eba1c51e5becd01a9dc8c9e904b1f49bd122578f8107a915407263bdf481b",
+      "size_bytes": 583,
+      "roles": [
+        "reference_execution_config"
+      ]
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/qat-ev74-check.json",
+      "sha256": "11d6f86319b18bbbd330f3f985d3752b022b046d999ed72c25c71c78e0e340e5",
+      "size_bytes": 582,
+      "roles": [
+        "reference_execution_config"
+      ]
+    }
+  ]
+}

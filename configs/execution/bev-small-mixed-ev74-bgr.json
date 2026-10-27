@@ -1,0 +1,14 @@
+{
+  "camera_mode": "sequential",
+  "camera_input": "ev74-bgr",
+  "camera_pre_target": "EV74",
+  "camera_post_target": "A65",
+  "bev_model": "artifacts/compiled_with_better_quantization/bev_small_mixed_mpk.tar.gz",
+  "bev_pre_target": "AUTO",
+  "bev_post_target": "A65",
+  "pool_threads": 8,
+  "argmax_threads": 8,
+  "render_threads": 6,
+  "visualization": true,
+  "check_finite_logits": true
+}

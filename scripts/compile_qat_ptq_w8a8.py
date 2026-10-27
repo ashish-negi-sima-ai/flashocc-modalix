@@ -7,7 +7,7 @@ Pipeline:
      artifacts/qat-inputs/calibration/ (512 samples; we use up to --calib-count).
   3. Validate on the 32 validation samples and report accuracy vs ground truth.
 
-Outputs go to qat/runs/m0-full/ptq-compile/{camera,bev}/.
+Outputs go to artifacts/qat-runs/m0-full/ptq-compile/{camera,bev}/.
 """
 import argparse
 import json
@@ -23,7 +23,7 @@ from afe.apis.model import Model
 from afe.load.importers.general_importer import ImporterParams, ModelFormat
 
 ROOT = Path(__file__).resolve().parents[1]
-QAT_DIR = ROOT / 'qat/runs/m0-full'
+QAT_DIR = ROOT / 'artifacts/qat-runs/m0-full'
 ONNX_DIR = QAT_DIR / 'onnx'
 STRIPPED_DIR = QAT_DIR / 'onnx-stripped'
 OUT_DIR = QAT_DIR / 'ptq-compile'

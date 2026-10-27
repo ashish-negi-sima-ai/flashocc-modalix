@@ -1,0 +1,273 @@
+{
+  "date": "2026-10-27",
+  "source_base_revision": "30d39ffe5aef9380a7a5bd1c2303ca64e4cb5e2f",
+  "device": "sima@10.42.0.102",
+  "asset_bundle": "flashocc_20261027-assets.tar.gz",
+  "asset_bundle_location": "/workspace/benchmark-archives",
+  "asset_bundle_sha256": "45e4f166ff33748c791dcc68c2b16ec95849ca1526ff41cc96dc4be5208d9ba0",
+  "restored_asset_files_verified": 109,
+  "reference_asset_files_verified": 103,
+  "accuracy": {
+    "fp32": {
+      "miou": 0.3458184369829356,
+      "voxel_accuracy": 0.893419439335674,
+      "camera_masked_voxels": 2153160,
+      "confusion_matrix_exact_match": true
+    },
+    "original": {
+      "miou": 0.3464649702249938,
+      "voxel_accuracy": 0.893633543257352,
+      "camera_masked_voxels": 2153160,
+      "confusion_matrix_exact_match": true
+    },
+    "mixed": {
+      "miou": 0.3357170935352478,
+      "voxel_accuracy": 0.8921891545449478,
+      "camera_masked_voxels": 2153160,
+      "confusion_matrix_exact_match": true
+    },
+    "qat": {
+      "miou": 0.31873085337937457,
+      "voxel_accuracy": 0.8600085455795203,
+      "camera_masked_voxels": 2153160,
+      "confusion_matrix_exact_match": true
+    }
+  },
+  "performance": {
+    "mixed-arm": {
+      "reference_fps": 4.475640697391624,
+      "rerun_fps": 4.460751218810699,
+      "fps_delta_percent": -0.3326781479488061,
+      "reference_mean_ms": {
+        "preparation_ms": 75.72946175520833,
+        "camera_input_ms": 6.3343580416666665,
+        "geometry_plan_ms": 6.237394098958333,
+        "camera_six_views_ms": 49.79294563020834,
+        "pooling_ms": 5.04542846875,
+        "bev_input_ms": 3.0434297083333335,
+        "bev_inference_ms": 25.74851821875,
+        "argmax_ms": 4.343083463541666,
+        "logit_finite_check_ms": 0.0,
+        "render_ms": 32.34036991666667,
+        "volume_publish_ms": 9.665461010416667,
+        "compute_ms": 100.593145171875,
+        "application_ms": 223.05921083333334,
+        "other_ms": 4.778760520833345
+      },
+      "rerun_mean_ms": {
+        "preparation_ms": 76.54687272916667,
+        "camera_input_ms": 6.4399951614583335,
+        "geometry_plan_ms": 6.237214536458334,
+        "camera_six_views_ms": 50.198659526041666,
+        "pooling_ms": 5.228546973958333,
+        "bev_input_ms": 3.0019900416666667,
+        "bev_inference_ms": 25.821535078125,
+        "argmax_ms": 4.524432890625,
+        "logit_finite_check_ms": 0.0,
+        "render_ms": 31.965675854166665,
+        "volume_publish_ms": 9.385897583333334,
+        "compute_ms": 101.5046943125,
+        "application_ms": 223.873688140625,
+        "other_ms": 4.522867765625023
+      }
+    },
+    "mixed-ev74": {
+      "reference_fps": 6.503824329663132,
+      "rerun_fps": 6.536562956592686,
+      "fps_delta_percent": 0.5033750186061559,
+      "reference_mean_ms": {
+        "preparation_ms": 3.3562508958333335,
+        "camera_input_ms": 0.019186354166666666,
+        "geometry_plan_ms": 6.447482213541667,
+        "camera_six_views_ms": 60.74896409895833,
+        "pooling_ms": 5.339411854166666,
+        "bev_input_ms": 2.9762723958333335,
+        "bev_inference_ms": 25.937514177083333,
+        "argmax_ms": 4.561791958333333,
+        "logit_finite_check_ms": 0.0,
+        "render_ms": 32.50282094270833,
+        "volume_publish_ms": 6.746333171875,
+        "compute_ms": 106.078124875,
+        "application_ms": 153.33314555208332,
+        "other_ms": 4.69711748958332
+      },
+      "rerun_mean_ms": {
+        "preparation_ms": 3.3218327083333334,
+        "camera_input_ms": 0.019264942708333333,
+        "geometry_plan_ms": 6.298466958333333,
+        "camera_six_views_ms": 60.590111890625,
+        "pooling_ms": 5.482347755208333,
+        "bev_input_ms": 2.9676063802083332,
+        "bev_inference_ms": 26.111505322916667,
+        "argmax_ms": 4.491634697916667,
+        "logit_finite_check_ms": 0.0,
+        "render_ms": 32.61249676041667,
+        "volume_publish_ms": 6.104570359375,
+        "compute_ms": 106.00835617708333,
+        "application_ms": 152.54141194791666,
+        "other_ms": 4.5415741718749985
+      }
+    },
+    "qat-arm": {
+      "reference_fps": 5.033135919241352,
+      "rerun_fps": 5.050318552889588,
+      "fps_delta_percent": 0.34139021723114116,
+      "reference_mean_ms": {
+        "preparation_ms": 76.10057384895833,
+        "camera_input_ms": 6.355007359375,
+        "geometry_plan_ms": 6.252928541666667,
+        "camera_six_views_ms": 27.79468521875,
+        "pooling_ms": 5.293362036458333,
+        "bev_input_ms": 3.048414625,
+        "bev_inference_ms": 23.89731102083333,
+        "argmax_ms": 4.583038385416667,
+        "logit_finite_check_ms": 0.0,
+        "render_ms": 31.673785677083334,
+        "volume_publish_ms": 8.723606234375,
+        "compute_ms": 77.27524788020834,
+        "application_ms": 198.42124165104167,
+        "other_ms": 4.6985287031249925
+      },
+      "rerun_mean_ms": {
+        "preparation_ms": 76.29470760416666,
+        "camera_input_ms": 6.392144244791667,
+        "geometry_plan_ms": 6.2408444479166665,
+        "camera_six_views_ms": 27.770858822916665,
+        "pooling_ms": 5.217419614583333,
+        "bev_input_ms": 2.96229296875,
+        "bev_inference_ms": 23.721082286458333,
+        "argmax_ms": 4.4906826041666665,
+        "logit_finite_check_ms": 0.0,
+        "render_ms": 31.78611952083333,
+        "volume_publish_ms": 8.108428421875,
+        "compute_ms": 76.84674298958333,
+        "application_ms": 197.602243953125,
+        "other_ms": 4.617663416666659
+      }
+    },
+    "qat-ev74": {
+      "reference_fps": 8.30521954445802,
+      "rerun_fps": 8.339728179411033,
+      "fps_delta_percent": 0.41550539113732743,
+      "reference_mean_ms": {
+        "preparation_ms": 3.5725913333333335,
+        "camera_input_ms": 0.019160359375,
+        "geometry_plan_ms": 6.408791963541667,
+        "camera_six_views_ms": 31.453720177083333,
+        "pooling_ms": 5.191313838541666,
+        "bev_input_ms": 2.972858583333333,
+        "bev_inference_ms": 23.980193286458334,
+        "argmax_ms": 4.512834729166666,
+        "logit_finite_check_ms": 0.0,
+        "render_ms": 31.863019192708332,
+        "volume_publish_ms": 5.1072542343750005,
+        "compute_ms": 74.58605326041666,
+        "application_ms": 119.93472217708333,
+        "other_ms": 4.852984479166665
+      },
+      "rerun_mean_ms": {
+        "preparation_ms": 3.2947560104166667,
+        "camera_input_ms": 0.019211161458333334,
+        "geometry_plan_ms": 6.318342973958333,
+        "camera_six_views_ms": 31.716380098958332,
+        "pooling_ms": 5.188924083333333,
+        "bev_input_ms": 3.0627595885416667,
+        "bev_inference_ms": 23.793581713541666,
+        "argmax_ms": 4.548542984375,
+        "logit_finite_check_ms": 0.0,
+        "render_ms": 32.00715634375,
+        "volume_publish_ms": 4.893561177083333,
+        "compute_ms": 74.696023125,
+        "application_ms": 119.47868240625,
+        "other_ms": 4.635466270833334
+      }
+    },
+    "qat-ev74-check": {
+      "reference_fps": 6.377702531091493,
+      "rerun_fps": 6.436352963658907,
+      "fps_delta_percent": 0.9196169354323436,
+      "reference_mean_ms": {
+        "preparation_ms": 3.616641427083333,
+        "camera_input_ms": 0.018877078125,
+        "geometry_plan_ms": 6.3726378229166665,
+        "camera_six_views_ms": 31.909987567708335,
+        "pooling_ms": 5.183301473958333,
+        "bev_input_ms": 3.0314245989583335,
+        "bev_inference_ms": 24.165603291666667,
+        "argmax_ms": 4.525234697916667,
+        "logit_finite_check_ms": 33.94840680729167,
+        "render_ms": 32.066999109375,
+        "volume_publish_ms": 6.6855351875,
+        "compute_ms": 75.25388940104166,
+        "application_ms": 156.32019988541666,
+        "other_ms": 4.795550822916653
+      },
+      "rerun_mean_ms": {
+        "preparation_ms": 3.5344627239583333,
+        "camera_input_ms": 0.01909386458333333,
+        "geometry_plan_ms": 6.451498609375,
+        "camera_six_views_ms": 31.777225526041665,
+        "pooling_ms": 5.306869973958333,
+        "bev_input_ms": 2.98457975,
+        "bev_inference_ms": 23.827440869791666,
+        "argmax_ms": 4.516996109375,
+        "logit_finite_check_ms": 33.953847140625,
+        "render_ms": 31.843120953125,
+        "volume_publish_ms": 6.101230947916666,
+        "compute_ms": 74.93147,
+        "application_ms": 154.91372473958333,
+        "other_ms": 4.597358270833325
+      }
+    }
+  },
+  "checks": {
+    "metadata_and_runtime_unit_tests": 6,
+    "qat_cpu_tests": 3,
+    "viewer_http_tests": 3,
+    "all_40_original_mini_tokens_preserved": true,
+    "real_preprocessing_images_geometry_ranks_labels_masks_exact": true,
+    "regenerated_32_replay_frames_byte_identical": true,
+    "modalix_pool_argmax_raycast_stream_snapshot_tests_passed": true,
+    "arm64_build_passed": true,
+    "active_documentation_links_resolve": true,
+    "default_build_relative_preset_smoke": {
+      "updates": 64,
+      "invalid_markers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "logit_scan_enabled": true,
+      "passed": true
+    },
+    "all_128_prediction_label_files_byte_identical": true
+  },
+  "limitations": [
+    "Full raw trainval preparation was not run: the 32 prepared inputs and mini raw data are local, while the full raw trainval dataset and nuscenes-devkit environment are external. Trainval metadata selection/streaming has synthetic tests.",
+    "GPU QAT training and model recompilation were not rerun; deployed model/ELF identities were retained.",
+    "Public release assets have not been published; verified model/data storage is local and external to the Git repository.",
+    "Published Git history was not rewritten; previous binary blobs remain in history."
+  ],
+  "source_sha256": {
+    "app/insight.cpp": "596bfe6d368d1b6e397c6c81b13a81fa2d6c1c17da211ea2eabc53178a825512",
+    "app/replay_core.hpp": "4a8bc4c80e9344df8a0c7385af91e2f88af714869080abcabe5bfafa946cf6d2",
+    "cpp/bev_pool.cpp": "067970bccba15830b2a564eb5c148e282ac4acf70f01806435ea86301d687b9a",
+    "cpp/occupancy_labels.cpp": "41aa9936663f9199e45062e5172dc6a22936995974133107447f7678caf2d001",
+    "cpp/occupancy_raycast.cpp": "7ba482e16f8703c6e3c821efa4e6224bd4e449502b8d9198c0937eb679bd1144",
+    "scripts/reproduce_comparison.py": "c0a191c1e92a18363f7491ce07c53b9a21e5735faca9a9e1cd66f40ad0dc3e43",
+    "scripts/benchmark_insight_fps.py": "2fb8fe8f77d720e34f94e744966ff0391adc2c5f81d93c60d14de4527cbae9f7",
+    "scripts/prepare_nuscenes.py": "bc25f0fe030a51af58a0e887ad6d0e170013953b99a3536ad527d84ae9a2022e",
+    "scripts/nuscenes_metadata.py": "435b6247e413c64a8088689b39bc85848c6a8a435522676bc1a7ad91333ee570",
+    "scripts/runtime_config.py": "b77098366be2b6efd21be84ace875a915bb4c5a4972a4d9abf90da2f30566bc9",
+    "qat/metrics.py": "4390cd698b1ed14da1648094f94d8cde251569e83220dca653e1b159fcdcf8dd",
+    "qat/train.py": "977139ad035bef36a9219ead256b76837c63f1b9d18dae2a4373f983866c3dbf",
+    "scripts/compile_qat_w8a8.py": "b0381cc83a9bc6c5c32851cb87178ba54ace6bdb3e12707f675a0258a162cd66",
+    "scripts/compile_qat_ptq_w8a8.py": "cc26be01f5453e95ef5c4cb4282780f554e58146675ed73c2ca0dbea6db9447c",
+    "scripts/validate_qat_onnx.py": "419270ff73edef96a65a894520990a9d5281005560a03b51af8204b9088305f2"
+  },
+  "validation_browser_playwright_version": "1.64.0",
+  "temporary_restore_cache_removed_after_successful_validation": true
+}

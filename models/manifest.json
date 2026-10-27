@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "models": {
+    "fp32-camera": {
+      "path": "artifacts/onnx-modalix/camera.onnx",
+      "sha256": "c6bd781725ba8d75db5a6916449bee35157e2707337c9561afcdef6dbe51896d",
+      "size_bytes": 99586300
+    },
+    "fp32-bev": {
+      "path": "artifacts/onnx-modalix/bev.onnx",
+      "sha256": "089ff03301b77a11c6b7a94ed0d1fde494d865ff06914678e0d3c8c911d9ad4b",
+      "size_bytes": 60105807
+    },
+    "bf16-camera": {
+      "path": "artifacts/compile-real/camera/flashocc_m0_camera_mpk.tar.gz",
+      "sha256": "8caa9a3a5efd4e105c0e11c9fc9a8fc37c3f95fb63167d19e07fc4c34e6285e5",
+      "size_bytes": 45054973
+    },
+    "bf16-softplus-bev": {
+      "path": "artifacts/compile-real-mixed/bev/flashocc_m0_bev_mpk.tar.gz",
+      "sha256": "d4697d5545f55e22bb571c6c2e86bcc4e54b8158165208d461833e7aaadcf53f",
+      "size_bytes": 46411266
+    },
+    "small-mixed-bev": {
+      "path": "artifacts/compiled_with_better_quantization/bev_small_mixed_mpk.tar.gz",
+      "sha256": "36c4a5fc3cd02834fa7574c44506c7d9794db9202ee3524e932aa9310225a88e",
+      "size_bytes": 16778551
+    },
+    "qat-ptq-camera": {
+      "path": "artifacts/compile_with_qat_better_accuracy/flashocc_m0_camera_mpk.tar.gz",
+      "sha256": "a66706506cccb06385c7a9700675dec7d74d3d4a256627cc159d20f7ea050ad0",
+      "size_bytes": 23197772
+    },
+    "qat-ptq-bev-original": {
+      "path": "artifacts/compile_with_qat_better_accuracy/flashocc_m0_bev_mpk.tar.gz",
+      "sha256": "f18aec7eda8eb1835f54fd2db9915784f734b5a559dc8fa1fc005ac69f63d7d4",
+      "size_bytes": 14887759
+    },
+    "qat-ptq-bev-compatible": {
+      "path": "artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+      "sha256": "56e0e8071edf8f7805dac2086cdedd766c6cc585746bc6c3dd796613132f8739",
+      "size_bytes": 14887760
+    },
+    "qat-generated-m0-full-onnx-camera.qdq.onnx": {
+      "path": "artifacts/qat-runs/m0-full/onnx/camera.qdq.onnx",
+      "sha256": "0d03f889aa6c093a52d839e9152cef0074764435e2aaf5df82b04a2e664b40d3",
+      "size_bytes": 25187081
+    },
+    "qat-generated-m0-full-onnx-bev.qdq.onnx": {
+      "path": "artifacts/qat-runs/m0-full/onnx/bev.qdq.onnx",
+      "sha256": "9d02f90770f70a809526c58419d06699187b69aae9199d0ccfa8ea475e17fcd2",
+      "size_bytes": 15103376
+    },
+    "qat-generated-m0-full-afe-compile-camera-flashocc_m0_camera_mpk.tar.gz": {
+      "path": "artifacts/qat-runs/m0-full/afe-compile/camera/flashocc_m0_camera_mpk.tar.gz",
+      "sha256": "e2980773d6c541ddbafeb62bc9c05796aefaa9a763a97b879f4aeaaff9311cee",
+      "size_bytes": 23167135
+    },
+    "qat-generated-m0-full-afe-compile-bev-flashocc_m0_bev_mpk.tar.gz": {
+      "path": "artifacts/qat-runs/m0-full/afe-compile/bev/flashocc_m0_bev_mpk.tar.gz",
+      "sha256": "e7e40ea0ce87ec62a3bdfd4dd87b9a0a8b5939f9c49a3147bb13ed3ebd4eeb9d",
+      "size_bytes": 14986435
+    },
+    "qat-generated-m0-full-ptq-compile-camera-flashocc_m0_camera_mpk.tar.gz": {
+      "path": "artifacts/qat-runs/m0-full/ptq-compile/camera/flashocc_m0_camera_mpk.tar.gz",
+      "sha256": "a66706506cccb06385c7a9700675dec7d74d3d4a256627cc159d20f7ea050ad0",
+      "size_bytes": 23197772
+    },
+    "qat-generated-m0-full-ptq-compile-bev-flashocc_m0_bev_mpk.tar.gz": {
+      "path": "artifacts/qat-runs/m0-full/ptq-compile/bev/flashocc_m0_bev_mpk.tar.gz",
+      "sha256": "f18aec7eda8eb1835f54fd2db9915784f734b5a559dc8fa1fc005ac69f63d7d4",
+      "size_bytes": 14887759
+    }
+  },
+  "pairs": {
+    "fp32": [
+      "fp32-camera",
+      "fp32-bev"
+    ],
+    "original": [
+      "bf16-camera",
+      "bf16-softplus-bev"
+    ],
+    "mixed": [
+      "bf16-camera",
+      "small-mixed-bev"
+    ],
+    "qat": [
+      "qat-ptq-camera",
+      "qat-ptq-bev-compatible"
+    ]
+  }
+}

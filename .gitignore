@@ -1,3 +1,15 @@
 artifacts/
 __pycache__/
 *.pyc
+
+# Local datasets and evaluation inputs/results
+/gt/
+/accuracy_reports/
+/accuracy-reports
+/configs/runtime.local.json
+/.venv/
+/build/
+/qat/.venv/
+/qat/runs/**/checkpoints/
+/qat/runs/**/*.pt
+/qat/runs/

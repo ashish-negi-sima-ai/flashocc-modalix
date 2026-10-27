@@ -4,18 +4,35 @@ import shlex
 import subprocess
 import sys
 from pathlib import Path
+from runtime_config import defaults, require
 
 ROOT=Path(__file__).resolve().parents[1]
 
 def main():
+    runtime=defaults()
     parser=argparse.ArgumentParser()
     parser.add_argument('action',choices=['start','stop','status'])
-    parser.add_argument('--device',default='sima@10.42.0.73')
+    parser.add_argument('--device',default=runtime['device'])
     parser.add_argument('--config',type=Path,default=ROOT/'artifacts/insight-demo/config.json')
     parser.add_argument('--output-dir',type=Path,default=ROOT/'artifacts/insight-device')
-    parser.add_argument('--api',default='https://10.42.0.1:9900')
+    parser.add_argument('--api',default=runtime['insight_api'])
+    parser.add_argument('--volume-fps',type=int,help='override configured volume_fps (default 2)')
+    parser.add_argument('--execution',type=Path,help='JSON object overriding config.execution')
+    parser.add_argument('--check-finite-logits',choices=['true','false'],help='enable/disable the full output-logit validity scan; defaults to execution settings (enabled)')
+    parser.add_argument('--binary',type=Path,default=ROOT/'build/modalix/flashocc_insight')
     args=parser.parse_args()
-    binary=ROOT/'artifacts/build-app/flashocc_insight'
+    require(parser,args.device,'--device','FLASHOCC_DEVICE')
+    require(parser,args.api,'--api','FLASHOCC_INSIGHT_API')
+    if args.volume_fps is not None and not 0<=args.volume_fps<=30:parser.error('--volume-fps must be 0–30')
+    binary=args.binary.resolve()
+    extra=[]
+    if args.volume_fps is not None:extra.extend(['--volume-fps',str(args.volume_fps)])
+    if args.execution:
+        if not args.execution.is_file():parser.error('Missing execution JSON')
+        extra.extend(['--execution',str(args.execution.resolve())])
+    if args.check_finite_logits is not None:
+        extra.extend(['--check-finite-logits',args.check_finite_logits])
+    launch_extra=' '.join(shlex.quote(value) for value in extra)
     config=args.config.resolve();output=args.output_dir.resolve()
     header=f'''binary={shlex.quote(str(binary))}
 output={shlex.quote(str(output))}
@@ -38,7 +55,7 @@ owned() {{
             print('FlashOCC application is already running.');sources('status');return
         output.mkdir(parents=True,exist_ok=True);output.chmod(0o777)
         sources('start')
-        ssh(f'''nohup "$binary" --config {shlex.quote(str(config))} --output-dir "$output" > "$output/live.log" 2>&1 < /dev/null &
+        ssh(f'''nohup "$binary" --workspace {shlex.quote(str(ROOT))} --config {shlex.quote(str(config))} --output-dir "$output" {launch_extra} > "$output/live.log" 2>&1 < /dev/null &
 printf '%s\\n' "$!" > "$output/app.pid"
 cat "$output/app.pid"
 ''')

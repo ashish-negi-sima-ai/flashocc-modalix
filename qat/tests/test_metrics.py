@@ -8,7 +8,8 @@ import torch
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "qat"))
 
-from train import confusion_matrix, occupancy_metrics
+sys.path.insert(0, str(ROOT / "scripts"))
+from metrics import confusion_matrix, occupancy_metrics
 from validate_qat_onnx import confusion_matrix as numpy_confusion_matrix
 from validate_qat_onnx import occupancy_metrics as numpy_occupancy_metrics
 

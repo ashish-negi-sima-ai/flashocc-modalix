@@ -1,0 +1,390 @@
+{
+  "generated_git_outputs_relocated": [
+    {
+      "old_path": "qat/runs/m0-full/afe-compile/accuracy.json",
+      "retained_path": "reports/qat/m0-full/afe-compile/accuracy.json",
+      "size_bytes": 11789
+    },
+    {
+      "old_path": "qat/runs/m0-full/afe-compile/bev/compile_status.json",
+      "retained_path": "reports/qat/m0-full/afe-compile/bev/compile_status.json",
+      "size_bytes": 123
+    },
+    {
+      "old_path": "qat/runs/m0-full/afe-compile/bev/flashocc_m0_bev.fp32.sima.json",
+      "retained_path": "artifacts/qat-runs/m0-full/afe-compile/bev/flashocc_m0_bev.fp32.sima.json",
+      "size_bytes": 181248
+    },
+    {
+      "old_path": "qat/runs/m0-full/afe-compile/bev/flashocc_m0_bev.sima.json",
+      "retained_path": "artifacts/qat-runs/m0-full/afe-compile/bev/flashocc_m0_bev.sima.json",
+      "size_bytes": 173970
+    },
+    {
+      "old_path": "qat/runs/m0-full/afe-compile/bev/flashocc_m0_bev_mpk.tar.gz",
+      "retained_path": "artifacts/qat-runs/m0-full/afe-compile/bev/flashocc_m0_bev_mpk.tar.gz",
+      "size_bytes": 14986435
+    },
+    {
+      "old_path": "qat/runs/m0-full/afe-compile/camera/compile_status.json",
+      "retained_path": "reports/qat/m0-full/afe-compile/camera/compile_status.json",
+      "size_bytes": 126
+    },
+    {
+      "old_path": "qat/runs/m0-full/afe-compile/camera/flashocc_m0_camera.fp32.sima.json",
+      "retained_path": "artifacts/qat-runs/m0-full/afe-compile/camera/flashocc_m0_camera.fp32.sima.json",
+      "size_bytes": 472119
+    },
+    {
+      "old_path": "qat/runs/m0-full/afe-compile/camera/flashocc_m0_camera.sima.json",
+      "retained_path": "artifacts/qat-runs/m0-full/afe-compile/camera/flashocc_m0_camera.sima.json",
+      "size_bytes": 442812
+    },
+    {
+      "old_path": "qat/runs/m0-full/afe-compile/camera/flashocc_m0_camera_mpk.tar.gz",
+      "retained_path": "artifacts/qat-runs/m0-full/afe-compile/camera/flashocc_m0_camera_mpk.tar.gz",
+      "size_bytes": 23167135
+    },
+    {
+      "old_path": "qat/runs/m0-full/export_validation.json",
+      "retained_path": "reports/qat/m0-full/export_validation.json",
+      "size_bytes": 1033
+    },
+    {
+      "old_path": "qat/runs/m0-full/metrics.json",
+      "retained_path": "reports/qat/m0-full/metrics.json",
+      "size_bytes": 6136
+    },
+    {
+      "old_path": "qat/runs/m0-full/onnx/bev.qdq.onnx",
+      "retained_path": "artifacts/qat-runs/m0-full/onnx/bev.qdq.onnx",
+      "size_bytes": 15103376
+    },
+    {
+      "old_path": "qat/runs/m0-full/onnx/camera.qdq.onnx",
+      "retained_path": "artifacts/qat-runs/m0-full/onnx/camera.qdq.onnx",
+      "size_bytes": 25187081
+    },
+    {
+      "old_path": "qat/runs/m0-full/onnx/validation_metrics.json",
+      "retained_path": "reports/qat/m0-full/onnx/validation_metrics.json",
+      "size_bytes": 43340
+    },
+    {
+      "old_path": "qat/runs/m0-full/ptq-compile/accuracy.json",
+      "retained_path": "reports/qat/m0-full/ptq-compile/accuracy.json",
+      "size_bytes": 6588
+    },
+    {
+      "old_path": "qat/runs/m0-full/ptq-compile/bev/compile_status.json",
+      "retained_path": "reports/qat/m0-full/ptq-compile/bev/compile_status.json",
+      "size_bytes": 117
+    },
+    {
+      "old_path": "qat/runs/m0-full/ptq-compile/bev/flashocc_m0_bev.fp32.sima.json",
+      "retained_path": "artifacts/qat-runs/m0-full/ptq-compile/bev/flashocc_m0_bev.fp32.sima.json",
+      "size_bytes": 181248
+    },
+    {
+      "old_path": "qat/runs/m0-full/ptq-compile/bev/flashocc_m0_bev.sima.json",
+      "retained_path": "artifacts/qat-runs/m0-full/ptq-compile/bev/flashocc_m0_bev.sima.json",
+      "size_bytes": 174000
+    },
+    {
+      "old_path": "qat/runs/m0-full/ptq-compile/bev/flashocc_m0_bev_mpk.tar.gz",
+      "retained_path": "artifacts/qat-runs/m0-full/ptq-compile/bev/flashocc_m0_bev_mpk.tar.gz",
+      "size_bytes": 14887759
+    },
+    {
+      "old_path": "qat/runs/m0-full/ptq-compile/camera/compile_status.json",
+      "retained_path": "reports/qat/m0-full/ptq-compile/camera/compile_status.json",
+      "size_bytes": 120
+    },
+    {
+      "old_path": "qat/runs/m0-full/ptq-compile/camera/flashocc_m0_camera.fp32.sima.json",
+      "retained_path": "artifacts/qat-runs/m0-full/ptq-compile/camera/flashocc_m0_camera.fp32.sima.json",
+      "size_bytes": 472155
+    },
+    {
+      "old_path": "qat/runs/m0-full/ptq-compile/camera/flashocc_m0_camera.sima.json",
+      "retained_path": "artifacts/qat-runs/m0-full/ptq-compile/camera/flashocc_m0_camera.sima.json",
+      "size_bytes": 442841
+    },
+    {
+      "old_path": "qat/runs/m0-full/ptq-compile/camera/flashocc_m0_camera_mpk.tar.gz",
+      "retained_path": "artifacts/qat-runs/m0-full/ptq-compile/camera/flashocc_m0_camera_mpk.tar.gz",
+      "size_bytes": 23197772
+    },
+    {
+      "old_path": "qat/runs/m0-full/run_config.json",
+      "retained_path": "reports/qat/m0-full/run_config.json",
+      "size_bytes": 450
+    }
+  ],
+  "raw_tensor_bytes_pruned": 930316288,
+  "regenerable_frame_files_pruned": [
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/028a3f3a237e469cb099f6d9c8e7f2f4.frame",
+      "size_bytes": 15434076
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/04ebf63518914e0883bdffdb0b6c3f4c.frame",
+      "size_bytes": 15433500
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/0f39f34febc84a6689f08599105d1421.frame",
+      "size_bytes": 15441324
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/134c7f63827c4b858a2a4ce0582d8f6e.frame",
+      "size_bytes": 15441240
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/15c59626df6b4f96bb7ef7c5c1797159.frame",
+      "size_bytes": 15441360
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/19ffc60b7e9f429cbca0dbd5e2fc2e03.frame",
+      "size_bytes": 15433668
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/1c81b06c812b47788462c31f58b6c1d0.frame",
+      "size_bytes": 15434088
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/234b0f37af694571876a745e5bbb5e08.frame",
+      "size_bytes": 15441144
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/339ead96177c4e338fde8235c188cfaa.frame",
+      "size_bytes": 15434052
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/3e8750f331d7499e9b5123e9eb70f2e2.frame",
+      "size_bytes": 15433740
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/43cfc03be6f842ae8942c995f8e3f2fb.frame",
+      "size_bytes": 15441528
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/4d0d06979c984a72bfb9e6c5e3a35f84.frame",
+      "size_bytes": 15433608
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/6e0955c28ecb405b98d91b089761dbbb.frame",
+      "size_bytes": 15433668
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/78be3bd5f1f146cdb1b7120bbf8a218c.frame",
+      "size_bytes": 15434112
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/79070dca796f4ffb868d84f1b067f9c2.frame",
+      "size_bytes": 15441384
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/806011e8a7114eca971fd0f6b95bcd4b.frame",
+      "size_bytes": 15433920
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/80c91574d0174206a74435200aba8ba8.frame",
+      "size_bytes": 15433524
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/88a090c54cc844cc878f00d08274a683.frame",
+      "size_bytes": 15441336
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/8d56b71c09c04ece827107b3c103498f.frame",
+      "size_bytes": 15433632
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/8e46878ced734164aae0e83567aa02a5.frame",
+      "size_bytes": 15433548
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/ad8905836f364a87a7233eb0aef915ea.frame",
+      "size_bytes": 15433656
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/b9c60cfaf1814c8bb363037dec7abd35.frame",
+      "size_bytes": 15441396
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/b9db804449d34414ba98868e9034abd3.frame",
+      "size_bytes": 15433548
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/c292d90b90ec4dbd826dfd11aa361df1.frame",
+      "size_bytes": 15433680
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/d5324133e1d241658a7b763831b3af2e.frame",
+      "size_bytes": 15434100
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/d62b0f9db06440c695781c52ed71909a.frame",
+      "size_bytes": 15441336
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/e1b5c775be134db696ce22413d195c72.frame",
+      "size_bytes": 15440808
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/f0e4797551024f9487a016ee9d9e29e1.frame",
+      "size_bytes": 15441180
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/f1b7b463072e4630b2c1d5ba8b6cd50b.frame",
+      "size_bytes": 15434076
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/f9475d1f1f96401c81ce511a93578a96.frame",
+      "size_bytes": 15433908
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/fbd3aa2098234fb1869d34d920e16eda.frame",
+      "size_bytes": 15441168
+    },
+    {
+      "path": "artifacts/qat-comparison-20261027/gt-inputs/fd8420396768425eabec9bdddf7e64b6.frame",
+      "size_bytes": 15441468
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/028a3f3a237e469cb099f6d9c8e7f2f4.frame",
+      "size_bytes": 15434076
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/04ebf63518914e0883bdffdb0b6c3f4c.frame",
+      "size_bytes": 15433500
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/0f39f34febc84a6689f08599105d1421.frame",
+      "size_bytes": 15441324
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/134c7f63827c4b858a2a4ce0582d8f6e.frame",
+      "size_bytes": 15441240
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/15c59626df6b4f96bb7ef7c5c1797159.frame",
+      "size_bytes": 15441360
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/19ffc60b7e9f429cbca0dbd5e2fc2e03.frame",
+      "size_bytes": 15433668
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/1c81b06c812b47788462c31f58b6c1d0.frame",
+      "size_bytes": 15434088
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/234b0f37af694571876a745e5bbb5e08.frame",
+      "size_bytes": 15441144
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/339ead96177c4e338fde8235c188cfaa.frame",
+      "size_bytes": 15434052
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/3e8750f331d7499e9b5123e9eb70f2e2.frame",
+      "size_bytes": 15433740
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/43cfc03be6f842ae8942c995f8e3f2fb.frame",
+      "size_bytes": 15441528
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/4d0d06979c984a72bfb9e6c5e3a35f84.frame",
+      "size_bytes": 15433608
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/6e0955c28ecb405b98d91b089761dbbb.frame",
+      "size_bytes": 15433668
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/78be3bd5f1f146cdb1b7120bbf8a218c.frame",
+      "size_bytes": 15434112
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/79070dca796f4ffb868d84f1b067f9c2.frame",
+      "size_bytes": 15441384
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/806011e8a7114eca971fd0f6b95bcd4b.frame",
+      "size_bytes": 15433920
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/80c91574d0174206a74435200aba8ba8.frame",
+      "size_bytes": 15433524
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/88a090c54cc844cc878f00d08274a683.frame",
+      "size_bytes": 15441336
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/8d56b71c09c04ece827107b3c103498f.frame",
+      "size_bytes": 15433632
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/8e46878ced734164aae0e83567aa02a5.frame",
+      "size_bytes": 15433548
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/ad8905836f364a87a7233eb0aef915ea.frame",
+      "size_bytes": 15433656
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/b9c60cfaf1814c8bb363037dec7abd35.frame",
+      "size_bytes": 15441396
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/b9db804449d34414ba98868e9034abd3.frame",
+      "size_bytes": 15433548
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/c292d90b90ec4dbd826dfd11aa361df1.frame",
+      "size_bytes": 15433680
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/d5324133e1d241658a7b763831b3af2e.frame",
+      "size_bytes": 15434100
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/d62b0f9db06440c695781c52ed71909a.frame",
+      "size_bytes": 15441336
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/e1b5c775be134db696ce22413d195c72.frame",
+      "size_bytes": 15440808
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/f0e4797551024f9487a016ee9d9e29e1.frame",
+      "size_bytes": 15441180
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/f1b7b463072e4630b2c1d5ba8b6cd50b.frame",
+      "size_bytes": 15434076
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/f9475d1f1f96401c81ce511a93578a96.frame",
+      "size_bytes": 15433908
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/fbd3aa2098234fb1869d34d920e16eda.frame",
+      "size_bytes": 15441168
+    },
+    {
+      "path": "artifacts/cleanup-validation/reproduction/gt-inputs/fd8420396768425eabec9bdddf7e64b6.frame",
+      "size_bytes": 15441468
+    }
+  ],
+  "total_intermediate_bytes_pruned": 1918273840,
+  "all_four_accuracy_rows_exact": true,
+  "all_four_performance_columns_rerun": true,
+  "scan_control_rerun": true,
+  "fresh_results": "artifacts/cleanup-validation/reproduction/comparison-report.json",
+  "history_rewritten": false,
+  "git_committed_or_pushed": false
+}

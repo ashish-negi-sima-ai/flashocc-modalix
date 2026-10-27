@@ -167,18 +167,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--camera",
         type=Path,
-        default=ROOT / "qat/runs/m0-full/onnx/camera.qdq.onnx",
+        default=ROOT / "artifacts/qat-runs/m0-full/onnx/camera.qdq.onnx",
     )
     parser.add_argument(
         "--bev",
         type=Path,
-        default=ROOT / "qat/runs/m0-full/onnx/bev.qdq.onnx",
+        default=ROOT / "artifacts/qat-runs/m0-full/onnx/bev.qdq.onnx",
     )
     parser.add_argument("--data", type=Path, default=ROOT / "artifacts/qat-inputs")
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "qat/runs/m0-full/onnx/validation_metrics.json",
+        default=ROOT / "artifacts/qat-runs/m0-full/onnx/validation_metrics.json",
     )
     parser.add_argument("--count", type=int)
     parser.add_argument("--threads", type=int, default=8)

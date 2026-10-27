@@ -6,15 +6,18 @@ import subprocess
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from runtime_config import defaults, require
 
 ROOT=Path(__file__).resolve().parents[1]
 
 def main():
+    runtime=defaults()
     parser=argparse.ArgumentParser()
     parser.add_argument('action',choices=['start','stop','status'])
     parser.add_argument('--config',type=Path,default=ROOT/'artifacts/insight-demo/config.json')
-    parser.add_argument('--api',default='https://10.42.0.1:9900')
+    parser.add_argument('--api',default=runtime['insight_api'])
     args=parser.parse_args()
+    require(parser,args.api,'--api','FLASHOCC_INSIGHT_API')
     config=json.loads(args.config.read_text())
     def api(path,data=None):
         request=urllib.request.Request(args.api+path,

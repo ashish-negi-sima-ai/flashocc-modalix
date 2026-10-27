@@ -1,0 +1,16 @@
+{
+  "captured": "after cleanup validation",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "packages": {
+    "numpy": "1.26.4",
+    "torch": "2.8.0",
+    "torchvision": "0.23.0",
+    "onnx": "1.17.0",
+    "onnxruntime": "1.21.1",
+    "opencv-python": "4.11.0.86",
+    "opencv-python-headless": "4.11.0.86",
+    "sima-frontend": "3.0.0.dev0+develop.2327",
+    "sima-mlc": "3.0.0.dev0+develop.1406",
+    "sima-ml-kernels": "3.0.0.dev0+develop.265"
+  }
+}

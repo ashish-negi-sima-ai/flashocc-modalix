@@ -1,0 +1,147 @@
+{
+  "duration_seconds": 10,
+  "errors": [],
+  "views": {
+    "insight": {
+      "decoded_frames": 89
+    },
+    "grid": {
+      "before": {
+        "received": 83,
+        "visibleCount": 52423,
+        "metadata": {
+          "sequence": 2606,
+          "marker": 6,
+          "timestamp": 1793097491966,
+          "token": "6832e717621341568c759151b5974512"
+        },
+        "camera": [
+          28.999999999999986,
+          22.99999999999999,
+          31.999999999999993
+        ],
+        "pickTarget": [
+          -0.17842361417005398,
+          -0.4601848904270279
+        ],
+        "triangles": 629188,
+        "enabled": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "zScale": 1,
+        "webgl": true,
+        "shape": [
+          200,
+          200,
+          16
+        ]
+      },
+      "after": {
+        "received": 381,
+        "visibleCount": 52423,
+        "metadata": {
+          "sequence": 3798,
+          "marker": 38,
+          "timestamp": 1793097640951,
+          "token": "f40544fd4f5d42abbcfa948eeaf86850"
+        },
+        "camera": [
+          -16.34565903144027,
+          37.48649596413764,
+          -33.75321844459876
+        ],
+        "pickTarget": [
+          0.42942594576472365,
+          0.4736749074903075
+        ],
+        "triangles": 629188,
+        "enabled": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "zScale": 1,
+        "webgl": true,
+        "shape": [
+          200,
+          200,
+          16
+        ]
+      }
+    }
+  },
+  "files": {
+    "insight.gif": {
+      "size_bytes": 6741011,
+      "sha256": "93f8c869a625d97b2553c0dbf37656a9c3ed75e95854417836a709cbaaf4f771"
+    },
+    "host-3d-grid.gif": {
+      "size_bytes": 1929995,
+      "sha256": "38e033489d9b16ae154c9e1ac0ab1de6bf9bf1ea6e98499f09a85c2d165a14b1"
+    },
+    "host-3d-grid.mp4": {
+      "size_bytes": 1512240,
+      "sha256": "ffcbd71f9d7a73f33ccab2dd23d970b333a7d9fdcc3f062304c29755e4178b4f"
+    },
+    "insight.mp4": {
+      "size_bytes": 2226334,
+      "sha256": "060eb4cf7a80b6ce60096cf5a196fe67b32c3e7211a8af3e12e1a12dea6c540e"
+    }
+  },
+  "capture": {
+    "date": "2026-10-27",
+    "scene": "scene-0103",
+    "input_fps": 8,
+    "replay_frames": 40,
+    "snapshot_hz": 2,
+    "execution_preset": "configs/execution/qat-ev74-bgr.json",
+    "camera_mode": "sequential",
+    "camera_input": "ev74-bgr",
+    "check_finite_logits": false,
+    "grid_vertical_scale": 1,
+    "models": {
+      "camera_model": {
+        "path": "artifacts/compile_with_qat_better_accuracy/flashocc_m0_camera_mpk.tar.gz",
+        "sha256": "a66706506cccb06385c7a9700675dec7d74d3d4a256627cc159d20f7ea050ad0"
+      },
+      "bev_model": {
+        "path": "artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+        "sha256": "56e0e8071edf8f7805dac2086cdedd766c6cc585746bc6c3dd796613132f8739"
+      }
+    },
+    "browser_rendering": "headless Chromium, SwiftShader software WebGL",
+    "clip_time_scale": 1
+  }
+}

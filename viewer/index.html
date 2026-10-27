@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FlashOCC · Spatial viewer</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="importmap">{"imports":{"three":"/vendor/three.module.min.js"}}</script>
+</head>
+<body>
+  <header>
+    <div class="brand"><span class="brand-icon">◈</span><div><strong>FlashOCC</strong><span class="subtitle">SPATIAL VIEWER · MODALIX</span></div></div>
+    <div class="live"><i id="status-dot"></i><span id="status">Waiting for occupancy</span></div>
+    <a id="insight-link" hidden target="_blank" rel="noopener">Open Insight ↗</a>
+  </header>
+  <main>
+    <aside>
+      <section>
+        <div class="section-heading">SCENE</div>
+        <h1>Explore the volume</h1>
+        <p>Orbit the full 3D prediction, reveal its layers, and inspect individual voxels.</p>
+        <div class="preset-row"><button id="preset-scene" class="active">Scene</button><button id="preset-objects">Objects</button><button id="preset-ground">Ground</button></div>
+      </section>
+      <section>
+        <div class="section-heading">GEOMETRY</div>
+        <label class="row" for="radius">Radius <output id="radius-value">30 m</output></label>
+        <input id="radius" type="range" min="5" max="60" value="30" step="1">
+        <label class="row" for="z-min">Lowest layer <output id="z-min-value">−1.0 m</output></label>
+        <input id="z-min" type="range" min="0" max="15" value="0" step="1">
+        <label class="row" for="z-max">Highest layer <output id="z-max-value">5.4 m</output></label>
+        <input id="z-max" type="range" min="0" max="15" value="15" step="1">
+        <label class="row" for="z-scale">Vertical scale <output id="z-scale-value">1× · physical</output></label>
+        <input id="z-scale" type="range" min="1" max="4" value="1" step="0.5">
+        <label class="check"><input id="surface" type="checkbox" checked> Show exposed voxels only</label>
+        <label class="row" for="sampling">Detail <select id="sampling"><option value="1">All 0.4 m cells</option><option value="2">Sample every 2nd XY cell</option></select></label>
+      </section>
+      <section>
+        <div class="section-heading row">SEMANTIC CLASSES <span><button id="all-classes" class="text-button">All</button><button id="no-classes" class="text-button">None</button></span></div>
+        <div id="classes"></div>
+        <p class="small">Free space is empty and is never drawn as a solid voxel.</p>
+      </section>
+    </aside>
+    <div id="viewport">
+      <div class="view-toolbar">
+        <div class="button-group"><button id="view-orbit" class="active">Perspective</button><button id="view-top">Top</button><button id="view-street">Street</button><button id="view-reset" title="Reset camera">Reset</button></div>
+        <div class="button-group"><button id="pause">Pause</button><button id="save-image">Save image</button><button id="download">Download volume</button></div>
+      </div>
+      <div id="canvas"></div>
+      <div id="waiting"><div class="spinner"></div><strong>Waiting for a volume from Modalix</strong><span>Inference continues on the device. The host renders the 3D view.</span></div>
+      <div id="fatal" hidden></div>
+      <div class="scene-caption"><span class="eyebrow">PREDICTED OCCUPANCY</span><strong id="voxel-count">— voxels</strong><span>0.4 m cells · 80 × 80 × 6.4 m full volume</span></div>
+      <div id="inspect"><span class="eyebrow">VOXEL INSPECTOR</span><strong id="picked-class">Select a voxel</strong><span id="picked-position">Click a visible cube to read its class and position.</span></div>
+      <div class="axis-legend"><span class="x-axis">+X forward</span><span class="y-axis">+Y left</span><span class="z-axis">+Z up</span></div>
+      <div class="footer-bar"><span id="frame-info">No frame received</span><span id="age">—</span><span id="render-info">—</span></div>
+      <div class="interaction-hint">Drag to orbit · Scroll to zoom · Right-drag to pan · 5 m floor grid</div>
+    </div>
+  </main>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

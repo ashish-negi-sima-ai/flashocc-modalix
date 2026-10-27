@@ -16,6 +16,7 @@ from afe.core.configs import QuantizationPrecision
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--stage', choices=['camera', 'bev'], required=True)
+    parser.add_argument('--model-path',type=Path,help='override ONNX path; matching audit sidecars are required')
     parser.add_argument('--calibration-dir', type=Path)
     parser.add_argument('--validation-dir', type=Path)
     parser.add_argument('--build-dir', type=Path)
@@ -25,7 +26,7 @@ def main():
     parser.add_argument('--executor',choices=['normal','jax'],default='normal')
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
-    model_path = root / 'artifacts/onnx-modalix' / (args.stage+'.onnx')
+    model_path = args.model_path or root / 'artifacts/onnx-modalix' / (args.stage+'.onnx')
     audit_dtype = 'bfloat16' if args.precision == 'mixed-softplus' else args.precision
     audit = json.loads(model_path.with_suffix('.'+audit_dtype+'.audit.json').read_text())
     unsupported = audit['unsupported']

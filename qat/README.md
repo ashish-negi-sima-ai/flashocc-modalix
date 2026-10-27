@@ -39,13 +39,16 @@ tar -xzf artifacts/occ3d/gts.tar.gz -C artifacts/occ3d
 Create the environment and prepared QAT tensors:
 
 ```bash
+export SIMA_QAT_SOURCE=/path/to/sima-neat/qat
 qat/setup_env.sh
 qat/.venv/bin/python scripts/prepare_nuscenes.py \
   --data /project/ml_datasets/public_datasets/nuscenes \
+  --version v1.0-trainval \
   --labels artifacts/occ3d/gts \
   --output artifacts/qat-inputs \
   --train-count 512 \
-  --val-count 32
+  --val-count 32 \
+  --selection reports/qat/m0-full/input-selection.json
 ```
 
 The trainval preprocessor uses the official nuScenes train and validation scene
@@ -56,9 +59,27 @@ the selected samples are retained in memory. Occ3D labels are expected as
 The example's 32 validation frames form a deterministic official-split subset;
 use `--val-count 6019` to calculate the complete Occ3D validation benchmark.
 
+The preparer streams metadata and accepts `--selection` to use exact token/split
+records from a frozen manifest. Scene overrides must remain within the official
+split. The retained comparison selection is
+`benchmarks/flashocc_20261027/sample-selection.json`; it contains only the 32
+validation tokens, so a selection-based run prepares those samples rather than
+using the train/validation counts. Existing mini commands retain their default
+`--version v1.0-mini` behavior. Ground-truth semantics must be classes 0–17 and
+the camera/lidar masks must match `[200,200,16]`.
+
+Generated training/ONNX/compiler outputs now belong under
+`artifacts/qat-runs/`. Historical small run/accuracy reports are retained under
+`reports/qat/`; model downloads and hashes are described in `models/README.md`.
+
 ## Train
 
 Run a small capture/training smoke test first:
+
+On a Slurm host, load your site's module or set `SLURM_MODULE`. Partition and
+GPU constraints are optional `SLURM_PARTITION` / `SLURM_CONSTRAINT` overrides;
+no site-specific module, partition or GPU model is selected by default. Without
+Slurm, invoke `qat/.venv/bin/python qat/train.py` with the same arguments.
 
 ```bash
 qat/run_slurm.sh \
@@ -74,7 +95,7 @@ qat/run_slurm.sh \
   --epochs 8 \
   --freeze-epoch 4 \
   --batch-size 1 \
-  --output qat/runs/m0-full
+  --output artifacts/qat-runs/m0-full
 ```
 
 Each epoch saves resumable camera/BEV/optimizer state under `checkpoints/`.
@@ -86,7 +107,7 @@ Resume by recreating both prepared graphs and restoring a checkpoint:
 
 ```bash
 qat/run_slurm.sh --epochs 8 --freeze-epoch 4 \
-  --resume qat/runs/m0-full/checkpoints/epoch_003.pt
+  --resume artifacts/qat-runs/m0-full/checkpoints/epoch_003.pt
 ```
 
 Finalization writes `onnx/camera.qdq.onnx` and `onnx/bev.qdq.onnx`. The export
