@@ -1,0 +1,210 @@
+{
+  "summary": {
+    "protocol": "Occ3D camera mask; aggregate confusion matrix; mIoU classes 0-16",
+    "camera_masked": {
+      "accuracy": 0.8635043378104739,
+      "miou_excluding_free": 0.3429213958459143,
+      "voxels": 2153160
+    },
+    "all_voxels_diagnostic": {
+      "accuracy": 0.303125439453125,
+      "miou_excluding_free": 0.08856639203547723,
+      "voxels": 20480000
+    },
+    "samples": 32
+  },
+  "per_sample": [
+    {
+      "token": "fd8420396768425eabec9bdddf7e64b6",
+      "scene": "scene-0003",
+      "camera_masked_accuracy": 0.8780018501387604,
+      "camera_masked_miou": 0.27287602455917126
+    },
+    {
+      "token": "88a090c54cc844cc878f00d08274a683",
+      "scene": "scene-0012",
+      "camera_masked_accuracy": 0.7906232811278696,
+      "camera_masked_miou": 0.2735214386849152
+    },
+    {
+      "token": "b9c60cfaf1814c8bb363037dec7abd35",
+      "scene": "scene-0013",
+      "camera_masked_accuracy": 0.8348256102264587,
+      "camera_masked_miou": 0.3872856010016439
+    },
+    {
+      "token": "43cfc03be6f842ae8942c995f8e3f2fb",
+      "scene": "scene-0014",
+      "camera_masked_accuracy": 0.8298216020037826,
+      "camera_masked_miou": 0.27974841545757567
+    },
+    {
+      "token": "234b0f37af694571876a745e5bbb5e08",
+      "scene": "scene-0015",
+      "camera_masked_accuracy": 0.7393204882062534,
+      "camera_masked_miou": 0.2434816788568685
+    },
+    {
+      "token": "fbd3aa2098234fb1869d34d920e16eda",
+      "scene": "scene-0016",
+      "camera_masked_accuracy": 0.8546927346367318,
+      "camera_masked_miou": 0.35687791086464815
+    },
+    {
+      "token": "134c7f63827c4b858a2a4ce0582d8f6e",
+      "scene": "scene-0017",
+      "camera_masked_accuracy": 0.8760118632240056,
+      "camera_masked_miou": 0.3344730869441267
+    },
+    {
+      "token": "f0e4797551024f9487a016ee9d9e29e1",
+      "scene": "scene-0018",
+      "camera_masked_accuracy": 0.7679739520694612,
+      "camera_masked_miou": 0.2377123193568737
+    },
+    {
+      "token": "d62b0f9db06440c695781c52ed71909a",
+      "scene": "scene-0035",
+      "camera_masked_accuracy": 0.8865448775327529,
+      "camera_masked_miou": 0.359865614640001
+    },
+    {
+      "token": "e1b5c775be134db696ce22413d195c72",
+      "scene": "scene-0036",
+      "camera_masked_accuracy": 0.8616889109754367,
+      "camera_masked_miou": 0.3270777904791475
+    },
+    {
+      "token": "0f39f34febc84a6689f08599105d1421",
+      "scene": "scene-0038",
+      "camera_masked_accuracy": 0.8748241141750269,
+      "camera_masked_miou": 0.35912715864886996
+    },
+    {
+      "token": "15c59626df6b4f96bb7ef7c5c1797159",
+      "scene": "scene-0039",
+      "camera_masked_accuracy": 0.8725465571064623,
+      "camera_masked_miou": 0.29794880650524563
+    },
+    {
+      "token": "8e46878ced734164aae0e83567aa02a5",
+      "scene": "scene-0092",
+      "camera_masked_accuracy": 0.9805632106290949,
+      "camera_masked_miou": 0.5682218075344688
+    },
+    {
+      "token": "6e0955c28ecb405b98d91b089761dbbb",
+      "scene": "scene-0093",
+      "camera_masked_accuracy": 0.8348466760723028,
+      "camera_masked_miou": 0.2957949288613508
+    },
+    {
+      "token": "19ffc60b7e9f429cbca0dbd5e2fc2e03",
+      "scene": "scene-0094",
+      "camera_masked_accuracy": 0.9139547180695092,
+      "camera_masked_miou": 0.49387289899426146
+    },
+    {
+      "token": "78be3bd5f1f146cdb1b7120bbf8a218c",
+      "scene": "scene-0095",
+      "camera_masked_accuracy": 0.9126839905506088,
+      "camera_masked_miou": 0.5725300250717482
+    },
+    {
+      "token": "f9475d1f1f96401c81ce511a93578a96",
+      "scene": "scene-0096",
+      "camera_masked_accuracy": 0.953044125861106,
+      "camera_masked_miou": 0.5455469036488333
+    },
+    {
+      "token": "1c81b06c812b47788462c31f58b6c1d0",
+      "scene": "scene-0097",
+      "camera_masked_accuracy": 0.8891724621961334,
+      "camera_masked_miou": 0.4575742533090983
+    },
+    {
+      "token": "c292d90b90ec4dbd826dfd11aa361df1",
+      "scene": "scene-0098",
+      "camera_masked_accuracy": 0.9150048136432403,
+      "camera_masked_miou": 0.5229455205903403
+    },
+    {
+      "token": "b9db804449d34414ba98868e9034abd3",
+      "scene": "scene-0099",
+      "camera_masked_accuracy": 0.927185098345708,
+      "camera_masked_miou": 0.315747776045388
+    },
+    {
+      "token": "028a3f3a237e469cb099f6d9c8e7f2f4",
+      "scene": "scene-0100",
+      "camera_masked_accuracy": 0.9138443571504405,
+      "camera_masked_miou": 0.34911163765427383
+    },
+    {
+      "token": "d5324133e1d241658a7b763831b3af2e",
+      "scene": "scene-0101",
+      "camera_masked_accuracy": 0.8741393495864548,
+      "camera_masked_miou": 0.2799329472844961
+    },
+    {
+      "token": "806011e8a7114eca971fd0f6b95bcd4b",
+      "scene": "scene-0102",
+      "camera_masked_accuracy": 0.8828077314343845,
+      "camera_masked_miou": 0.3010072911852717
+    },
+    {
+      "token": "3e8750f331d7499e9b5123e9eb70f2e2",
+      "scene": "scene-0103",
+      "camera_masked_accuracy": 0.8278107991163945,
+      "camera_masked_miou": 0.3250380500350275
+    },
+    {
+      "token": "f1b7b463072e4630b2c1d5ba8b6cd50b",
+      "scene": "scene-0104",
+      "camera_masked_accuracy": 0.9206596321282362,
+      "camera_masked_miou": 0.3764653215387321
+    },
+    {
+      "token": "8d56b71c09c04ece827107b3c103498f",
+      "scene": "scene-0105",
+      "camera_masked_accuracy": 0.9244338446994113,
+      "camera_masked_miou": 0.2520841132356271
+    },
+    {
+      "token": "04ebf63518914e0883bdffdb0b6c3f4c",
+      "scene": "scene-0106",
+      "camera_masked_accuracy": 0.8537691115583004,
+      "camera_masked_miou": 0.33106585644678826
+    },
+    {
+      "token": "ad8905836f364a87a7233eb0aef915ea",
+      "scene": "scene-0107",
+      "camera_masked_accuracy": 0.9229058981802734,
+      "camera_masked_miou": 0.3775526262945886
+    },
+    {
+      "token": "339ead96177c4e338fde8235c188cfaa",
+      "scene": "scene-0108",
+      "camera_masked_accuracy": 0.7888137861031651,
+      "camera_masked_miou": 0.35506874538808086
+    },
+    {
+      "token": "4d0d06979c984a72bfb9e6c5e3a35f84",
+      "scene": "scene-0109",
+      "camera_masked_accuracy": 0.9376663230322937,
+      "camera_masked_miou": 0.3955390325215467
+    },
+    {
+      "token": "80c91574d0174206a74435200aba8ba8",
+      "scene": "scene-0110",
+      "camera_masked_accuracy": 0.9170702777503212,
+      "camera_masked_miou": 0.4405388533689842
+    },
+    {
+      "token": "79070dca796f4ffb868d84f1b067f9c2",
+      "scene": "scene-0221",
+      "camera_masked_accuracy": 0.7670295674936046,
+      "camera_masked_miou": 0.28027861193990183
+    }
+  ]
+}

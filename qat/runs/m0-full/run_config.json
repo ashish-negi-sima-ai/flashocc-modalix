@@ -1,0 +1,17 @@
+{
+  "batch_size": 1,
+  "data": "artifacts/qat-inputs",
+  "device": "cuda",
+  "epochs": 8,
+  "freeze_epoch": 4,
+  "gradient_clip": 5.0,
+  "learning_rate": 1e-05,
+  "no_export": false,
+  "observer_warmup_batches": 32,
+  "output": "qat/runs/m0-full",
+  "resume": null,
+  "seed": 17,
+  "weight_decay": 0.01,
+  "weights": "/project/davinci_users/software/ashish.negi/workspace/experiments/flashocc-modalix/artifacts/flashocc-r50-M0.pth",
+  "workers": 2
+}

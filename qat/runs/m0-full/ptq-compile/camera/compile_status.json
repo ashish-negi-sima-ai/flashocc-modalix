@@ -1,0 +1,6 @@
+{
+  "stage": "camera",
+  "quantization": "w8a8",
+  "calibration": "PTQ on QAT weights, 64 samples",
+  "compiled": true
+}

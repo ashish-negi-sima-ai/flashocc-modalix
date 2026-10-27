@@ -1,0 +1,47 @@
+{
+  "method": "Occ3D camera-masked cross-entropy; FP32 fidelity is secondary",
+  "camera": {
+    "opset": 17,
+    "QuantizeLinear": 112,
+    "DequantizeLinear": 169,
+    "output_shapes": [
+      [
+        1,
+        44,
+        16,
+        44
+      ],
+      [
+        1,
+        64,
+        16,
+        44
+      ]
+    ]
+  },
+  "bev": {
+    "opset": 17,
+    "QuantizeLinear": 42,
+    "DequantizeLinear": 64,
+    "output_shapes": [
+      [
+        1,
+        288,
+        200,
+        200
+      ]
+    ]
+  },
+  "finalized_validation": {
+    "ground_truth_cross_entropy": 0.3164884977332371,
+    "ground_truth_accuracy": 0.8928997380594104,
+    "ground_truth_miou": 0.36893117615638976,
+    "teacher_ground_truth_accuracy": 0.8934254769733787,
+    "teacher_ground_truth_miou": 0.34586142240706663,
+    "label_agreement": 0.9464684463764885,
+    "occupancy_binary_agreement": 0.9584118226234929,
+    "depth_mse": 0.0007745908442302607,
+    "feature_relative_rmse": 0.5559569206088781,
+    "logit_relative_rmse": 0.21785300830379128
+  }
+}

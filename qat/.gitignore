@@ -1,0 +1,5 @@
+*.sima
+*.fp32.sima
+*.pth
+*.log
+onnx-stripped/

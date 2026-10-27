@@ -1,0 +1,6 @@
+{
+  "stage": "bev",
+  "quantization": "w8a8",
+  "calibration": "QDQ hints (synthetic trigger sample)",
+  "compiled": true
+}

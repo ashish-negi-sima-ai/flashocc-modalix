@@ -1,0 +1,309 @@
+{
+  "summary": {
+    "protocol": "Occ3D camera mask; aggregate confusion matrix; mIoU over classes 0-16 with free class 17 excluded",
+    "camera_masked": {
+      "accuracy": 0.8488867524940088,
+      "miou_excluding_free": 0.33704680173036367,
+      "voxels": 2153160
+    },
+    "all_voxels_diagnostic": {
+      "accuracy": 0.296234423828125,
+      "miou_excluding_free": 0.09666585316336819,
+      "voxels": 20480000
+    },
+    "all_voxel_label_accuracy_unweighted_sample_mean": 0.29623442382812504,
+    "occupied_union_label_accuracy": 0.036212651719561964,
+    "occupancy_binary_accuracy": 0.30374379882812497,
+    "samples": 32
+  },
+  "per_sample": [
+    {
+      "token": "fd8420396768425eabec9bdddf7e64b6",
+      "scene": "scene-0003",
+      "camera_masked_accuracy": 0.8590471785383904,
+      "camera_masked_miou": 0.24357811002810664,
+      "all_voxel_label_accuracy": 0.3214,
+      "occupied_union_label_accuracy": 0.04627175404886083,
+      "occupancy_binary_accuracy": 0.3305125
+    },
+    {
+      "token": "88a090c54cc844cc878f00d08274a683",
+      "scene": "scene-0012",
+      "camera_masked_accuracy": 0.7195669165967056,
+      "camera_masked_miou": 0.24407079213762467,
+      "all_voxel_label_accuracy": 0.2426453125,
+      "occupied_union_label_accuracy": 0.043919498671526884,
+      "occupancy_binary_accuracy": 0.2582578125
+    },
+    {
+      "token": "b9c60cfaf1814c8bb363037dec7abd35",
+      "scene": "scene-0013",
+      "camera_masked_accuracy": 0.8126343049203812,
+      "camera_masked_miou": 0.4065616841961493,
+      "all_voxel_label_accuracy": 0.256159375,
+      "occupied_union_label_accuracy": 0.03135307151853532,
+      "occupancy_binary_accuracy": 0.2668703125
+    },
+    {
+      "token": "43cfc03be6f842ae8942c995f8e3f2fb",
+      "scene": "scene-0014",
+      "camera_masked_accuracy": 0.8048458825333538,
+      "camera_masked_miou": 0.2885705201110381,
+      "all_voxel_label_accuracy": 0.306859375,
+      "occupied_union_label_accuracy": 0.045326595964465255,
+      "occupancy_binary_accuracy": 0.324678125
+    },
+    {
+      "token": "234b0f37af694571876a745e5bbb5e08",
+      "scene": "scene-0015",
+      "camera_masked_accuracy": 0.7249897147558969,
+      "camera_masked_miou": 0.287692975824347,
+      "all_voxel_label_accuracy": 0.1605578125,
+      "occupied_union_label_accuracy": 0.02499564440959972,
+      "occupancy_binary_accuracy": 0.176715625
+    },
+    {
+      "token": "fbd3aa2098234fb1869d34d920e16eda",
+      "scene": "scene-0016",
+      "camera_masked_accuracy": 0.8016400820041002,
+      "camera_masked_miou": 0.30233940655992597,
+      "all_voxel_label_accuracy": 0.347934375,
+      "occupied_union_label_accuracy": 0.046435001965067495,
+      "occupancy_binary_accuracy": 0.35544375
+    },
+    {
+      "token": "134c7f63827c4b858a2a4ce0582d8f6e",
+      "scene": "scene-0017",
+      "camera_masked_accuracy": 0.8613572923935799,
+      "camera_masked_miou": 0.3086353626940838,
+      "all_voxel_label_accuracy": 0.2947578125,
+      "occupied_union_label_accuracy": 0.03192354135968892,
+      "occupancy_binary_accuracy": 0.302865625
+    },
+    {
+      "token": "f0e4797551024f9487a016ee9d9e29e1",
+      "scene": "scene-0018",
+      "camera_masked_accuracy": 0.7498948891691845,
+      "camera_masked_miou": 0.2603459145381787,
+      "all_voxel_label_accuracy": 0.303178125,
+      "occupied_union_label_accuracy": 0.03725003831864272,
+      "occupancy_binary_accuracy": 0.320515625
+    },
+    {
+      "token": "d62b0f9db06440c695781c52ed71909a",
+      "scene": "scene-0035",
+      "camera_masked_accuracy": 0.8699039791683619,
+      "camera_masked_miou": 0.33654594274373917,
+      "all_voxel_label_accuracy": 0.293034375,
+      "occupied_union_label_accuracy": 0.03550317300948812,
+      "occupancy_binary_accuracy": 0.2992828125
+    },
+    {
+      "token": "e1b5c775be134db696ce22413d195c72",
+      "scene": "scene-0036",
+      "camera_masked_accuracy": 0.8759229021723697,
+      "camera_masked_miou": 0.32656148443183175,
+      "all_voxel_label_accuracy": 0.318834375,
+      "occupied_union_label_accuracy": 0.038116062583154794,
+      "occupancy_binary_accuracy": 0.3242828125
+    },
+    {
+      "token": "0f39f34febc84a6689f08599105d1421",
+      "scene": "scene-0038",
+      "camera_masked_accuracy": 0.8553441880013888,
+      "camera_masked_miou": 0.34764626726318115,
+      "all_voxel_label_accuracy": 0.2991921875,
+      "occupied_union_label_accuracy": 0.0372795861639675,
+      "occupancy_binary_accuracy": 0.3065953125
+    },
+    {
+      "token": "15c59626df6b4f96bb7ef7c5c1797159",
+      "scene": "scene-0039",
+      "camera_masked_accuracy": 0.8420108364132189,
+      "camera_masked_miou": 0.28538878510691945,
+      "all_voxel_label_accuracy": 0.2470328125,
+      "occupied_union_label_accuracy": 0.02679106964345218,
+      "occupancy_binary_accuracy": 0.255371875
+    },
+    {
+      "token": "8e46878ced734164aae0e83567aa02a5",
+      "scene": "scene-0092",
+      "camera_masked_accuracy": 0.973646268683956,
+      "camera_masked_miou": 0.46525099462268177,
+      "all_voxel_label_accuracy": 0.262240625,
+      "occupied_union_label_accuracy": 0.028089055025400773,
+      "occupancy_binary_accuracy": 0.263753125
+    },
+    {
+      "token": "6e0955c28ecb405b98d91b089761dbbb",
+      "scene": "scene-0093",
+      "camera_masked_accuracy": 0.8344608038201353,
+      "camera_masked_miou": 0.30514822155061827,
+      "all_voxel_label_accuracy": 0.3384796875,
+      "occupied_union_label_accuracy": 0.04432847039915488,
+      "occupancy_binary_accuracy": 0.354996875
+    },
+    {
+      "token": "19ffc60b7e9f429cbca0dbd5e2fc2e03",
+      "scene": "scene-0094",
+      "camera_masked_accuracy": 0.9111666586550017,
+      "camera_masked_miou": 0.49264751273517116,
+      "all_voxel_label_accuracy": 0.337675,
+      "occupied_union_label_accuracy": 0.03706900860051885,
+      "occupancy_binary_accuracy": 0.3427171875
+    },
+    {
+      "token": "78be3bd5f1f146cdb1b7120bbf8a218c",
+      "scene": "scene-0095",
+      "camera_masked_accuracy": 0.9070961293839723,
+      "camera_masked_miou": 0.547785377227984,
+      "all_voxel_label_accuracy": 0.359315625,
+      "occupied_union_label_accuracy": 0.02393052933769112,
+      "occupancy_binary_accuracy": 0.3616609375
+    },
+    {
+      "token": "f9475d1f1f96401c81ce511a93578a96",
+      "scene": "scene-0096",
+      "camera_masked_accuracy": 0.9557872525290139,
+      "camera_masked_miou": 0.5744848176462101,
+      "all_voxel_label_accuracy": 0.408925,
+      "occupied_union_label_accuracy": 0.04731827831881474,
+      "occupancy_binary_accuracy": 0.4126375
+    },
+    {
+      "token": "1c81b06c812b47788462c31f58b6c1d0",
+      "scene": "scene-0097",
+      "camera_masked_accuracy": 0.820567217507816,
+      "camera_masked_miou": 0.4460032944398846,
+      "all_voxel_label_accuracy": 0.3485234375,
+      "occupied_union_label_accuracy": 0.03865042839883055,
+      "occupancy_binary_accuracy": 0.3542609375
+    },
+    {
+      "token": "c292d90b90ec4dbd826dfd11aa361df1",
+      "scene": "scene-0098",
+      "camera_masked_accuracy": 0.9164718287259891,
+      "camera_masked_miou": 0.5368694525934784,
+      "all_voxel_label_accuracy": 0.2719796875,
+      "occupied_union_label_accuracy": 0.02173077770989097,
+      "occupancy_binary_accuracy": 0.2746484375
+    },
+    {
+      "token": "b9db804449d34414ba98868e9034abd3",
+      "scene": "scene-0099",
+      "camera_masked_accuracy": 0.9040082621559761,
+      "camera_masked_miou": 0.3218567246206971,
+      "all_voxel_label_accuracy": 0.318084375,
+      "occupied_union_label_accuracy": 0.04453045979779581,
+      "occupancy_binary_accuracy": 0.320765625
+    },
+    {
+      "token": "028a3f3a237e469cb099f6d9c8e7f2f4",
+      "scene": "scene-0100",
+      "camera_masked_accuracy": 0.9008918144176664,
+      "camera_masked_miou": 0.370389400895816,
+      "all_voxel_label_accuracy": 0.265628125,
+      "occupied_union_label_accuracy": 0.013798486698812775,
+      "occupancy_binary_accuracy": 0.26704375
+    },
+    {
+      "token": "d5324133e1d241658a7b763831b3af2e",
+      "scene": "scene-0101",
+      "camera_masked_accuracy": 0.8588858095526783,
+      "camera_masked_miou": 0.27602639294099846,
+      "all_voxel_label_accuracy": 0.290846875,
+      "occupied_union_label_accuracy": 0.03945193534801132,
+      "occupancy_binary_accuracy": 0.296265625
+    },
+    {
+      "token": "806011e8a7114eca971fd0f6b95bcd4b",
+      "scene": "scene-0102",
+      "camera_masked_accuracy": 0.8950534079348932,
+      "camera_masked_miou": 0.32496750996130186,
+      "all_voxel_label_accuracy": 0.336021875,
+      "occupied_union_label_accuracy": 0.04115869824701537,
+      "occupancy_binary_accuracy": 0.34194375
+    },
+    {
+      "token": "3e8750f331d7499e9b5123e9eb70f2e2",
+      "scene": "scene-0103",
+      "camera_masked_accuracy": 0.8527476031062832,
+      "camera_masked_miou": 0.35938673930031306,
+      "all_voxel_label_accuracy": 0.212628125,
+      "occupied_union_label_accuracy": 0.0275870586282887,
+      "occupancy_binary_accuracy": 0.2177578125
+    },
+    {
+      "token": "f1b7b463072e4630b2c1d5ba8b6cd50b",
+      "scene": "scene-0104",
+      "camera_masked_accuracy": 0.9104826154644525,
+      "camera_masked_miou": 0.40582538776446303,
+      "all_voxel_label_accuracy": 0.2444046875,
+      "occupied_union_label_accuracy": 0.03821629448126079,
+      "occupancy_binary_accuracy": 0.2476734375
+    },
+    {
+      "token": "8d56b71c09c04ece827107b3c103498f",
+      "scene": "scene-0105",
+      "camera_masked_accuracy": 0.9173864466503373,
+      "camera_masked_miou": 0.26821580476656526,
+      "all_voxel_label_accuracy": 0.3203703125,
+      "occupied_union_label_accuracy": 0.03780955857141277,
+      "occupancy_binary_accuracy": 0.3243546875
+    },
+    {
+      "token": "04ebf63518914e0883bdffdb0b6c3f4c",
+      "scene": "scene-0106",
+      "camera_masked_accuracy": 0.8365600351583281,
+      "camera_masked_miou": 0.31160403179366924,
+      "all_voxel_label_accuracy": 0.3137796875,
+      "occupied_union_label_accuracy": 0.034741575601993896,
+      "occupancy_binary_accuracy": 0.319925
+    },
+    {
+      "token": "ad8905836f364a87a7233eb0aef915ea",
+      "scene": "scene-0107",
+      "camera_masked_accuracy": 0.9037881469942647,
+      "camera_masked_miou": 0.34425458422150274,
+      "all_voxel_label_accuracy": 0.3046265625,
+      "occupied_union_label_accuracy": 0.038506077405360564,
+      "occupancy_binary_accuracy": 0.308428125
+    },
+    {
+      "token": "339ead96177c4e338fde8235c188cfaa",
+      "scene": "scene-0108",
+      "camera_masked_accuracy": 0.7685937067454093,
+      "camera_masked_miou": 0.3145464908454268,
+      "all_voxel_label_accuracy": 0.2918625,
+      "occupied_union_label_accuracy": 0.04126790715778607,
+      "occupancy_binary_accuracy": 0.3031140625
+    },
+    {
+      "token": "4d0d06979c984a72bfb9e6c5e3a35f84",
+      "scene": "scene-0109",
+      "camera_masked_accuracy": 0.9426050682074273,
+      "camera_masked_miou": 0.408022561780458,
+      "all_voxel_label_accuracy": 0.265303125,
+      "occupied_union_label_accuracy": 0.026450315850934096,
+      "occupancy_binary_accuracy": 0.26860625
+    },
+    {
+      "token": "80c91574d0174206a74435200aba8ba8",
+      "scene": "scene-0110",
+      "camera_masked_accuracy": 0.9230997331224672,
+      "camera_masked_miou": 0.40979041096477103,
+      "all_voxel_label_accuracy": 0.253221875,
+      "occupied_union_label_accuracy": 0.03739733255992878,
+      "occupancy_binary_accuracy": 0.2558203125
+    },
+    {
+      "token": "79070dca796f4ffb868d84f1b067f9c2",
+      "scene": "scene-0221",
+      "camera_masked_accuracy": 0.7846094354215004,
+      "camera_masked_miou": 0.27460513463247965,
+      "all_voxel_label_accuracy": 0.3439984375,
+      "occupied_union_label_accuracy": 0.05160756923063022,
+      "occupancy_binary_accuracy": 0.3620359375
+    }
+  ]
+}
