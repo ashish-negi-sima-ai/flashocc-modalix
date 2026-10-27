@@ -1,3 +1,6 @@
+Current model/accuracy/FPS selection is summarized in the [root quickstart](../README.md).
+The dated measurements below remain historical evidence.
+
 Configurable camera inference, preprocessing and compute placement
 ======================================================
 
@@ -7,12 +10,12 @@ preset when starting the application:
 ```bash
 python3 scripts/run_insight_demo.py start \
   --config artifacts/fps-inputs/4/config.json \
-  --execution app/execution-ev74-bgr.json
+  --execution configs/execution/ev74-bgr.json
 ```
 
-Use `app/execution-arm-fp32.json` for the original path or
-`app/execution-ev74-bgr.json` to offload normalization while retaining ARM color
-conversion. `app/execution-ev74-nv12.json` is experimental: the current EV74 NV12
+Use `configs/execution/arm-fp32.json` for the original path or
+`configs/execution/ev74-bgr.json` to offload normalization while retaining ARM color
+conversion. `configs/experiments/ev74-nv12.json` is experimental: the current EV74 NV12
 color conversion has materially lower agreement with the ARM reference, as
 measured below. Stop the running application before changing execution settings;
 the controller does not reconfigure an existing process.
@@ -58,7 +61,7 @@ The output-logit validity scan can be disabled in any execution preset by adding
 ```bash
 python3 scripts/run_insight_demo.py start \
   --config artifacts/fps-inputs/8/config.json \
-  --execution app/execution-bev-small-mixed.json \
+  --execution configs/execution/bev-small-mixed.json \
   --output-dir artifacts/bev-small-mixed/running \
   --check-finite-logits false
 ```
@@ -72,7 +75,7 @@ This duration is included in the existing `validation_ms` metric. Replay
 reference comparisons continue to run independently of the finite-logit check.
 
 For EV74 BGR preprocessing with the supplied small mixed-precision BEV archive,
-use `app/execution-bev-small-mixed-ev74-bgr.json`. The camera archive stays the
+use `configs/execution/bev-small-mixed-ev74-bgr.json`. The camera archive stays the
 original BF16 single-camera model, with six sequential calls per update. This
 preset enables the logit check; its CLI override remains available:
 
@@ -82,7 +85,7 @@ python3 scripts/run_insight_demo.py stop \
   --output-dir artifacts/bev-small-mixed/running
 python3 scripts/run_insight_demo.py start \
   --config artifacts/fps-inputs/8/config.json \
-  --execution app/execution-bev-small-mixed-ev74-bgr.json \
+  --execution configs/execution/bev-small-mixed-ev74-bgr.json \
   --output-dir artifacts/bev-small-mixed/running \
   --check-finite-logits false
 ```
@@ -96,7 +99,7 @@ browser drop counts.
 QAT W8A8 camera and BEV
 ----------------------
 
-`app/execution-qat-ev74-bgr.json` selects both supplied archives from
+`configs/execution/qat-ev74-bgr.json` selects both supplied archives from
 `artifacts/compile_with_qat_better_accuracy/`, with six sequential camera calls
 and EV74 BGR preprocessing. First create the compatible BEV package using
 `scripts/prepare_qat_runtime_archives.py`: the supplied BEV archive has a
@@ -121,11 +124,11 @@ raycasting, video output and host 3D snapshots use the existing pipeline.
 python3 scripts/run_insight_demo.py stop
 python3 scripts/run_insight_demo.py start \
   --config artifacts/fps-inputs/4/config.json \
-  --execution app/execution-packed.json
+  --execution configs/experiments/packed.json
 ```
 
-To switch back, stop and start with `app/execution-arm-fp32.json`, or use
-`app/execution-ev74-bgr.json` for sequential calls with EV74 normalization.
+To switch back, stop and start with `configs/execution/arm-fp32.json`, or use
+`configs/execution/ev74-bgr.json` for sequential calls with EV74 normalization.
 With no mode specified the application retains sequential inference.
 
 In packed mode ARM normalizes six BGR images, places them side by side with
@@ -152,13 +155,13 @@ The supplied archive uses 32 pixels. Runtime timing records include
 `camera_unpack_ms`. `camera_route_ms` includes model input/output conversion,
 MLA execution and runtime overhead; it is not pure accelerator time.
 
-For the intermediate two-call approach, use `app/execution-packed3.json`:
+For the intermediate two-call approach, use `configs/experiments/packed3.json`:
 
 ```bash
 python3 scripts/run_insight_demo.py stop
 python3 scripts/run_insight_demo.py start \
   --config artifacts/fps-inputs/4/config.json \
-  --execution app/execution-packed3.json
+  --execution configs/experiments/packed3.json
 ```
 
 `camera_pack_size=3` packs cameras 0–2 for the first call and cameras 3–5 for
@@ -188,17 +191,17 @@ Evidence is in `artifacts/packed3-app/equivalence.json` and
 `artifacts/packed3-app/live/summary.json`.
 
 For three sequential calls with two cameras per input, select
-`app/execution-packed2.json` instead. It sets `camera_mode=packed` and
+`configs/experiments/packed2.json` instead. It sets `camera_mode=packed` and
 `camera_pack_size=2`, grouping camera indices 0–1, 2–3 and 4–5. Each input is
 256×1440×3, including one 32-pixel guard; each output is 16×90×44 depth or
 16×90×64 features. The archive defaults to
 `artifacts/compile-packed2/camera/flashocc_m0_camera_mpk.tar.gz`.
 Network batch size remains one, and the six outputs are restored to their
 original order before pooling. The same stop/start commands apply with
-`--execution app/execution-packed2.json`.
+`--execution configs/experiments/packed2.json`.
 
 To use this packing configuration with the supplied small mixed-precision BEV
-archive, select `app/execution-bev-small-mixed-packed2.json`. It uses the same
+archive, select `configs/experiments/bev-small-mixed-packed2.json`. It uses the same
 packed camera archive and ARM FP32 preprocessing; `--check-finite-logits false`
 can override its enabled logit check. On Modalix it measured 3.96 FPS with the
 check enabled and 4.58 FPS with it disabled. Sequential EV74 preprocessing with
@@ -242,7 +245,7 @@ publication, use:
 
 ```bash
 python3 scripts/benchmark_insight_fps.py --rates 4 8 --frames 180 --warmup 60 \
-  --volume-fps 2 --execution app/execution-packed.json \
+  --volume-fps 2 --execution configs/experiments/packed.json \
   --output-dir artifacts/packed-app/live
 ```
 
@@ -326,7 +329,7 @@ numerical equivalence on 12 held-out camera images before compilation.
 ```bash
 activate-model-compiler
 python scripts/prepare_rgb_camera.py
-python /home/ashishnegi/.codex/skills/sima-model-surgery/scripts/model_surgery_guard.py \
+python "$SIMA_SURGERY_GUARD" \
   audit-model --model artifacts/onnx-rgb/camera.onnx --dtype bfloat16 --json \
   > artifacts/onnx-rgb/camera.bfloat16.audit.json
 python scripts/compile_smoke.py --stage camera --model-path artifacts/onnx-rgb/camera.onnx \
@@ -350,11 +353,11 @@ cmake --build artifacts/build-app -j3
 python scripts/prepare_preprocessing_fixtures.py
 # Run sequentially on Modalix with the live application stopped:
 artifacts/build-app/check_preprocess artifacts/preprocess-validation/fixtures.json \
-  app/execution-arm-fp32.json artifacts/preprocess-validation/arm-fp32 10
+  configs/execution/arm-fp32.json artifacts/preprocess-validation/arm-fp32 10
 artifacts/build-app/check_preprocess artifacts/preprocess-validation/fixtures.json \
-  app/execution-ev74-bgr.json artifacts/preprocess-validation/ev74-bgr 10
+  configs/execution/ev74-bgr.json artifacts/preprocess-validation/ev74-bgr 10
 artifacts/build-app/check_preprocess artifacts/preprocess-validation/fixtures.json \
-  app/execution-ev74-nv12.json artifacts/preprocess-validation/ev74-nv12 10
+  configs/experiments/ev74-nv12.json artifacts/preprocess-validation/ev74-nv12 10
 # SDK host:
 python scripts/check_preprocessing_results.py
 ```

@@ -1,0 +1,5 @@
+{
+  "device": "sima@DEVICE_ADDRESS",
+  "insight_api": "https://SDK_HOST:9900",
+  "insight_url": "https://SDK_HOST:8081/static/viewer.html?mode=light&src=0"
+}

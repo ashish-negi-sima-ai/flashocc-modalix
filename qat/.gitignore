@@ -3,3 +3,7 @@
 *.pth
 *.log
 onnx-stripped/
+
+.venv/
+checkpoints/
+*.pt

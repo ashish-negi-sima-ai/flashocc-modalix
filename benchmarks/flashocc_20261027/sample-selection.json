@@ -1,0 +1,526 @@
+{
+  "dataset": "nuScenes v1.0-trainval",
+  "camera_order": [
+    "CAM_FRONT_LEFT",
+    "CAM_FRONT",
+    "CAM_FRONT_RIGHT",
+    "CAM_BACK_LEFT",
+    "CAM_BACK",
+    "CAM_BACK_RIGHT"
+  ],
+  "normalization": "upstream PIL channel reversal then mean/std",
+  "samples": [
+    {
+      "split": "validation",
+      "token": "fd8420396768425eabec9bdddf7e64b6",
+      "scene": "scene-0003",
+      "path": "validation/fd8420396768425eabec9bdddf7e64b6.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-08-02-17-16-37+0800__CAM_FRONT_LEFT__1533201470404874.jpg",
+        "samples/CAM_FRONT/n015-2018-08-02-17-16-37+0800__CAM_FRONT__1533201470412460.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-08-02-17-16-37+0800__CAM_FRONT_RIGHT__1533201470420339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-08-02-17-16-37+0800__CAM_BACK_LEFT__1533201470447423.jpg",
+        "samples/CAM_BACK/n015-2018-08-02-17-16-37+0800__CAM_BACK__1533201470437525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-08-02-17-16-37+0800__CAM_BACK_RIGHT__1533201470427893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0003/fd8420396768425eabec9bdddf7e64b6/labels.npz",
+      "pooling_contributions": 152107
+    },
+    {
+      "split": "validation",
+      "token": "88a090c54cc844cc878f00d08274a683",
+      "scene": "scene-0012",
+      "path": "validation/88a090c54cc844cc878f00d08274a683.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_LEFT__1531885320004844.jpg",
+        "samples/CAM_FRONT/n015-2018-07-18-11-41-49+0800__CAM_FRONT__1531885320012463.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_RIGHT__1531885320020339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-07-18-11-41-49+0800__CAM_BACK_LEFT__1531885320047423.jpg",
+        "samples/CAM_BACK/n015-2018-07-18-11-41-49+0800__CAM_BACK__1531885320037525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_BACK_RIGHT__1531885320027893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0012/88a090c54cc844cc878f00d08274a683/labels.npz",
+      "pooling_contributions": 152096
+    },
+    {
+      "split": "validation",
+      "token": "b9c60cfaf1814c8bb363037dec7abd35",
+      "scene": "scene-0013",
+      "path": "validation/b9c60cfaf1814c8bb363037dec7abd35.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_LEFT__1531885340004844.jpg",
+        "samples/CAM_FRONT/n015-2018-07-18-11-41-49+0800__CAM_FRONT__1531885340012463.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_RIGHT__1531885340020339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-07-18-11-41-49+0800__CAM_BACK_LEFT__1531885340047423.jpg",
+        "samples/CAM_BACK/n015-2018-07-18-11-41-49+0800__CAM_BACK__1531885340037525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_BACK_RIGHT__1531885340027893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0013/b9c60cfaf1814c8bb363037dec7abd35/labels.npz",
+      "pooling_contributions": 152101
+    },
+    {
+      "split": "validation",
+      "token": "43cfc03be6f842ae8942c995f8e3f2fb",
+      "scene": "scene-0014",
+      "path": "validation/43cfc03be6f842ae8942c995f8e3f2fb.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_LEFT__1531885397004844.jpg",
+        "samples/CAM_FRONT/n015-2018-07-18-11-41-49+0800__CAM_FRONT__1531885397012465.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_RIGHT__1531885397020339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-07-18-11-41-49+0800__CAM_BACK_LEFT__1531885397047423.jpg",
+        "samples/CAM_BACK/n015-2018-07-18-11-41-49+0800__CAM_BACK__1531885397037525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_BACK_RIGHT__1531885397027893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0014/43cfc03be6f842ae8942c995f8e3f2fb/labels.npz",
+      "pooling_contributions": 152112
+    },
+    {
+      "split": "validation",
+      "token": "234b0f37af694571876a745e5bbb5e08",
+      "scene": "scene-0015",
+      "path": "validation/234b0f37af694571876a745e5bbb5e08.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_LEFT__1531885417004844.jpg",
+        "samples/CAM_FRONT/n015-2018-07-18-11-41-49+0800__CAM_FRONT__1531885417012471.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_RIGHT__1531885417020339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-07-18-11-41-49+0800__CAM_BACK_LEFT__1531885417047423.jpg",
+        "samples/CAM_BACK/n015-2018-07-18-11-41-49+0800__CAM_BACK__1531885417037525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_BACK_RIGHT__1531885417027893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0015/234b0f37af694571876a745e5bbb5e08/labels.npz",
+      "pooling_contributions": 152080
+    },
+    {
+      "split": "validation",
+      "token": "fbd3aa2098234fb1869d34d920e16eda",
+      "scene": "scene-0016",
+      "path": "validation/fbd3aa2098234fb1869d34d920e16eda.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_LEFT__1531885613004844.jpg",
+        "samples/CAM_FRONT/n015-2018-07-18-11-41-49+0800__CAM_FRONT__1531885613012565.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_RIGHT__1531885613020339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-07-18-11-41-49+0800__CAM_BACK_LEFT__1531885613047423.jpg",
+        "samples/CAM_BACK/n015-2018-07-18-11-41-49+0800__CAM_BACK__1531885613037525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_BACK_RIGHT__1531885613027893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0016/fbd3aa2098234fb1869d34d920e16eda/labels.npz",
+      "pooling_contributions": 152082
+    },
+    {
+      "split": "validation",
+      "token": "134c7f63827c4b858a2a4ce0582d8f6e",
+      "scene": "scene-0017",
+      "path": "validation/134c7f63827c4b858a2a4ce0582d8f6e.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_LEFT__1531885765104844.jpg",
+        "samples/CAM_FRONT/n015-2018-07-18-11-41-49+0800__CAM_FRONT__1531885765112466.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_RIGHT__1531885765120339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-07-18-11-41-49+0800__CAM_BACK_LEFT__1531885765147423.jpg",
+        "samples/CAM_BACK/n015-2018-07-18-11-41-49+0800__CAM_BACK__1531885765137525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_BACK_RIGHT__1531885765127893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0017/134c7f63827c4b858a2a4ce0582d8f6e/labels.npz",
+      "pooling_contributions": 152088
+    },
+    {
+      "split": "validation",
+      "token": "f0e4797551024f9487a016ee9d9e29e1",
+      "scene": "scene-0018",
+      "path": "validation/f0e4797551024f9487a016ee9d9e29e1.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_LEFT__1531885792004844.jpg",
+        "samples/CAM_FRONT/n015-2018-07-18-11-41-49+0800__CAM_FRONT__1531885792013053.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_FRONT_RIGHT__1531885792020339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-07-18-11-41-49+0800__CAM_BACK_LEFT__1531885792047423.jpg",
+        "samples/CAM_BACK/n015-2018-07-18-11-41-49+0800__CAM_BACK__1531885792037525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-07-18-11-41-49+0800__CAM_BACK_RIGHT__1531885792027893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0018/f0e4797551024f9487a016ee9d9e29e1/labels.npz",
+      "pooling_contributions": 152083
+    },
+    {
+      "split": "validation",
+      "token": "d62b0f9db06440c695781c52ed71909a",
+      "scene": "scene-0035",
+      "path": "validation/d62b0f9db06440c695781c52ed71909a.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-07-24-10-42-41+0800__CAM_FRONT_LEFT__1532400183654844.jpg",
+        "samples/CAM_FRONT/n015-2018-07-24-10-42-41+0800__CAM_FRONT__1532400183662460.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-24-10-42-41+0800__CAM_FRONT_RIGHT__1532400183670339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-07-24-10-42-41+0800__CAM_BACK_LEFT__1532400183697423.jpg",
+        "samples/CAM_BACK/n015-2018-07-24-10-42-41+0800__CAM_BACK__1532400183687525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-07-24-10-42-41+0800__CAM_BACK_RIGHT__1532400183677893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0035/d62b0f9db06440c695781c52ed71909a/labels.npz",
+      "pooling_contributions": 152096
+    },
+    {
+      "split": "validation",
+      "token": "e1b5c775be134db696ce22413d195c72",
+      "scene": "scene-0036",
+      "path": "validation/e1b5c775be134db696ce22413d195c72.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-07-24-10-42-41+0800__CAM_FRONT_LEFT__1532400226654844.jpg",
+        "samples/CAM_FRONT/n015-2018-07-24-10-42-41+0800__CAM_FRONT__1532400226662460.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-24-10-42-41+0800__CAM_FRONT_RIGHT__1532400226670339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-07-24-10-42-41+0800__CAM_BACK_LEFT__1532400226697423.jpg",
+        "samples/CAM_BACK/n015-2018-07-24-10-42-41+0800__CAM_BACK__1532400226687525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-07-24-10-42-41+0800__CAM_BACK_RIGHT__1532400226677893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0036/e1b5c775be134db696ce22413d195c72/labels.npz",
+      "pooling_contributions": 152052
+    },
+    {
+      "split": "validation",
+      "token": "0f39f34febc84a6689f08599105d1421",
+      "scene": "scene-0038",
+      "path": "validation/0f39f34febc84a6689f08599105d1421.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-07-24-10-42-41+0800__CAM_FRONT_LEFT__1532400339654844.jpg",
+        "samples/CAM_FRONT/n015-2018-07-24-10-42-41+0800__CAM_FRONT__1532400339662460.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-24-10-42-41+0800__CAM_FRONT_RIGHT__1532400339670339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-07-24-10-42-41+0800__CAM_BACK_LEFT__1532400339697441.jpg",
+        "samples/CAM_BACK/n015-2018-07-24-10-42-41+0800__CAM_BACK__1532400339687525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-07-24-10-42-41+0800__CAM_BACK_RIGHT__1532400339677893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0038/0f39f34febc84a6689f08599105d1421/labels.npz",
+      "pooling_contributions": 152095
+    },
+    {
+      "split": "validation",
+      "token": "15c59626df6b4f96bb7ef7c5c1797159",
+      "scene": "scene-0039",
+      "path": "validation/15c59626df6b4f96bb7ef7c5c1797159.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-07-24-10-42-41+0800__CAM_FRONT_LEFT__1532400513654844.jpg",
+        "samples/CAM_FRONT/n015-2018-07-24-10-42-41+0800__CAM_FRONT__1532400513662460.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-24-10-42-41+0800__CAM_FRONT_RIGHT__1532400513670339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-07-24-10-42-41+0800__CAM_BACK_LEFT__1532400513697423.jpg",
+        "samples/CAM_BACK/n015-2018-07-24-10-42-41+0800__CAM_BACK__1532400513687525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-07-24-10-42-41+0800__CAM_BACK_RIGHT__1532400513677893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0039/15c59626df6b4f96bb7ef7c5c1797159/labels.npz",
+      "pooling_contributions": 152098
+    },
+    {
+      "split": "validation",
+      "token": "8e46878ced734164aae0e83567aa02a5",
+      "scene": "scene-0092",
+      "path": "validation/8e46878ced734164aae0e83567aa02a5.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151061504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151061512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151061520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151061547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151061537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151061528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0092/8e46878ced734164aae0e83567aa02a5/labels.npz",
+      "pooling_contributions": 151447
+    },
+    {
+      "split": "validation",
+      "token": "6e0955c28ecb405b98d91b089761dbbb",
+      "scene": "scene-0093",
+      "path": "validation/6e0955c28ecb405b98d91b089761dbbb.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151182504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151182512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151182520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151182547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151182537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151182528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0093/6e0955c28ecb405b98d91b089761dbbb/labels.npz",
+      "pooling_contributions": 151457
+    },
+    {
+      "split": "validation",
+      "token": "19ffc60b7e9f429cbca0dbd5e2fc2e03",
+      "scene": "scene-0094",
+      "path": "validation/19ffc60b7e9f429cbca0dbd5e2fc2e03.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151203504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151203512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151203520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151203547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151203537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151203528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0094/19ffc60b7e9f429cbca0dbd5e2fc2e03/labels.npz",
+      "pooling_contributions": 151457
+    },
+    {
+      "split": "validation",
+      "token": "78be3bd5f1f146cdb1b7120bbf8a218c",
+      "scene": "scene-0095",
+      "path": "validation/78be3bd5f1f146cdb1b7120bbf8a218c.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151249604799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151249612404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151249620500.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151249647405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151249637558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151249628113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0095/78be3bd5f1f146cdb1b7120bbf8a218c/labels.npz",
+      "pooling_contributions": 151494
+    },
+    {
+      "split": "validation",
+      "token": "f9475d1f1f96401c81ce511a93578a96",
+      "scene": "scene-0096",
+      "path": "validation/f9475d1f1f96401c81ce511a93578a96.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151269504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151269512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151269520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151269547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151269537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151269528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0096/f9475d1f1f96401c81ce511a93578a96/labels.npz",
+      "pooling_contributions": 151477
+    },
+    {
+      "split": "validation",
+      "token": "1c81b06c812b47788462c31f58b6c1d0",
+      "scene": "scene-0097",
+      "path": "validation/1c81b06c812b47788462c31f58b6c1d0.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151345504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151345512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151345520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151345547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151345537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151345528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0097/1c81b06c812b47788462c31f58b6c1d0/labels.npz",
+      "pooling_contributions": 151492
+    },
+    {
+      "split": "validation",
+      "token": "c292d90b90ec4dbd826dfd11aa361df1",
+      "scene": "scene-0098",
+      "path": "validation/c292d90b90ec4dbd826dfd11aa361df1.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151365504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151365512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151365520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151365547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151365537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151365528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0098/c292d90b90ec4dbd826dfd11aa361df1/labels.npz",
+      "pooling_contributions": 151458
+    },
+    {
+      "split": "validation",
+      "token": "b9db804449d34414ba98868e9034abd3",
+      "scene": "scene-0099",
+      "path": "validation/b9db804449d34414ba98868e9034abd3.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151417604799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151417612404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151417620482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151417647405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151417637558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151417628113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0099/b9db804449d34414ba98868e9034abd3/labels.npz",
+      "pooling_contributions": 151447
+    },
+    {
+      "split": "validation",
+      "token": "028a3f3a237e469cb099f6d9c8e7f2f4",
+      "scene": "scene-0100",
+      "path": "validation/028a3f3a237e469cb099f6d9c8e7f2f4.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151471504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151471512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151471520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151471547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151471537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151471528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0100/028a3f3a237e469cb099f6d9c8e7f2f4/labels.npz",
+      "pooling_contributions": 151491
+    },
+    {
+      "split": "validation",
+      "token": "d5324133e1d241658a7b763831b3af2e",
+      "scene": "scene-0101",
+      "path": "validation/d5324133e1d241658a7b763831b3af2e.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151514504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151514512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151514520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151514547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151514537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151514528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0101/d5324133e1d241658a7b763831b3af2e/labels.npz",
+      "pooling_contributions": 151493
+    },
+    {
+      "split": "validation",
+      "token": "806011e8a7114eca971fd0f6b95bcd4b",
+      "scene": "scene-0102",
+      "path": "validation/806011e8a7114eca971fd0f6b95bcd4b.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151580504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151580512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151580520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151580547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151580537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151580528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0102/806011e8a7114eca971fd0f6b95bcd4b/labels.npz",
+      "pooling_contributions": 151478
+    },
+    {
+      "split": "validation",
+      "token": "3e8750f331d7499e9b5123e9eb70f2e2",
+      "scene": "scene-0103",
+      "path": "validation/3e8750f331d7499e9b5123e9eb70f2e2.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151603504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151603512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151603520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151603547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151603537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151603528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0103/3e8750f331d7499e9b5123e9eb70f2e2/labels.npz",
+      "pooling_contributions": 151463
+    },
+    {
+      "split": "validation",
+      "token": "f1b7b463072e4630b2c1d5ba8b6cd50b",
+      "scene": "scene-0104",
+      "path": "validation/f1b7b463072e4630b2c1d5ba8b6cd50b.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151669604799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151669612404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151669620482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151669647405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151669637558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151669628113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0104/f1b7b463072e4630b2c1d5ba8b6cd50b/labels.npz",
+      "pooling_contributions": 151491
+    },
+    {
+      "split": "validation",
+      "token": "8d56b71c09c04ece827107b3c103498f",
+      "scene": "scene-0105",
+      "path": "validation/8d56b71c09c04ece827107b3c103498f.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151689604799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151689612404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151689620482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151689647405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151689637558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151689628113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0105/8d56b71c09c04ece827107b3c103498f/labels.npz",
+      "pooling_contributions": 151454
+    },
+    {
+      "split": "validation",
+      "token": "04ebf63518914e0883bdffdb0b6c3f4c",
+      "scene": "scene-0106",
+      "path": "validation/04ebf63518914e0883bdffdb0b6c3f4c.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151709504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151709512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151709520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151709547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151709537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151709528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0106/04ebf63518914e0883bdffdb0b6c3f4c/labels.npz",
+      "pooling_contributions": 151443
+    },
+    {
+      "split": "validation",
+      "token": "ad8905836f364a87a7233eb0aef915ea",
+      "scene": "scene-0107",
+      "path": "validation/ad8905836f364a87a7233eb0aef915ea.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151730504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151730512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151730520492.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151730548587.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151730537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151730528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0107/ad8905836f364a87a7233eb0aef915ea/labels.npz",
+      "pooling_contributions": 151456
+    },
+    {
+      "split": "validation",
+      "token": "339ead96177c4e338fde8235c188cfaa",
+      "scene": "scene-0108",
+      "path": "validation/339ead96177c4e338fde8235c188cfaa.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151825654799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151825662404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151825670482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151825697405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151825687689.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151825678113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0108/339ead96177c4e338fde8235c188cfaa/labels.npz",
+      "pooling_contributions": 151489
+    },
+    {
+      "split": "validation",
+      "token": "4d0d06979c984a72bfb9e6c5e3a35f84",
+      "scene": "scene-0109",
+      "path": "validation/4d0d06979c984a72bfb9e6c5e3a35f84.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151847504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151847512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151847520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151847547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151847537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151847528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0109/4d0d06979c984a72bfb9e6c5e3a35f84/labels.npz",
+      "pooling_contributions": 151452
+    },
+    {
+      "split": "validation",
+      "token": "80c91574d0174206a74435200aba8ba8",
+      "scene": "scene-0110",
+      "path": "validation/80c91574d0174206a74435200aba8ba8.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_LEFT__1533151881504799.jpg",
+        "samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151881512404.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_FRONT_RIGHT__1533151881520482.jpg",
+        "samples/CAM_BACK_LEFT/n008-2018-08-01-15-16-36-0400__CAM_BACK_LEFT__1533151881547405.jpg",
+        "samples/CAM_BACK/n008-2018-08-01-15-16-36-0400__CAM_BACK__1533151881537558.jpg",
+        "samples/CAM_BACK_RIGHT/n008-2018-08-01-15-16-36-0400__CAM_BACK_RIGHT__1533151881528113.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0110/80c91574d0174206a74435200aba8ba8/labels.npz",
+      "pooling_contributions": 151445
+    },
+    {
+      "split": "validation",
+      "token": "79070dca796f4ffb868d84f1b067f9c2",
+      "scene": "scene-0221",
+      "path": "validation/79070dca796f4ffb868d84f1b067f9c2.npz",
+      "image_paths": [
+        "samples/CAM_FRONT_LEFT/n015-2018-07-16-11-49-16+0800__CAM_FRONT_LEFT__1531713369254844.jpg",
+        "samples/CAM_FRONT/n015-2018-07-16-11-49-16+0800__CAM_FRONT__1531713369262460.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-16-11-49-16+0800__CAM_FRONT_RIGHT__1531713369270339.jpg",
+        "samples/CAM_BACK_LEFT/n015-2018-07-16-11-49-16+0800__CAM_BACK_LEFT__1531713369297423.jpg",
+        "samples/CAM_BACK/n015-2018-07-16-11-49-16+0800__CAM_BACK__1531713369287525.jpg",
+        "samples/CAM_BACK_RIGHT/n015-2018-07-16-11-49-16+0800__CAM_BACK_RIGHT__1531713369277893.jpg"
+      ],
+      "label_path": "artifacts/occ3d/gts/scene-0221/79070dca796f4ffb868d84f1b067f9c2/labels.npz",
+      "pooling_contributions": 152100
+    }
+  ]
+}

@@ -12,6 +12,7 @@ import numpy as np
 import torch
 from PIL import Image
 from export_flashocc import BaseModule, ROOT, upstream_class
+from nuscenes_metadata import load_selected
 
 CAMERAS = ['CAM_FRONT_LEFT', 'CAM_FRONT', 'CAM_FRONT_RIGHT',
            'CAM_BACK_LEFT', 'CAM_BACK', 'CAM_BACK_RIGHT']
@@ -61,46 +62,44 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', type=Path, required=True)
     parser.add_argument('--output', type=Path, default=ROOT/'artifacts/real-inputs')
+    parser.add_argument('--version', choices=['v1.0-mini', 'v1.0-trainval'], default='v1.0-mini')
+    parser.add_argument('--labels', type=Path, help='Occ3D gts directory containing scene-*/TOKEN/labels.npz')
+    parser.add_argument('--selection', type=Path, help='Frozen manifest with exact split/token selections')
     parser.add_argument('--train-count', type=int, default=32)
     parser.add_argument('--val-count', type=int, default=8)
-    parser.add_argument('--val-scenes', nargs='+', default=MINI_VAL)
+    parser.add_argument('--train-scenes', nargs='+')
+    parser.add_argument('--val-scenes', nargs='+')
     args = parser.parse_args()
     torch.set_num_threads(4)
-    tables = {name: {r['token']: r for r in json.loads((args.data/'v1.0-mini'/f'{name}.json').read_text())}
-              for name in ['sample', 'sample_data', 'scene', 'calibrated_sensor', 'ego_pose', 'sensor']}
-    # nuScenes SDK constructs this reverse index in memory; raw sample.json
-    # does not contain sample['data'].
-    for sample in tables['sample'].values():
-        sample['data'] = {}
-    for sd in tables['sample_data'].values():
-        if sd['is_key_frame']:
-            sensor_token = tables['calibrated_sensor'][sd['calibrated_sensor_token']]['sensor_token']
-            channel = tables['sensor'][sensor_token]['channel']
-            tables['sample'][sd['sample_token']]['data'][channel] = sd['token']
+    if args.version == 'v1.0-mini':
+        train_names, val_names = MINI_TRAIN, MINI_VAL
+    else:
+        try:
+            from nuscenes.utils.splits import train, val
+        except ImportError:
+            parser.error('Trainval preparation requires nuscenes-devkit from qat/requirements.txt')
+        train_names, val_names = sorted(train), sorted(val)
+    if args.train_scenes and not set(args.train_scenes) <= set(train_names):
+        parser.error('--train-scenes must be a subset of the official training scenes')
+    if args.val_scenes and not set(args.val_scenes) <= set(val_names):
+        parser.error('--val-scenes must be a subset of the official validation scenes')
+    train_names = args.train_scenes or train_names
+    val_names = args.val_scenes or val_names
+    selection = json.loads(args.selection.read_text())['samples'] if args.selection else None
+    tables, selected = load_selected(args.data, args.version, train_names, val_names,
+                                    args.train_count, args.val_count, CAMERAS, selection)
     pipeline = image_pipeline()
     transformer = upstream_class('necks/view_transformer.py', 'LSSViewTransformer')(
         dict(x=[-40, 40, .4], y=[-40, 40, .4], z=[-1, 5.4, 6.4], depth=[1., 45., 1.]),
         (256, 704), in_channels=256, out_channels=64)
-    manifest = {'dataset': 'nuScenes v1.0-mini', 'camera_order': CAMERAS,
+    manifest = {'dataset': 'nuScenes ' + args.version, 'camera_order': CAMERAS,
                 'normalization': 'upstream PIL channel reversal then mean/std', 'samples': []}
-    for split, names, count in [('calibration', MINI_TRAIN, args.train_count),
-                                 ('validation', args.val_scenes, args.val_count)]:
-        per_scene = []
-        for scene_name in names:
-            scene = next(s for s in tables['scene'].values() if s['name'] == scene_name)
-            sequence, token = [], scene['first_sample_token']
-            while token:
-                sequence.append(tables['sample'][token])
-                token = sequence[-1]['next']
-            per_scene.append(sequence)
-        selected = []
-        for i, sequence in enumerate(per_scene):
-            scene_count = count//len(names) + int(i < count % len(names))
-            for index in np.linspace(0, len(sequence)-1, scene_count, dtype=int):
-                selected.append(sequence[index])
+    for split in ['calibration', 'validation']:
         destination = args.output/split
         destination.mkdir(parents=True, exist_ok=True)
-        for sample in selected:
+        for sample_split, sample in selected:
+            if sample_split != split:
+                continue
             cams = {}
             paths = []
             for camera in CAMERAS:
@@ -125,10 +124,22 @@ def main():
             if rb is None or not len(rb):
                 raise ValueError('No valid pooling contributions')
             path = destination/(sample['token']+'.npz')
+            labels = {}
+            if args.labels:
+                scene_name = tables['scene'][sample['scene_token']]['name']
+                with np.load(args.labels/scene_name/sample['token']/'labels.npz') as source:
+                    labels = {k: source[k] for k in ['semantics', 'mask_camera', 'mask_lidar']}
+                if any(a.shape != (200, 200, 16) for a in labels.values()):
+                    raise ValueError('Occ3D labels and masks must be [200,200,16]')
+                if not np.isin(labels['semantics'], range(18)).all():
+                    raise ValueError('Invalid Occ3D semantic class')
+                for key in ['mask_camera', 'mask_lidar']:
+                    if not np.isin(labels[key], [0, 1]).all():
+                        raise ValueError('Invalid Occ3D visibility mask')
             np.savez_compressed(path, images=images.numpy(), ranks_bev=rb.numpy(), ranks_depth=rd.numpy(),
                                 ranks_feat=rf.numpy(), interval_starts=starts.numpy(), interval_lengths=lengths.numpy(),
                                 sensor2key=sensor2key.numpy(), ego2global=ego2global.numpy(),
-                                intrinsics=intrinsic.numpy(), post_rots=post_rot.numpy(), post_trans=post_trans.numpy())
+                                intrinsics=intrinsic.numpy(), post_rots=post_rot.numpy(), post_trans=post_trans.numpy(), **labels)
             record = dict(split=split, token=sample['token'],
                           scene=tables['scene'][sample['scene_token']]['name'],
                           path=str(path.relative_to(args.output)), image_paths=paths,

@@ -269,12 +269,12 @@ void publish_volume(const fs::path& directory,std::span<const std::uint8_t> labe
 int main(int argc,char** argv) {
   std::cout.setf(std::ios::unitbuf);std::cerr.setf(std::ios::unitbuf);
   try {
-    fs::path config_path="/workspace/GitHub/occupancy-prediction/artifacts/insight-demo/config.json";
-    fs::path output="/workspace/GitHub/occupancy-prediction/artifacts/insight-device";
+    fs::path workspace=fs::current_path();
+    fs::path config_path,output;
     int max_frames=0,volume_fps=-1;Json overrides=Json::object();
     for(int i=1;i<argc;++i) {
       std::string key=argv[i];
-      if(key=="--help"){std::cout<<"flashocc_insight [--config JSON] [--output-dir DIR] [--frames N] [--volume-fps N]\n"
+      if(key=="--help"){std::cout<<"flashocc_insight [--workspace DIR] [--config JSON] [--output-dir DIR] [--frames N] [--volume-fps N]\n"
         "  [--execution JSON] [--camera-input arm-fp32|ev74-bgr|ev74-nv12]\n"
         "  [--camera-mode sequential|packed] [--camera-guard-width N]\n"
         "  [--camera-pack-size 2|3|6]\n"
@@ -285,7 +285,8 @@ int main(int argc,char** argv) {
         "  [--check-finite-logits true|false]\n";return 0;}
       if(i+1==argc)throw std::invalid_argument("Missing argument");
       std::string value=argv[++i];
-      if(key=="--config")config_path=value;else if(key=="--output-dir")output=value;
+      if(key=="--workspace")workspace=value;
+      else if(key=="--config")config_path=value;else if(key=="--output-dir")output=value;
       else if(key=="--frames")max_frames=std::stoi(value);else if(key=="--volume-fps")volume_fps=std::stoi(value);
       else if(key=="--execution") {Json file;std::ifstream f(value);f>>file;if(!file.is_object())throw std::invalid_argument("Execution override must be object");overrides.update(file);}
       else if(key=="--camera-input")overrides["camera_input"]=value;
@@ -308,6 +309,8 @@ int main(int argc,char** argv) {
       else throw std::invalid_argument("Unknown option: "+key);
     }
     if(max_frames<0 || volume_fps < -1 || volume_fps>30)throw std::invalid_argument("Invalid frame or volume FPS limit");
+    if(config_path.empty())config_path=workspace/"artifacts/insight-demo/config.json";
+    if(output.empty())output=workspace/"artifacts/insight-device";
     Json config;{std::ifstream f(config_path);f>>config;}
     if(config.at("clips").size()!=6 || config.at("frames").empty() || config.at("frames").size()>256 ||
        !config.at("fps").is_number_integer() || config.at("fps").get<int>()<1 ||
@@ -315,7 +318,7 @@ int main(int argc,char** argv) {
       throw std::runtime_error("Invalid six-camera demo configuration");
     std::signal(SIGINT,signal_handler);std::signal(SIGTERM,signal_handler);std::signal(SIGHUP,signal_handler);
     fs::create_directories(output);
-    Options options;options.output=output;
+    Options options;options.workspace=workspace;options.output=output;
     Json execution=config.value("execution",Json::object());
     if(!execution.is_object())throw std::invalid_argument("execution must be object");
     execution.update(overrides);configure_execution(options,execution);options=finalize_execution(std::move(options));

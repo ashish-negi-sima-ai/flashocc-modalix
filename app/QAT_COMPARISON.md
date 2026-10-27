@@ -1,5 +1,9 @@
 # QAT versus previous FlashOCC application approaches
 
+The [cleanup preservation baseline](../benchmarks/flashocc_20261027/README.md)
+retains the exact results, per-frame evidence, accuracy evaluation tools and
+checksummed asset inventory required to reproduce these comparisons.
+
 Measured on **2026-10-27**, on **`sima@10.42.0.102`**, using installed Neat
 **0.5.0** and the existing ARM64 application. QAT with EV74 preprocessing reaches
 **8.31 complete six-camera updates/s**, versus **6.50** for the previous mixed

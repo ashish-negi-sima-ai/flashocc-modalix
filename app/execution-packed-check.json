@@ -1,7 +1,1 @@
-{
-  "camera_input": "arm-fp32",
-  "camera_pre_target": "A65",
-  "camera_post_target": "AUTO",
-  "bev_pre_target": "AUTO",
-  "bev_post_target": "AUTO"
-}
+../configs/experiments/packed-check.json

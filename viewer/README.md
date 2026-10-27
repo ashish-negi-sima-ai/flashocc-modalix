@@ -1,6 +1,6 @@
 # Host 3D occupancy viewer
 
-Open **http://10.42.0.1:8090/** to orbit and inspect the live FlashOCC volume.
+Start the host service and open the URL it prints to inspect the live volume.
 The Python HTTP service runs on the SDK host, outside Docker. Three.js renders
 in the browser using WebGL; the host's browser/GPU performs visualization.
 FlashOCC inference remains on Modalix. The existing Insight mosaic is available
@@ -39,17 +39,21 @@ python3 scripts/run_insight_demo.py start --config artifacts/fps-inputs/4/config
 
 Stop the application before replacing its executable. If it is already stopped,
 build and then start it. `--volume-fps 0` disables 3D export; 2 is the default.
-The ordinary default demo config remains at 2 FPS; the prepared faster replay
-config runs at 4 FPS. The 3D export rate is independent of the video input rate.
+The source JSON controls input FPS. The preserved performance comparison uses
+12 FPS streams; 3D export remains independent at 2 Hz.
 
 In a **host terminal outside Docker**:
 
 ```bash
-cd /home/ashishnegi/workspace/GitHub/occupancy-prediction
+cd /path/to/occupancy-prediction
 python3 scripts/run_host_3d_viewer.py start
 python3 scripts/run_host_3d_viewer.py status
 python3 scripts/run_host_3d_viewer.py stop
 ```
+
+Pass `--host HOST` to print a browser-reachable address, and optionally
+`--insight-url URL` to configure Open Insight. The launcher also reads
+`insight_url` from the shared runtime configuration.
 
 The host service needs only Python 3's standard library. Vendored browser assets
 are pinned to Three.js 0.180.0, verified against the package's SHA-512 integrity
@@ -103,8 +107,8 @@ height cuts and sampling controls can reduce the workload.
 
 ```bash
 python3 -m unittest viewer.test_server -v
-ssh sima@10.42.0.73 \
-  /workspace/GitHub/occupancy-prediction/artifacts/build-app/test_insight
+# Run on Modalix from the shared repository root:
+artifacts/build-app/test_insight
 ```
 
 Tests cover invalid/truncated snapshots, atomic replacement, frame metadata,
@@ -114,10 +118,13 @@ reader. Browser checks exercise live updates, pause/resume, class filtering,
 height cuts, vertical scale, orbit/top view and voxel picking. Evidence and
 screenshots are under `artifacts/host-3d-viewer/`.
 
-With default 2 Hz 3D export enabled, a 240-group steady window retained about
+Historical measurement (earlier model pair): with 2 Hz 3D export, a
+240-group steady window retained about
 4.00 six-camera updates/s with no skipped groups. Snapshot publication took
 about 20 ms on frames that published. The original FPS benchmark disables
 volume export by default; use its `--volume-fps` option to measure both together.
 
 The viewer displays model predictions, not ground truth. It improves geometric
 inspection; it does not improve model accuracy.
+
+Current model/configuration comparisons are in [QAT_COMPARISON](../app/QAT_COMPARISON.md).

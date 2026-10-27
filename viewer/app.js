@@ -184,5 +184,7 @@ window.viewerDebug=()=>{
 };
 try{
   const response=await fetch('/api/config');if(!response.ok)throw new Error('Cannot load viewer configuration');
-  config=await response.json();sceneSetup();setupControls();animate();poll();
+  config=await response.json();
+  if(config.insight_url){$('insight-link').href=config.insight_url;$('insight-link').hidden=false;}
+  sceneSetup();setupControls();animate();poll();
 }catch(error){$('fatal').hidden=false;$('fatal').textContent='The 3D viewer could not start: '+error.message;$('waiting').style.display='none';console.error(error);}

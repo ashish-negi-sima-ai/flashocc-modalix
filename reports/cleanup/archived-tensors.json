@@ -1,0 +1,330 @@
+{
+  "archive": "/workspace/benchmark-archives/flashocc-legacy-replay-tensors.tar.gz",
+  "archive_sha256": "5157a43b99c001470613e68336f81508e0b2d2adbbf52996cc830c50447b31e2",
+  "files": [
+    {
+      "path": "artifacts/app-device-results/3e8750f331d7499e9b5123e9eb70f2e2.logits.f32",
+      "sha256": "b540113a469d06379452c11ff625649e8840329651ffce6a09d1871bb9b23f2b",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-results/b5989651183643369174912bc5641d3b.logits.f32",
+      "sha256": "6adda679963ab2367db2ba90101f1dece2640e7a11021d91bb96d704c92f5953",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-results/3e8750f331d7499e9b5123e9eb70f2e2.depth.f32",
+      "sha256": "c7a6cdadccd47cdf3ec85c52d0d3c1a9fd51545aba32e3bbedeaa1021f14e198",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-results/b5989651183643369174912bc5641d3b.features.f32",
+      "sha256": "d2e4c64c075d21bdf2bd6bcece6c5126bd68c38b955d814337eea52a9bd3f4a8",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-results/de7593d76648450e947ba0c203dee1b0.features.f32",
+      "sha256": "d05cb652f526622206d4f31e0ed1d9590681ba2ad8ffced54606d7b102d42568",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-results/8cd36e9531fb4eba8e6ac1d666c4641c.depth.f32",
+      "sha256": "95416a18712e0d882d53f04a6e0462d027d376c4e3510b6e4901ad9b129c1347",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-results/61a7bd24f88a46c2963280d8b13ac675.depth.f32",
+      "sha256": "ad6cb72086bae44f83a006677096bb53a953be9414642bdc8d319d1789d3d7cb",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-results/9e7683e8586542a1b6032980c45f15ce.depth.f32",
+      "sha256": "fc0cc85fbe27c40356b1609306d42078bd2c815895002cd7bcbbad5a81b29177",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-results/9e7683e8586542a1b6032980c45f15ce.features.f32",
+      "sha256": "a5bf571ffc06ce57081a682a85400c60cbc83698bc0c7db5853be4407a109c6d",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-results/281b92269fd648d4b52d06ac06ca6d65.features.f32",
+      "sha256": "d1cb056e01ce68cdd0d008b97b3d6aa06284f4aebc22c43b30268dad9372eac5",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-results/281b92269fd648d4b52d06ac06ca6d65.depth.f32",
+      "sha256": "0b0f3402e6f5bb8603a9d1182f1f06db499e62d4b353f7627860cdbb4cabead4",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-results/de7593d76648450e947ba0c203dee1b0.depth.f32",
+      "sha256": "24f8298d1467b7c85db109718d8bc040165a090f1bb6dcfef5065342e75b9687",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-results/3e8750f331d7499e9b5123e9eb70f2e2.features.f32",
+      "sha256": "3f08640a5f334bd8fc2e7ae48a6b798dda4a821bbaad415cb47c2acfd46a5740",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-results/61a7bd24f88a46c2963280d8b13ac675.features.f32",
+      "sha256": "26ada5f1056aca22e4e8e918287fc6323f55a2732565aee60322b55673b81604",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-results/9e7683e8586542a1b6032980c45f15ce.pooled.f32",
+      "sha256": "9add5963d863f1a1ea12646f667bbdc8cfb6a2d76a1fa9bdc1391d64634723d8",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-results/b5989651183643369174912bc5641d3b.pooled.f32",
+      "sha256": "7bf66b4025fdd7f8942667f51eb42e290d5d149722caf6c17695c53a1eccd13e",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-results/8cd36e9531fb4eba8e6ac1d666c4641c.pooled.f32",
+      "sha256": "85b073cfe89591599c7adb2fdf7f08ed25538c97ccea7915360b5ff07715a78d",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-results/b4ff30109dd14c89b24789dc5713cf8c.features.f32",
+      "sha256": "9cb41a598376ae34764e92778729e5c29a1a62e0a4ed64585f8f0bc247264d83",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-results/de7593d76648450e947ba0c203dee1b0.pooled.f32",
+      "sha256": "94b3c86cbfd8589f07f701a8efc77de6ed2fef769a064fed0d22020195d9746b",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-results/61a7bd24f88a46c2963280d8b13ac675.pooled.f32",
+      "sha256": "0c49ebdd07734ded6fd5974b49c22c1d3b54e0c9abb63b5fa32561f6de1f2796",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-results/b4ff30109dd14c89b24789dc5713cf8c.logits.f32",
+      "sha256": "0d928c45bf903e4d06a76e2535ff310931e27015909d7ca4eab320a5158cdc1f",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-results/8cd36e9531fb4eba8e6ac1d666c4641c.logits.f32",
+      "sha256": "0ed45e7a325e07ad3d2246dfc7b875f30fbc3f7c3ec1dfa9c61d08af589ed624",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-results/8cd36e9531fb4eba8e6ac1d666c4641c.features.f32",
+      "sha256": "828653dcfc061c026b03fbe74660e5e1395a5be94eb3181e819c5e30e09d4a28",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-results/9e7683e8586542a1b6032980c45f15ce.logits.f32",
+      "sha256": "26cdb2413f39f0ad564c138daee0bf761749ce2328c3b7a2167dc41db902a560",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-results/b4ff30109dd14c89b24789dc5713cf8c.depth.f32",
+      "sha256": "e9a561953552c083cca0b18cffda3f34edba6f2794ecea8495bdb7dabf8bdf1f",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-results/b5989651183643369174912bc5641d3b.depth.f32",
+      "sha256": "1875f5c50cc8de4371726906b3f664c8270680a2925ee608d9d3cf7b7146dc09",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-results/3e8750f331d7499e9b5123e9eb70f2e2.pooled.f32",
+      "sha256": "7178b8c23e54be8aac66c2818e01b0aec63b2bd67df1fd05b5c7cbad80e78156",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-results/de7593d76648450e947ba0c203dee1b0.logits.f32",
+      "sha256": "3f53d9de813683f2244c9aeed51920ba175d9cf0cedac7e1b84c89b8ca514091",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-results/281b92269fd648d4b52d06ac06ca6d65.logits.f32",
+      "sha256": "d615e4678bd9ed408c243ce074da53ed6b5403b9f0df24e91fc30cd8211a97a0",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-results/281b92269fd648d4b52d06ac06ca6d65.pooled.f32",
+      "sha256": "3483b862a8cac5c3a2e1e6818e8eae696dc67211f43e9e329451618080a38ba4",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-results/b4ff30109dd14c89b24789dc5713cf8c.pooled.f32",
+      "sha256": "dfb7aa2dbaee24128f7716d1334b458092374472fcffadb80e75e8b189024eea",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-results/61a7bd24f88a46c2963280d8b13ac675.logits.f32",
+      "sha256": "95fc409ea2c967506d4ddfe609ccfc21f1c9758c961fde309909c7be8ad145f6",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-final/3e8750f331d7499e9b5123e9eb70f2e2.logits.f32",
+      "sha256": "b540113a469d06379452c11ff625649e8840329651ffce6a09d1871bb9b23f2b",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-final/b5989651183643369174912bc5641d3b.logits.f32",
+      "sha256": "6adda679963ab2367db2ba90101f1dece2640e7a11021d91bb96d704c92f5953",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-final/3e8750f331d7499e9b5123e9eb70f2e2.depth.f32",
+      "sha256": "c7a6cdadccd47cdf3ec85c52d0d3c1a9fd51545aba32e3bbedeaa1021f14e198",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-final/b5989651183643369174912bc5641d3b.features.f32",
+      "sha256": "d2e4c64c075d21bdf2bd6bcece6c5126bd68c38b955d814337eea52a9bd3f4a8",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-final/de7593d76648450e947ba0c203dee1b0.features.f32",
+      "sha256": "d05cb652f526622206d4f31e0ed1d9590681ba2ad8ffced54606d7b102d42568",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-final/8cd36e9531fb4eba8e6ac1d666c4641c.depth.f32",
+      "sha256": "95416a18712e0d882d53f04a6e0462d027d376c4e3510b6e4901ad9b129c1347",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-final/61a7bd24f88a46c2963280d8b13ac675.depth.f32",
+      "sha256": "ad6cb72086bae44f83a006677096bb53a953be9414642bdc8d319d1789d3d7cb",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-final/9e7683e8586542a1b6032980c45f15ce.depth.f32",
+      "sha256": "fc0cc85fbe27c40356b1609306d42078bd2c815895002cd7bcbbad5a81b29177",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-final/9e7683e8586542a1b6032980c45f15ce.features.f32",
+      "sha256": "a5bf571ffc06ce57081a682a85400c60cbc83698bc0c7db5853be4407a109c6d",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-final/281b92269fd648d4b52d06ac06ca6d65.features.f32",
+      "sha256": "d1cb056e01ce68cdd0d008b97b3d6aa06284f4aebc22c43b30268dad9372eac5",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-final/281b92269fd648d4b52d06ac06ca6d65.depth.f32",
+      "sha256": "0b0f3402e6f5bb8603a9d1182f1f06db499e62d4b353f7627860cdbb4cabead4",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-final/de7593d76648450e947ba0c203dee1b0.depth.f32",
+      "sha256": "24f8298d1467b7c85db109718d8bc040165a090f1bb6dcfef5065342e75b9687",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-final/3e8750f331d7499e9b5123e9eb70f2e2.features.f32",
+      "sha256": "3f08640a5f334bd8fc2e7ae48a6b798dda4a821bbaad415cb47c2acfd46a5740",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-final/61a7bd24f88a46c2963280d8b13ac675.features.f32",
+      "sha256": "26ada5f1056aca22e4e8e918287fc6323f55a2732565aee60322b55673b81604",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-final/9e7683e8586542a1b6032980c45f15ce.pooled.f32",
+      "sha256": "9add5963d863f1a1ea12646f667bbdc8cfb6a2d76a1fa9bdc1391d64634723d8",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-final/b5989651183643369174912bc5641d3b.pooled.f32",
+      "sha256": "7bf66b4025fdd7f8942667f51eb42e290d5d149722caf6c17695c53a1eccd13e",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-final/8cd36e9531fb4eba8e6ac1d666c4641c.pooled.f32",
+      "sha256": "85b073cfe89591599c7adb2fdf7f08ed25538c97ccea7915360b5ff07715a78d",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-final/b4ff30109dd14c89b24789dc5713cf8c.features.f32",
+      "sha256": "9cb41a598376ae34764e92778729e5c29a1a62e0a4ed64585f8f0bc247264d83",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-final/de7593d76648450e947ba0c203dee1b0.pooled.f32",
+      "sha256": "94b3c86cbfd8589f07f701a8efc77de6ed2fef769a064fed0d22020195d9746b",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-final/61a7bd24f88a46c2963280d8b13ac675.pooled.f32",
+      "sha256": "0c49ebdd07734ded6fd5974b49c22c1d3b54e0c9abb63b5fa32561f6de1f2796",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-final/b4ff30109dd14c89b24789dc5713cf8c.logits.f32",
+      "sha256": "0d928c45bf903e4d06a76e2535ff310931e27015909d7ca4eab320a5158cdc1f",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-final/8cd36e9531fb4eba8e6ac1d666c4641c.logits.f32",
+      "sha256": "0ed45e7a325e07ad3d2246dfc7b875f30fbc3f7c3ec1dfa9c61d08af589ed624",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-final/8cd36e9531fb4eba8e6ac1d666c4641c.features.f32",
+      "sha256": "828653dcfc061c026b03fbe74660e5e1395a5be94eb3181e819c5e30e09d4a28",
+      "size_bytes": 1081344
+    },
+    {
+      "path": "artifacts/app-device-final/9e7683e8586542a1b6032980c45f15ce.logits.f32",
+      "sha256": "26cdb2413f39f0ad564c138daee0bf761749ce2328c3b7a2167dc41db902a560",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-final/b4ff30109dd14c89b24789dc5713cf8c.depth.f32",
+      "sha256": "e9a561953552c083cca0b18cffda3f34edba6f2794ecea8495bdb7dabf8bdf1f",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-final/b5989651183643369174912bc5641d3b.depth.f32",
+      "sha256": "1875f5c50cc8de4371726906b3f664c8270680a2925ee608d9d3cf7b7146dc09",
+      "size_bytes": 743424
+    },
+    {
+      "path": "artifacts/app-device-final/3e8750f331d7499e9b5123e9eb70f2e2.pooled.f32",
+      "sha256": "7178b8c23e54be8aac66c2818e01b0aec63b2bd67df1fd05b5c7cbad80e78156",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-final/de7593d76648450e947ba0c203dee1b0.logits.f32",
+      "sha256": "3f53d9de813683f2244c9aeed51920ba175d9cf0cedac7e1b84c89b8ca514091",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-final/281b92269fd648d4b52d06ac06ca6d65.logits.f32",
+      "sha256": "d615e4678bd9ed408c243ce074da53ed6b5403b9f0df24e91fc30cd8211a97a0",
+      "size_bytes": 46080000
+    },
+    {
+      "path": "artifacts/app-device-final/281b92269fd648d4b52d06ac06ca6d65.pooled.f32",
+      "sha256": "3483b862a8cac5c3a2e1e6818e8eae696dc67211f43e9e329451618080a38ba4",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-final/b4ff30109dd14c89b24789dc5713cf8c.pooled.f32",
+      "sha256": "dfb7aa2dbaee24128f7716d1334b458092374472fcffadb80e75e8b189024eea",
+      "size_bytes": 10240000
+    },
+    {
+      "path": "artifacts/app-device-final/61a7bd24f88a46c2963280d8b13ac675.logits.f32",
+      "sha256": "95fc409ea2c967506d4ddfe609ccfc21f1c9758c961fde309909c7be8ad145f6",
+      "size_bytes": 46080000
+    }
+  ],
+  "verified_all_archived_payloads": true,
+  "bytes_before": 930316288,
+  "bytes_archived": 415135575,
+  "deleted_originals": true
+}

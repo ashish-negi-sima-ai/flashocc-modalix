@@ -7,6 +7,8 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 from prepare_nuscenes import image_pipeline
+from runtime_config import defaults, require
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -39,11 +41,13 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--inputs', type=Path, default=ROOT/'artifacts/insight-inputs')
     parser.add_argument('--output', type=Path, default=ROOT/'artifacts/insight-demo')
-    parser.add_argument('--host', default='10.42.0.1')
+    api = defaults()['insight_api']
+    parser.add_argument('--host', default=urlsplit(api).hostname if api else None)
     parser.add_argument('--rtsp-port', type=int, default=8554)
     parser.add_argument('--video-port', type=int, default=9000)
     parser.add_argument('--geometry-only', action='store_true')
     args = parser.parse_args()
+    require(parser,args.host,'--host','FLASHOCC_INSIGHT_API')
     manifest = json.loads((args.inputs/'manifest.json').read_text())
     records = manifest['samples']
     assert 1 <= len(records) <= 256 and len({r['scene'] for r in records}) == 1

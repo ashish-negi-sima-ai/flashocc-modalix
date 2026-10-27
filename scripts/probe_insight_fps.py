@@ -6,12 +6,15 @@ import time
 import urllib.request
 from pathlib import Path
 from playwright.sync_api import sync_playwright
+from runtime_config import defaults, require
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--api',default=defaults()['insight_api'])
     args=parser.parse_args()
+    require(parser,args.api,'--api','FLASHOCC_INSIGHT_API')
     def api(path):
-        with urllib.request.urlopen('https://10.42.0.1:9900'+path,context=ssl._create_unverified_context(),timeout=10) as response:
+        with urllib.request.urlopen(args.api+path,context=ssl._create_unverified_context(),timeout=10) as response:
             return json.load(response)
     with sync_playwright() as playwright:
         browser=playwright.chromium.launch(headless=True,args=['--no-sandbox','--autoplay-policy=no-user-gesture-required'])

@@ -1,14 +1,1 @@
-{
-  "camera_mode": "packed",
-  "camera_pack_size": 6,
-  "camera_input": "arm-fp32",
-  "camera_guard_width": 32,
-  "camera_pre_target": "A65",
-  "camera_post_target": "A65",
-  "bev_pre_target": "AUTO",
-  "bev_post_target": "A65",
-  "pool_threads": 8,
-  "argmax_threads": 8,
-  "render_threads": 6,
-  "visualization": true
-}
+../configs/experiments/packed.json

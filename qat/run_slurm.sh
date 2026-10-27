@@ -9,12 +9,10 @@ if [[ -n "${SLURM_JOB_ID:-}" ]]; then
     exec "${VENV}/bin/python" "${ROOT}/qat/train.py" "$@"
 fi
 
-module load opensource/slurm/24.11.3g
-exec srun \
-    -c "${SLURM_CPUS:-8}" \
-    --mem="${SLURM_MEM:-32G}" \
-    --gres="gpu:${SLURM_GPUS:-1}" \
-    --constraint="${SLURM_CONSTRAINT:-rtx4000}" \
-    -p "${SLURM_PARTITION:-light}" \
-    "${VENV}/bin/python" "${ROOT}/qat/train.py" "$@"
+if [[ -n "${SLURM_MODULE:-}" ]]; then module load "${SLURM_MODULE}"; fi
+command -v srun >/dev/null 2>&1 || { echo "srun is required; alternatively run qat/train.py directly" >&2; exit 1; }
+launch=(srun -c "${SLURM_CPUS:-8}" --mem="${SLURM_MEM:-32G}" --gres="gpu:${SLURM_GPUS:-1}")
+if [[ -n "${SLURM_CONSTRAINT:-}" ]]; then launch+=(--constraint="${SLURM_CONSTRAINT}"); fi
+if [[ -n "${SLURM_PARTITION:-}" ]]; then launch+=(-p "${SLURM_PARTITION}"); fi
+exec "${launch[@]}" "${VENV}/bin/python" "${ROOT}/qat/train.py" "$@"
 

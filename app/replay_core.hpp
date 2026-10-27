@@ -29,7 +29,7 @@ void signal_handler(int signal) {stop_signal=signal;}
 double elapsed(Clock::time_point start) {return std::chrono::duration<double,std::milli>(Clock::now()-start).count();}
 
 struct Options {
-  fs::path workspace="/workspace/GitHub/occupancy-prediction",camera,bev,inputs,output;
+  fs::path workspace=fs::current_path(),camera,bev,inputs,output;
   int threads=8,repeats=1,warmup=1,timeout=20000,limit=0;
   std::string cvu_target="AUTO";
   std::string camera_input="arm-fp32",camera_pre_target,camera_post_target,bev_pre_target,bev_post_target;
@@ -178,6 +178,7 @@ void configure_execution(Options& o,const Json& config) {
   if(config.contains("bev_model"))o.bev=config.at("bev_model").get<std::string>();
 }
 Options finalize_execution(Options o) {
+  o.workspace=fs::absolute(o.workspace);
   configure_execution(o,Json::object());
   if(o.camera.empty()) {
     const std::string variant=o.camera_pack_size==6?"compile-packed":"compile-packed"+std::to_string(o.camera_pack_size);
@@ -186,6 +187,8 @@ Options finalize_execution(Options o) {
       "artifacts/compile-real/camera/flashocc_m0_camera_mpk.tar.gz");
   }
   if(o.bev.empty())o.bev=o.workspace/"artifacts/compile-real-mixed/bev/flashocc_m0_bev_mpk.tar.gz";
+  if(o.camera.is_relative())o.camera=o.workspace/o.camera;
+  if(o.bev.is_relative())o.bev=o.workspace/o.bev;
   if(o.camera_mode=="packed" && o.camera_pre_target.empty() && o.cvu_target=="AUTO")o.camera_pre_target="A65";
   return o;
 }

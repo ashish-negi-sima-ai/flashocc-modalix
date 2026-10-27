@@ -52,7 +52,7 @@ class Server(ThreadingHTTPServer):
     daemon_threads=True
     allow_reuse_address=True
 
-def make_handler(store):
+def make_handler(store, insight_url=None):
     class Handler(SimpleHTTPRequestHandler):
         def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(ROOT/'viewer'),**kwargs)
         def log_message(self,format,*args):
@@ -69,7 +69,7 @@ def make_handler(store):
             if path=='/api/config':
                 config=dict(shape=[200,200,16],voxel_size=.4,lower=[-40,-40,-1],upper=[40,40,5.4],
                     order='XYZ',header_bytes=HEADER.size,classes=[dict(id=i,name=n,color=COLORS[i]) for i,n in enumerate(NAMES)],
-                    source='Modalix live occupancy',prediction_is_ground_truth=False)
+                    source='Modalix live occupancy',prediction_is_ground_truth=False,insight_url=insight_url)
                 return self.respond(200,json.dumps(config).encode())
             if path=='/api/health':
                 return self.respond(200,json.dumps(dict(status='ok',service='flashocc-3d-viewer')).encode())
@@ -91,10 +91,11 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--source',type=Path,default=ROOT/'artifacts/insight-device/latest.occ')
     parser.add_argument('--bind',default='0.0.0.0');parser.add_argument('--port',type=int,default=8090)
+    parser.add_argument('--insight-url',help='Optional browser-reachable Insight viewer URL')
     args=parser.parse_args()
     if not (ROOT/'viewer/vendor/three.module.min.js').exists():
         parser.error('Run python3 scripts/setup_3d_viewer.py first')
-    server=Server((args.bind,args.port),make_handler(SnapshotStore(args.source)))
+    server=Server((args.bind,args.port),make_handler(SnapshotStore(args.source),args.insight_url))
     def stop(*_):threading.Thread(target=server.shutdown,daemon=True).start()
     for name in (signal.SIGINT,signal.SIGTERM,signal.SIGHUP):signal.signal(name,stop)
     print(f'FlashOCC 3D viewer listening on {args.bind}:{args.port}; source={args.source}',flush=True)

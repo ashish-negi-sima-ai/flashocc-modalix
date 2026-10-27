@@ -9,6 +9,7 @@ import sys
 import time
 from fractions import Fraction
 from pathlib import Path
+from runtime_config import defaults, require
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -20,8 +21,8 @@ def decoded_hash(path):
     if process.wait():raise RuntimeError('Clip verification failed')
     return digest.hexdigest()
 
-def prepare(base,rate):
-    config=json.loads(base.read_text());destination=ROOT/'artifacts/fps-inputs'/str(rate)
+def prepare(base,rate,destination_root=None):
+    config=json.loads(base.read_text());destination=(destination_root or ROOT/'artifacts/fps-inputs').resolve()/str(rate)
     destination.mkdir(parents=True,exist_ok=True);checks=[]
     for clip in config['clips']:
         original=base.parent/clip['file'];target=destination/clip['file']
@@ -54,18 +55,24 @@ def report(output,warmup):
         output_directory=str(output))
 
 def main():
+    runtime=defaults()
     parser=argparse.ArgumentParser()
     parser.add_argument('--rates',nargs='+',type=int,default=[2,4,6,8])
     parser.add_argument('--frames',type=int,default=180)
     parser.add_argument('--warmup',type=int,default=60)
-    parser.add_argument('--device',default='sima@10.42.0.73')
+    parser.add_argument('--device',default=runtime['device'])
+    parser.add_argument('--api',default=runtime['insight_api'])
     parser.add_argument('--volume-fps',type=int,default=0,help='3D export FPS; zero matches the pre-viewer benchmark')
     parser.add_argument('--base',type=Path,default=ROOT/'artifacts/insight-demo/config.json')
-    parser.add_argument('--browser-python',type=Path,default=Path('/tmp/flashocc-browser-venv/bin/python'))
+    parser.add_argument('--browser-python',type=Path,default=runtime['browser_python'],
+                        help='optional Python with Playwright for the Insight browser probe')
     parser.add_argument('--execution',type=Path,help='execution overrides for each live app run')
-    parser.add_argument('--binary',type=Path,default=ROOT/'artifacts/build-app/flashocc_insight')
+    parser.add_argument('--inputs-dir',type=Path,help='retimestamped clips directory; override to preserve an existing input bundle')
+    parser.add_argument('--binary',type=Path,default=ROOT/'build/modalix/flashocc_insight')
     parser.add_argument('--output-dir',type=Path,default=ROOT/'artifacts/fps-runs')
     args=parser.parse_args()
+    require(parser,args.device,'--device','FLASHOCC_DEVICE')
+    require(parser,args.api,'--api','FLASHOCC_INSIGHT_API')
     if not all(1<=r<=30 for r in args.rates) or not 0<=args.warmup<args.frames-30 or args.frames>256 or not 0<=args.volume_fps<=30:
         parser.error('Use rates 1–30 and at most 256 frames with at least 30 measured frames')
     if not args.binary.is_file():parser.error('Build the requested application binary first')
@@ -73,11 +80,11 @@ def main():
     binary=args.binary.resolve()
     results=[];root=args.output_dir.resolve();root.mkdir(parents=True,exist_ok=True)
     for rate in args.rates:
-        config=prepare(args.base,rate);output=root/str(rate);output.mkdir(exist_ok=True);output.chmod(0o777)
+        config=prepare(args.base,rate,args.inputs_dir);output=root/str(rate);output.mkdir(exist_ok=True);output.chmod(0o777)
         control=[sys.executable,str(ROOT/'scripts/insight_demo_control.py')]
         with (output/'source-control.log').open('w') as controls:
-            subprocess.run(control+['start','--config',str(config)],stdout=controls,stderr=subprocess.STDOUT,check=True)
-            app_args=[str(binary),'--config',str(config),'--output-dir',str(output),
+            subprocess.run(control+['start','--config',str(config),'--api',args.api],stdout=controls,stderr=subprocess.STDOUT,check=True)
+            app_args=[str(binary),'--workspace',str(ROOT),'--config',str(config),'--output-dir',str(output),
                       '--frames',str(args.frames),'--volume-fps',str(args.volume_fps)]
             if args.execution:app_args.extend(['--execution',str(args.execution.resolve())])
             command=shlex.join(app_args)
@@ -85,19 +92,19 @@ def main():
             try:
                 with (output/'app.log').open('w') as log:
                     app=subprocess.Popen(['ssh','-o','BatchMode=yes',args.device,command],stdout=log,stderr=subprocess.STDOUT)
-                    if args.browser_python.exists():
+                    if args.browser_python and args.browser_python.is_file():
                         browser=subprocess.Popen([str(args.browser_python),str(ROOT/'scripts/probe_insight_fps.py'),
-                            '--output',str(output/'browser.json')],stdout=(output/'browser.log').open('w'),stderr=subprocess.STDOUT)
+                            '--api',args.api,'--output',str(output/'browser.json')],stdout=(output/'browser.log').open('w'),stderr=subprocess.STDOUT)
                     code=app.wait(timeout=240)
                     if code:raise RuntimeError(f'Device app failed at {rate} FPS; see {output}/app.log')
                 if browser and browser.wait(timeout=60):raise RuntimeError(f'Browser failed; see {output}/browser.log')
             finally:
                 if app and app.poll() is None:
                     subprocess.run(['ssh','-o','BatchMode=yes',args.device,
-                        'pkill -INT -f '+shlex.quote('^'+str(binary)+' --config '+str(config))],check=False)
+                        'pkill -INT -f '+shlex.quote('^'+shlex.join(app_args[:5]))],check=False)
                     app.wait(timeout=30)
                 if browser and browser.poll() is None:browser.terminate();browser.wait(timeout=10)
-                subprocess.run(control+['stop','--config',str(config)],stdout=controls,stderr=subprocess.STDOUT,check=True)
+                subprocess.run(control+['stop','--config',str(config),'--api',args.api],stdout=controls,stderr=subprocess.STDOUT,check=True)
         result=report(output,args.warmup)
         if (output/'browser.json').exists():result['browser']=json.loads((output/'browser.json').read_text())
         results.append(result);(root/'summary.json').write_text(json.dumps(results,indent=2)+'\n')

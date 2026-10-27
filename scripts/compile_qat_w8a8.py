@@ -4,7 +4,7 @@ Uses SkipCalibration so that the scale/zero-point from the QDQ ONNX nodes are
 used directly — no calibration dataset required.
 
 Outputs to:
-  qat/runs/m0-full/afe-compile/{camera,bev}/
+  artifacts/qat-runs/m0-full/afe-compile/{camera,bev}/
 
 Accuracy is reported against the 32 validation samples in
   artifacts/qat-inputs/validation/
@@ -22,7 +22,7 @@ from afe.apis.model import Model
 from afe.load.importers.general_importer import ImporterParams, ModelFormat
 
 ROOT = Path(__file__).resolve().parents[1]
-QAT_DIR = ROOT / 'qat/runs/m0-full'
+QAT_DIR = ROOT / 'artifacts/qat-runs/m0-full'
 ONNX_DIR = QAT_DIR / 'onnx'
 OUT_DIR = QAT_DIR / 'afe-compile'
 INPUTS_DIR = ROOT / 'artifacts/qat-inputs'

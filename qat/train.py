@@ -39,6 +39,7 @@ from sima_qat import (  # noqa: E402
     sima_prepare_qat_model,
 )
 from validate_qat_onnx import validate_onnx_pair  # noqa: E402
+from metrics import confusion_matrix, occupancy_metrics  # noqa: E402
 
 
 CHECKPOINT_FORMAT = "sima-flashocc-m0-qat-v2"
@@ -48,7 +49,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--weights", type=Path, default=ROOT / "artifacts/flashocc-r50-M0.pth")
     parser.add_argument("--data", type=Path, default=ROOT / "artifacts/qat-inputs")
-    parser.add_argument("--output", type=Path, default=ROOT / "qat/runs/m0")
+    parser.add_argument("--output", type=Path, default=ROOT / "artifacts/qat-runs/m0")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--epochs", type=int, default=4)
     parser.add_argument("--freeze-epoch", type=int, default=2)
@@ -85,23 +86,6 @@ def occupancy_targets(samples, device: torch.device) -> tuple[Tensor, Tensor]:
         device=device, non_blocking=True
     )
     return semantics, mask_camera
-
-
-def confusion_matrix(labels: Tensor, predictions: Tensor) -> Tensor:
-    bins = OCCUPANCY_CLASSES * labels.to(torch.int64) + predictions.to(torch.int64)
-    return torch.bincount(
-        bins, minlength=OCCUPANCY_CLASSES**2
-    ).reshape(OCCUPANCY_CLASSES, OCCUPANCY_CLASSES)
-
-
-def occupancy_metrics(confusion: Tensor) -> tuple[float, float]:
-    diagonal = confusion.diag().to(torch.float64)
-    union = confusion.sum(0) + confusion.sum(1) - diagonal
-    present_semantic_classes = union[: OCCUPANCY_CLASSES - 1] > 0
-    iou = diagonal[: OCCUPANCY_CLASSES - 1] / union[: OCCUPANCY_CLASSES - 1].clamp_min(1)
-    mean_iou = iou[present_semantic_classes].mean().item()
-    accuracy = diagonal.sum().item() / confusion.sum().clamp_min(1).item()
-    return accuracy, mean_iou
 
 
 @contextmanager

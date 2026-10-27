@@ -1,306 +1,185 @@
 # FlashOCC on Modalix
 
-The [host 3D viewer](viewer/README.md) provides live orbitable semantic voxels,
-class and height filtering, and per-voxel inspection alongside the Insight video.
+Six calibrated camera views produce a dense `200 × 200 × 16` semantic occupancy
+volume. The C++ app runs the camera and BEV networks on MLA, with ARM NEON pooling,
+argmax and occupancy rendering. EV74 camera preprocessing is configurable.
+Six RTSP streams feed the [Insight mosaic](app/INSIGHT.md); the
+[host 3D viewer](viewer/README.md) displays interactive semantic voxels.
 
-The complete C++ application runs the compiled camera and BEV networks on MLA
-with threaded ARM NEON pooling and label selection. The
-[Insight demo](app/INSIGHT.md) consumes six RTSP clips and displays live occupancy
-projections and BEV grids. The [batch replay application](app/README.md) provides
-reference comparisons and tensor dumps.
+## Demo clips
 
-The [batch-six camera experiment](app/CAMERA_BATCH.md) compiles and benchmarks
-all six views in one invocation. It lowers camera latency, but its current FP32
-fidelity is worse, so the live application continues using batch one.
+**Insight — six camera overlays and BEV occupancy slices (10 seconds).**
+Click the animated preview to open the MP4.
 
-The preferred hardware-validated candidate uses a BF16 camera network and a BF16 BEV
-network with INT8 Softplus. Both compiled for Modalix. Complete six-camera host
-checks on two holdout samples gave 98.92% and 99.34% label agreement with FP32.
-The complete C++ application also passed eight real samples on Modalix, with
-98.92–99.40% FP32 label agreement and 141.3 ms median compute time. Ground-truth
-accuracy remains unmeasured. See [application instructions](app/README.md).
+[![Insight: six camera occupancy overlays and two BEV slices](docs/media/insight.gif)](docs/media/insight.mp4)
 
-Candidate archives, hashes, and validation summary: `artifacts/modalix-candidate.json`.
-The earlier synthetic and fully INT8 artifacts are retained for comparison and
-should not be mistaken for the preferred candidate.
+**Host 3D grid — live semantic voxels with an orbiting view (10 seconds).**
+The viewer uses physical height scale and 0.4 m cells.
 
-Initial target: official FlashOCC M0, ResNet-50, one time step, six cameras,
-256×704 images. Upstream source is in `FlashOCC/`, pinned during this work to
-`449dc7947d6549ccb72a99d6f6d8c02f166ec0dd`.
+[![Host viewer: live 3D semantic occupancy grid](docs/media/host-3d-grid.gif)](docs/media/host-3d-grid.mp4)
 
-Official checkpoint: https://drive.google.com/file/d/14my3jdqiIv6VIrkozQ6-ruEcBOPVlWGJ/view
+Both recordings use QAT models with EV74 preprocessing on Modalix and replay
+`scene-0103` at 8 FPS. The host receives occupancy snapshots at 2 Hz; browser
+rendering speed is separate from application throughput.
+[Recording details and reproduction](docs/media/README.md).
 
-Checkpoint SHA256: `cb776378659af93c2e6968d89767e4c03b6d3720d11fc2071e57b8d5af1d1cd5`.
+## Validated comparison
 
-## Deployment split
+The preserved 2026-10-27 test uses the same 32 labeled inputs and Occ3D camera
+visibility masks for each model pair. Accuracy is model-level evaluation of
+normalized inputs, excluding RTSP compression and EV74 image normalization.
 
-1. Camera network: `[1,3,256,704]` → depth `[1,44,16,44]` and features `[1,64,16,44]`.
-   Run this stage once per camera, in upstream camera order.
-2. BEV pooling outside the neural-network graphs: combine all six camera outputs
-   using rank arrays generated from actual calibration and image transforms.
-   Output `[1,64,200,200]`. The upstream implementation uses custom CUDA
-   `mmdeploy::bev_pool_v2`; it cannot be assumed portable to Modalix.
-3. BEV encoder and occupancy head: `[1,64,200,200]` → `[1,288,200,200]`.
-4. Restore logits with `transpose(0,3,2,1).reshape(1,200,200,16,18)`, then
-   argmax over the 18 semantic classes. Class 17 is free space.
+| Model pair | Camera-masked mIoU | Masked voxel accuracy |
+| --- | ---: | ---: |
+| Original FP32 | 34.58% | 89.34% |
+| Original BF16-heavy | 34.65% | 89.36% |
+| BF16 camera + small mixed BEV | 33.57% | 89.22% |
+| QAT camera + QAT BEV | 31.87% | 86.00% |
 
-The camera order is front-left, front, front-right, back-left, back, back-right.
-Inputs must use the original image resizing/cropping, RGB normalization, and
-correspondingly updated camera transforms. Arbitrary photographs are insufficient
-for a calibrated 3D result.
+Full-app performance uses six 12 FPS RTSP streams, overlays, 2 Hz snapshots and
+an explicitly disabled logit validity scan. Every output processes all six views.
 
-## Export and checks
+| Networks / image preprocessing | Mean app processing | App FPS |
+| --- | ---: | ---: |
+| Previous mixed / ARM | 223.1 ms | 4.48 |
+| Previous mixed / EV74 | 153.3 ms | 6.50 |
+| QAT / ARM | 198.4 ms | 5.03 |
+| QAT / EV74 | 119.9 ms | 8.31 |
 
-```bash
-source /home/ashishnegi/.bashrc
-activate-model-compiler
-python scripts/export_flashocc.py --checkpoint artifacts/flashocc-r50-M0.pth --output artifacts/onnx-original
-python scripts/export_flashocc.py --checkpoint artifacts/flashocc-r50-M0.pth --output artifacts/onnx-modalix --conv-head
-python scripts/pool_reference.py
-```
+QAT + EV74 is the fastest measured route; among the compiled pairs compared
+here, the original BF16-heavy pair has the highest measured accuracy. Choose a model pair according
+to the application requirement. These are subset results, not a full nuScenes
+validation benchmark. [Detailed timings and scope](app/QAT_COMPARISON.md) ·
+[Frozen evidence and reproducibility contract](benchmarks/flashocc_20261027/README.md).
 
-The exporter reuses upstream FPN, BEV backbone/neck, and head class bodies through
-a narrowly scoped MMCV adapter. The image backbone uses torchvision ResNet-50
-with the matching PyTorch stride convention. All 430 checkpoint entries load
-strictly. This avoids installing the legacy CUDA training stack, but comparison
-against an independently executed full upstream model on real data is still needed.
+[Cleanup audit and independent reproduction](reports/cleanup/README.md).
 
-Original ONNX graphs were audited before the rewrite. The rewrite converts the
-head's two pointwise Linear layers to equivalent 1×1 convolutions and leaves
-height/layout restoration outside the compiled graph. It preserves logits after
-restoring their layout; synthetic-input maximum absolute difference was
-`2.6703e-5` (asserted with `rtol=1e-4`, `atol=1e-4`). ONNX Runtime vs PyTorch
-maximum absolute differences were `1.9073e-6` for depth, `1.2517e-5` for camera
-features, and `3.4332e-5` for rewritten BEV logits (`rtol=1e-3`, `atol=1e-3`).
+## Setup
 
-After ONNX simplification, both stages have no unsupported or unknown operator
-types under the bundled SiMa release 2.1 INT8 policy. BF16 audit flags Softplus in
-the BEV stage. Operator-type audits do not prove all shape/attribute constraints
-or hardware execution. Audit reports and validation results are in `artifacts/`.
-
-## Compilation feasibility
-
-Both stages compiled successfully with SiMa Model Compiler 2.1.3 for Modalix.
-Deployment archives are `artifacts/compile-smoke/camera/flashocc_m0_camera_mpk.tar.gz`
-and `artifacts/compile-smoke/bev/flashocc_m0_bev_mpk.tar.gz`. Each stage contains
-one MLA segment plus EV74 support plugins; pooling is external to both archives.
+Clone with the pinned upstream FlashOCC submodule:
 
 ```bash
-export SIMA_MLA_SIM_PARALLEL=2
-python scripts/compile_smoke.py --stage camera
-python scripts/compile_smoke.py --stage bev
+git submodule update --init --recursive
+cp configs/runtime.example.json configs/runtime.local.json
 ```
 
-This uses the import API with explicit names, shapes, types, and NHWC calibration
-tensors, including the 64-channel BEV feature input. Calibration is synthetic:
-the resulting artifacts are **not production calibrated**. Camera INT8
-quantization emitted saturation warnings, including weights being zeroed in a
-layer. These artifacts must not be used as evidence of accuracy.
+Set `device`, `insight_api` and optionally `insight_url` in that local file.
+Alternatively export `FLASHOCC_DEVICE`, `FLASHOCC_INSIGHT_API` and
+`FLASHOCC_INSIGHT_URL`. CLI arguments override these defaults. No developer
+home directory or fixed device address is required. The host and Modalix must
+see the shared workspace at the same path.
 
-## CPU integration reference
+Use the SiMa SDK/compiler environment for export/validation and the ARM64 Neat
+SDK for application builds. The original comparison used installed Neat 0.5.0;
+precompiled model identities are pinned by SHA-256 in [models/manifest.json](models/manifest.json).
+Model and dataset payloads belong in external asset storage, not source Git.
+
+Restore the preserved asset bundle obtained from your model storage:
 
 ```bash
-python scripts/infer_reference.py --inputs /path/to/preprocessed-six-camera-inputs.npz
+python3 scripts/comparison_assets.py restore \
+  --archive /path/to/flashocc_20261027-assets.tar.gz \
+  --asset-root /path/to/restored-assets
+python3 scripts/comparison_assets.py verify --asset-root /path/to/restored-assets
 ```
 
-NPZ fields: float32 `images` `[6,3,256,704]`, and one-dimensional integer
-`ranks_depth`, `ranks_feat`, `ranks_bev` produced by upstream
-`voxel_pooling_prepare_v2`. The NumPy pooling reference passes the published
-upstream pooling fixture. It is a correctness reference, not a performance kernel.
-The complete split ONNX pipeline was exercised with synthetic images/ranks and
-produced labels `[1,200,200,16]`; these labels have no scene accuracy meaning.
-The final labels agreed exactly with the original exported BEV head for this
-synthetic integration input.
+Keep the adjacent `.tar.gz.json` inventory/checksum file with the bundle.
+The local cleanup archive is stored outside the repository under
+`/workspace/benchmark-archives/`; a public release download URL has not been
+published. A source checkout alone does not contain images, GT or model weights.
 
-## Remaining validation
+## Build and run
 
-Real mini images and calibration are now available. Occupancy ground truth is
-still required to measure accuracy loss.
-A Modalix device connection is required to implement/profile pooling and tensor
-transfers, run the compiled stages, and measure full six-camera latency and memory.
-No device inference or ground-truth accuracy measurement has been performed yet.
-
-## Real nuScenes mini data
-
-`artifacts/data/nuscenes-mini/` contains all 2,424 keyframe camera images and 13
-metadata tables, streamed from the official archive. LiDAR and sweeps were
-omitted. The download manifest records the source and scope. Image/geometry
-preprocessing reuses the original class methods; the normalization reproduces
-upstream OpenCV operations, including the channel reversal of PIL images.
+Inside the SDK container, from the repository root:
 
 ```bash
-python scripts/download_mini_subset.py --output artifacts/data/nuscenes-mini
-python scripts/prepare_nuscenes.py --data artifacts/data/nuscenes-mini
-python scripts/validate_real.py
-python scripts/preview_real.py
+cmake -S app -B build/modalix \
+  -DCMAKE_TOOLCHAIN_FILE=toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+cmake --build build/modalix -j3
+
+# With reference assets restored at the repository root:
+python3 scripts/run_insight_demo.py start \
+  --config artifacts/fps-inputs/12/config.json \
+  --execution configs/execution/qat-ev74-bgr.json \
+  --output-dir artifacts/live \
+  --check-finite-logits false
+
+python3 scripts/run_insight_demo.py status \
+  --config artifacts/fps-inputs/12/config.json --output-dir artifacts/live
+python3 scripts/run_insight_demo.py stop \
+  --config artifacts/fps-inputs/12/config.json --output-dir artifacts/live
 ```
 
-Preparation selects four samples from each of the eight official mini training
-scenes (32 six-camera calibration samples), and four from each of the two mini
-validation scenes (eight holdout samples). The scene sets are disjoint.
-Processed inputs and their sample/camera provenance are in
-`artifacts/real-inputs/manifest.json`. Calibration tensors are in
-`artifacts/real-calibration/{camera,bev}/{calibration,validation}/`.
+Execution presets use workspace-relative model paths. For an asset bundle
+restored elsewhere, use the comparison runner below or generate execution/source
+configs with the corresponding absolute asset paths. Preset defaults retain the
+logit scan; disable it explicitly when reproducing the FPS table.
+[All execution settings](app/EXECUTION.md).
 
-All 40 samples passed ONNX vs adapted PyTorch numerical checks. Maximum absolute
-errors: camera features `1.0491e-4`, depth `1.3053e-5`, BEV logits `1.4114e-4`.
-The NumPy pooling output matched independent PyTorch accumulation exactly.
-Minimum final-label agreement was `99.9996875%`; near-tied logits can switch
-argmax because of FP32 rounding. This verifies the conversion, not prediction
-accuracy or independent full upstream runtime parity.
-
-Real-data quantization and compilation use:
+For interactive 3D, in a host terminal outside Docker:
 
 ```bash
-export SIMA_MLA_SIM_PARALLEL=2
-python scripts/compile_smoke.py --stage camera --precision bfloat16 --executor jax --calibration-dir artifacts/real-calibration/camera/calibration --validation-dir artifacts/real-calibration/camera/validation --verify-count 2 --build-dir artifacts/compile-real
-python scripts/compile_smoke.py --stage bev --calibration-dir artifacts/real-calibration/bev/calibration --validation-dir artifacts/real-calibration/bev/validation --verify-count 8 --build-dir artifacts/compile-real
-python scripts/validate_quantized_pipeline.py --count 2
+python3 scripts/run_host_3d_viewer.py start --source artifacts/live/latest.occ
+python3 scripts/run_host_3d_viewer.py stop
 ```
 
-The camera stage uses 192 actual image tensors. The BEV stage uses 32 pooled
-feature tensors generated by the FP32 camera network. Full quantized pipeline
-validation propagates quantized camera features through pooling into the
-quantized BEV network. All SDK checks run on the host, not a Modalix device.
+The service prints its URL; pass `--host` for access from another machine.
+WebGL rendering runs in the browser, separately from Modalix inference.
 
-FP32 previews for the two holdout scenes are in `artifacts/real-predictions/`.
-The official Occ3D `gts.tar.gz` download currently returns a Google Drive quota
-error. Thus no mIoU or ground-truth occupancy accuracy is claimed. Mini provides
-an initial calibration check; a larger diverse training subset is still desirable.
+## Reproduce both comparisons
 
-## Precision findings
-
-Real-data INT8 camera artifacts are preserved in `artifacts/compile-real-int8/camera/`.
-They still produced 12 weight-zeroing warnings and camera feature relative RMSE
-of approximately 16–30% across 12 checked holdout camera images. They are not the
-preferred camera artifacts.
-
-[Layerwise PTQ analysis](app/PTQ_ANALYSIS.md) now separates local operator error
-from accumulated error for both INT8 networks. The camera's zeroed filters had
-negligible original FP32 weight energy, so those warnings alone do not explain
-its prediction differences. The largest measured local errors occur at BEV
-residual merges; the report includes ranked errors and reproduction commands.
-
-The BF16 camera compiled successfully without weight-zeroing warnings and is
-stored in `artifacts/compile-real/camera/`. Two real camera checks with the JAX
-executor measured feature relative RMSE of approximately 1.47–2.10%. The first
-check also completed with the normal executor, with essentially identical errors;
-the remaining normal-executor checks were stopped because BF16 simulation was
-slow. `verification-jax.json` records the completed checks.
-
-The INT8 BEV stage in `artifacts/compile-real/bev/` compiled, but its labels agreed
-with the FP32 stage on only approximately 68–81% of voxels across eight holdout
-inputs. The complete BF16-camera + INT8-BEV pipeline gave 76.47% and 65.88% label
-agreement on one sample from each holdout scene. These are conversion-agreement
-measurements, not ground-truth accuracy scores.
-
-The candidate BEV policy is BF16 except for INT8 `Softplus`. It uses the public
-[per-node quantization API](https://docs.sima.ai/pages/model-sdk/quantize.html)
-and gets its node name from the saved INT8 IR. The operator audit explicitly
-checks BF16 support for all other operator types and INT8 support for Softplus.
+Use a fresh results directory. The asset root may be a separately restored
+bundle. `--python` must identify an environment with NumPy and ONNX Runtime.
+The device/API values can come from the local runtime configuration.
 
 ```bash
-python scripts/compile_smoke.py --stage bev --precision mixed-softplus --executor jax --calibration-dir artifacts/real-calibration/bev/calibration --validation-dir artifacts/real-calibration/bev/validation --verify-count 8 --build-dir artifacts/compile-real-mixed
-python scripts/validate_quantized_pipeline.py --count 2 --bev-dir artifacts/compile-real-mixed/bev --output artifacts/compile-real-mixed/pipeline-validation.json
+python3 scripts/reproduce_comparison.py accuracy \
+  --asset-root /path/to/restored-assets \
+  --results artifacts/comparison-repeat \
+  --python /path/to/validation-environment/bin/python
+
+python3 scripts/reproduce_comparison.py performance \
+  --asset-root /path/to/restored-assets \
+  --results artifacts/comparison-repeat \
+  --browser-python /path/to/playwright-environment/bin/python
+
+python3 scripts/reproduce_comparison.py summarize --results artifacts/comparison-repeat
+python3 benchmarks/flashocc_20261027/check.py --records-only
 ```
 
-This keeps the original model math and two neural-network stages. Precision
-conversions around Softplus are handled inside the compiled BEV graph.
+Accuracy regenerates original FP32 labels and runs all three compiled model
+pairs on the same 32 inputs. Performance runs all four ARM/EV74 configurations
+sequentially with 256 groups and 64 warmups. It uses a separate retimestamped
+input directory and preserves the reference assets. The output includes raw
+records and `comparison-report.json`. The optional Playwright interpreter can
+also be set with `FLASHOCC_BROWSER_PYTHON`; it was enabled for the reference
+viewer-quality measurements. Timing variations must be reported rather
+than overwriting the frozen baseline.
 
-The mixed BEV network compiled successfully in one MLA segment and completed all
-eight holdout checks. Label agreement with FP32 was 99.46–99.61% with FP32 camera
-features. With BF16 camera outputs propagated through pooling, complete pipeline
-results were:
+## Development and model preparation
 
-| Holdout scene | All-voxel label agreement | Occupied-union label agreement | Occupancy binary agreement |
-| --- | --- | --- | --- |
-| scene-0103 | 98.92% | 98.35% | 99.46% |
-| scene-0916 | 99.34% | 98.72% | 99.66% |
+- [Application contracts and replay](app/README.md)
+- [Execution and preprocessing settings](app/EXECUTION.md)
+- [QAT training and dataset preparation](qat/README.md)
+- [Model distribution and identities](models/README.md)
+- [Reports and metric definitions](reports/README.md)
+- [ARM pooling implementation](cpp/README.md)
+- [Experiments and preserved investigations](experiments/README.md)
 
-These are host SDK JAX simulation comparisons to ONNX FP32 predictions, not
-accuracy against labels or measurements of device behavior. Eight BEV-only tests
-and two complete pipeline samples are an initial check, not a comprehensive
-evaluation. Comparison figures are in `artifacts/real-predictions/*-precision-comparison.png`.
+The deployment boundary remains camera → calibrated ARM pooling → BEV/head →
+argmax. Camera order is front-left, front, front-right, back-left, back,
+back-right. Model output class 17 is free space. Preserve upstream image
+transforms and calibrated geometry; independent photographs are insufficient.
+The QAT BEV compatibility copy changes shape metadata only, retaining its ELF.
 
-Preferred deployment archives:
-
-- `artifacts/compile-real/camera/flashocc_m0_camera_mpk.tar.gz`
-- `artifacts/compile-real-mixed/bev/flashocc_m0_bev_mpk.tar.gz`
-
-The C++ CPU pooling implementation has now been validated on Modalix; see
-[CPU pooling implementation and device results](cpp/README.md). Non-fused NEON
-matched all eight real pooling references exactly and took approximately 3.2 ms
-with sixteen threads. Neural-network hardware execution, tensor transfers,
-six-camera scheduling, and full-pipeline latency/memory still need validation.
-
-## Full upstream ONNX attempt
-
-`artifacts/full-upstream/flashocc_m0_original.onnx` is a single M0 graph containing
-the camera network, the original custom pooling operation, BEV network, original
-Linear/Softplus head, and channel-to-height output reshape. It uses upstream
-opset 11, the six original input names, dynamic rank/interval lengths, and one
-`output_0` tensor `[1,200,200,16,18]`. No splitting, simplification, head rewrite,
-or replacement of the exported pooling node was applied.
-
-The exporter executes the original `BEVDetOCCTRT.forward_ori` and the original
-`TRTBEVPoolv2.symbolic` class method. As the legacy CUDA/MMCV environment is not
-installed, it uses the same strict-checkpoint CPU module adapter as earlier and
-substitutes CPU pooling **only for tracing execution**. The resulting ONNX still
-contains `mmdeploy::bev_pool_v2` with its seven inputs and original attributes.
-This is not a byte-for-byte export from the untouched CUDA CLI/environment.
-
-ONNX checker passed. The full CPU forward's labels matched the previous FP32
-pipeline exactly on the selected real holdout sample. Full ONNX runtime numerical
-verification is unavailable without a custom pooling runtime implementation.
-
-Both INT8 and BF16 operator audits were saved before trying AFE. In addition to
-the unknown custom pooling node, the unsimplified graph contains shape operations
-not represented in the audit DB. INT8 audit flags Gather; BF16 flags Softplus.
-These audit findings are not all compiler failures: the actual attempt stops at
-the custom operation first.
+Run the existing host tests with an appropriate validation environment:
 
 ```bash
-source /home/ashishnegi/.bashrc
-activate-model-compiler
-python scripts/export_full_upstream.py
-python /home/ashishnegi/.codex/skills/sima-model-surgery/scripts/model_surgery_guard.py audit-model --model artifacts/full-upstream/flashocc_m0_original.onnx --dtype int8 --json > artifacts/full-upstream/original.int8.audit.json
-python /home/ashishnegi/.codex/skills/sima-model-surgery/scripts/model_surgery_guard.py audit-model --model artifacts/full-upstream/flashocc_m0_original.onnx --dtype bfloat16 --json > artifacts/full-upstream/original.bfloat16.audit.json
-python scripts/try_compile_full_upstream.py
+python3 -m unittest discover -s tests -v
+python3 -m unittest viewer.test_server -v
+python3 -m unittest discover -s qat/tests -v
 ```
 
-The direct import API binds representative shapes and float32/int32 types without
-altering the original ONNX file. The import attempt is intentional despite audit
-warnings, to answer whether the original custom operation is accepted by AFE.
-AFE reports:
-
-```text
-The following operators are not supported for frontend ONNX: bev_pool_v2
-Loading into TVM error.
-```
-
-Consequently, no quantization, accelerator partitioning or ELF compilation occurs.
-The SDK terminates with SystemExit even though importing failed; the diagnostic
-script catches this and records `imported=false`, `quantized=false`, and
-`compiled=false`. Export details, audits, import traceback and compile result are
-saved under `artifacts/full-upstream/`.
-
-## Modalix application
-
-The complete C++ replay application now runs the compiled camera and BEV models
-with threaded ARM NEON pooling and label selection on Modalix. See
-[app/README.md](app/README.md) for build/run commands, input/output contracts and
-measured device results. Eight real six-camera samples passed two repeat runs;
-independent tensor checks confirmed exact CPU pooling and label selection.
-
-The [Insight demo](app/INSIGHT.md) consumes six real RTSP camera clips on Modalix
-and displays live occupancy projections and BEV grids in the Insight viewer.
-Its [execution settings](app/EXECUTION.md) select six sequential camera calls or
-one spatially packed call, ARM or EV74 camera preprocessing, independent
-camera/BEV pre/post placement, model archives and CPU worker counts. Use
-`app/execution-packed.json` to run the packed camera model in the complete app.
-Use `app/execution-packed3.json` for the intermediate configuration: two
-sequential calls with three cameras packed into each input. Use
-`app/execution-packed2.json` for three calls with two cameras per input. All packed
-variants keep network batch size one; [model benchmarks](app/MODEL_BENCHMARK.md)
-compare their measured performance.
-
+ARM pooling/raycast/stream tests and device inference must also run on Modalix
+when application behavior changes. Historical measurements and compiler/runtime
+investigations remain in [docs/experiments](docs/experiments/FLASHOCC_HISTORY.md).
