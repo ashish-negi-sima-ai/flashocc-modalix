@@ -1,3 +1,8 @@
 artifacts/
 __pycache__/
 *.pyc
+
+# Local datasets and evaluation inputs/results
+/gt/
+/accuracy_reports/
+/accuracy-reports
