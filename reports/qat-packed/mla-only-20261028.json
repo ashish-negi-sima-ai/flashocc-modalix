@@ -1,0 +1,4664 @@
+{
+  "timestamp_utc": "2026-10-28T16:14:33.960689+00:00",
+  "hostname": "modalix",
+  "uname": [
+    "Linux",
+    "modalix",
+    "6.18.3-modalix",
+    "#4837 SMP PREEMPT Wed Aug 19 18:44:13 UTC 2026",
+    "aarch64",
+    ""
+  ],
+  "scope": "Direct MLA ELF; tile.lat is hardware execution; no Neat, EV74 or app",
+  "input": "No IFM file supplied; mla-rt default input allocation; no accuracy check",
+  "sampling": {
+    "samples_per_process": 1000,
+    "repeats": 3,
+    "layer_repeats": 3,
+    "warmup": "No samples removed; process/load time excluded from tile.lat"
+  },
+  "mla_rt_version": "mla_rt git revision: 5382955  (HEAD -> master, origin/master, origin/HEAD)",
+  "mla_rt_sha256": "cd1f6fb11b01cb266a8941031c22b1d563948328d298257297e2d7278c4c9189",
+  "benchmark_script_sha256": "f9f81638f8d61d911a0d69d854ac5720b2da312474502bf6801b68508fc04a12",
+  "before": {
+    "appcomplex_active": "active",
+    "appcomplex_enabled": "enabled",
+    "mla_frequency_hz": 1000000000
+  },
+  "during": {
+    "appcomplex_active": "inactive",
+    "appcomplex_enabled": "disabled",
+    "mla_frequency_hz": 1000000000
+  },
+  "after": {
+    "appcomplex_active": "active",
+    "appcomplex_enabled": "enabled",
+    "mla_frequency_hz": 1000000000
+  },
+  "completed": true,
+  "raw_results": {
+    "path": "artifacts/mla-only-20261028/validated/results.json",
+    "sha256": "e7bc3bfe1544625c431c835b5a82b421fe07d11069e345ef871aeba52a49141d"
+  },
+  "models": {
+    "sequential-camera": {
+      "archive": "/workspace/GitHub/occupancy-prediction/artifacts/compile_with_qat_better_accuracy/flashocc_m0_camera_mpk.tar.gz",
+      "archive_sha256": "a66706506cccb06385c7a9700675dec7d74d3d4a256627cc159d20f7ea050ad0",
+      "members": [
+        {
+          "path": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/sequential-camera/flashocc_m0_camera_stage1_mla.elf",
+          "bytes": 28186496,
+          "sha256": "fa8e068b0a482df76d81dc1aec04ac69122b845b3d352cb233266ed56bfcc23f"
+        },
+        {
+          "path": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/sequential-camera/flashocc_m0_camera_stage1_mla_stats.yaml",
+          "bytes": 6202,
+          "sha256": "ccc45183650a3a0adf23bad9fd0b039fc05f558731065b9540197c539d753da1"
+        }
+      ],
+      "mean_tile_ms": 1.282969,
+      "mean_direct_api_ms": 1.3799936666666668,
+      "calls_per_six_camera_update": 6,
+      "whole_elf_trials": [
+        {
+          "stats_us": {
+            "filesize": 28186496,
+            "tile.lat": {
+              "avg": 1282.966,
+              "runcount": 1000,
+              "min": 1282.631,
+              "max": 1283.629,
+              "std": 0.035
+            },
+            "api.lat": {
+              "avg": 1380.549,
+              "runcount": 1000,
+              "min": 1375.0,
+              "max": 1468.0,
+              "std": 6.23
+            },
+            "model.lat": {
+              "avg": 1350.175,
+              "runcount": 1000,
+              "min": 1348.0,
+              "max": 1367.0,
+              "std": 1.29
+            },
+            "gap.lat": {
+              "avg": 30.828,
+              "runcount": 999,
+              "min": 28.0,
+              "max": 71.0,
+              "std": 2.776
+            }
+          },
+          "environment": {
+            "appcomplex_active": "inactive",
+            "appcomplex_enabled": "disabled",
+            "mla_frequency_hz": 1000000000
+          },
+          "command": [
+            "sudo",
+            "-n",
+            "mla-rt",
+            "-a",
+            "mod,a65",
+            "-m",
+            "1000",
+            "-vs:usec:3",
+            "--stats",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/sequential-camera/whole-0.yaml",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/sequential-camera/flashocc_m0_camera_stage1_mla.elf"
+          ],
+          "log": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/sequential-camera/whole-0.log"
+        },
+        {
+          "stats_us": {
+            "filesize": 28186496,
+            "tile.lat": {
+              "avg": 1282.972,
+              "runcount": 1000,
+              "min": 1282.648,
+              "max": 1286.033,
+              "std": 0.101
+            },
+            "api.lat": {
+              "avg": 1379.678,
+              "runcount": 1000,
+              "min": 1373.0,
+              "max": 1461.0,
+              "std": 6.162
+            },
+            "model.lat": {
+              "avg": 1350.211,
+              "runcount": 1000,
+              "min": 1348.0,
+              "max": 1365.0,
+              "std": 1.265
+            },
+            "gap.lat": {
+              "avg": 30.023,
+              "runcount": 999,
+              "min": 26.0,
+              "max": 70.0,
+              "std": 2.303
+            }
+          },
+          "environment": {
+            "appcomplex_active": "inactive",
+            "appcomplex_enabled": "disabled",
+            "mla_frequency_hz": 1000000000
+          },
+          "command": [
+            "sudo",
+            "-n",
+            "mla-rt",
+            "-a",
+            "mod,a65",
+            "-m",
+            "1000",
+            "-vs:usec:3",
+            "--stats",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/sequential-camera/whole-1.yaml",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/sequential-camera/flashocc_m0_camera_stage1_mla.elf"
+          ],
+          "log": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/sequential-camera/whole-1.log"
+        },
+        {
+          "stats_us": {
+            "filesize": 28186496,
+            "tile.lat": {
+              "avg": 1282.969,
+              "runcount": 1000,
+              "min": 1282.663,
+              "max": 1284.66,
+              "std": 0.067
+            },
+            "api.lat": {
+              "avg": 1379.754,
+              "runcount": 1000,
+              "min": 1372.0,
+              "max": 1461.0,
+              "std": 6.324
+            },
+            "model.lat": {
+              "avg": 1350.113,
+              "runcount": 1000,
+              "min": 1347.0,
+              "max": 1366.0,
+              "std": 1.239
+            },
+            "gap.lat": {
+              "avg": 30.091,
+              "runcount": 999,
+              "min": 25.0,
+              "max": 90.0,
+              "std": 2.869
+            }
+          },
+          "environment": {
+            "appcomplex_active": "inactive",
+            "appcomplex_enabled": "disabled",
+            "mla_frequency_hz": 1000000000
+          },
+          "command": [
+            "sudo",
+            "-n",
+            "mla-rt",
+            "-a",
+            "mod,a65",
+            "-m",
+            "1000",
+            "-vs:usec:3",
+            "--stats",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/sequential-camera/whole-2.yaml",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/sequential-camera/flashocc_m0_camera_stage1_mla.elf"
+          ],
+          "log": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/sequential-camera/whole-2.log"
+        }
+      ],
+      "counter_profile_us": {
+        "filesize": 28186496,
+        "tile.lat": {
+          "avg": 1282.976,
+          "runcount": 1000,
+          "min": 1282.649,
+          "max": 1283.525,
+          "std": 0.028
+        },
+        "api.lat": {
+          "avg": 1426.285,
+          "runcount": 1000,
+          "min": 1413.0,
+          "max": 1531.0,
+          "std": 8.908
+        },
+        "model.lat": {
+          "avg": 1350.427,
+          "runcount": 1000,
+          "min": 1348.0,
+          "max": 1373.0,
+          "std": 1.45
+        },
+        "gap.lat": {
+          "avg": 77.478,
+          "runcount": 999,
+          "min": 65.0,
+          "max": 162.0,
+          "std": 5.91
+        },
+        "tile_active": {
+          "avg": 1231.563,
+          "runcount": 1000,
+          "min": 1231.563,
+          "max": 1231.563,
+          "std": 0.0
+        },
+        "sync_frz": {
+          "avg": 50.289,
+          "runcount": 1000,
+          "min": 49.967,
+          "max": 50.839,
+          "std": 0.028
+        },
+        "iq_sync_frz": {
+          "avg": 3.671,
+          "runcount": 1000,
+          "min": 3.09,
+          "max": 3.854,
+          "std": 0.05
+        },
+        "d_sync_frz": {
+          "avg": 50.289,
+          "runcount": 1000,
+          "min": 49.967,
+          "max": 50.839,
+          "std": 0.028
+        }
+      },
+      "layer_profiles": [
+        {
+          "name": "MLA_0/conv2d_add_relu_0",
+          "start_cycle": 0,
+          "end_cycle": 104966,
+          "id": 1,
+          "run_time_mean_us": 156.49,
+          "layer_latency_mean_us": 157.69,
+          "active_time_mean_us": 104.96,
+          "l2_freeze_mean_us": 50.26,
+          "iq_freeze_mean_us": 3.6233333333333335
+        },
+        {
+          "name": "MLA_0/max_pool2d_1",
+          "start_cycle": 104967,
+          "end_cycle": 117191,
+          "id": 2,
+          "run_time_mean_us": 14.21,
+          "layer_latency_mean_us": 14.33,
+          "active_time_mean_us": 12.22,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_2",
+          "start_cycle": 117192,
+          "end_cycle": 119845,
+          "id": 3,
+          "run_time_mean_us": 4.56,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 2.65,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_3",
+          "start_cycle": 119846,
+          "end_cycle": 143119,
+          "id": 4,
+          "run_time_mean_us": 25.29,
+          "layer_latency_mean_us": 25.6,
+          "active_time_mean_us": 23.27,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_4",
+          "start_cycle": 143120,
+          "end_cycle": 152433,
+          "id": 5,
+          "run_time_mean_us": 11.23,
+          "layer_latency_mean_us": 11.26,
+          "active_time_mean_us": 9.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_5",
+          "start_cycle": 152434,
+          "end_cycle": 161747,
+          "id": 6,
+          "run_time_mean_us": 11.23,
+          "layer_latency_mean_us": 11.26,
+          "active_time_mean_us": 9.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_6",
+          "start_cycle": 161748,
+          "end_cycle": 166060,
+          "id": 7,
+          "run_time_mean_us": 6.26,
+          "layer_latency_mean_us": 6.14,
+          "active_time_mean_us": 4.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_7",
+          "start_cycle": 166061,
+          "end_cycle": 176442,
+          "id": 8,
+          "run_time_mean_us": 12.37,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 10.38,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_8",
+          "start_cycle": 176443,
+          "end_cycle": 199716,
+          "id": 9,
+          "run_time_mean_us": 25.29,
+          "layer_latency_mean_us": 25.6,
+          "active_time_mean_us": 23.27,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_9",
+          "start_cycle": 199717,
+          "end_cycle": 209030,
+          "id": 10,
+          "run_time_mean_us": 11.23,
+          "layer_latency_mean_us": 11.26,
+          "active_time_mean_us": 9.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_10",
+          "start_cycle": 209031,
+          "end_cycle": 213344,
+          "id": 11,
+          "run_time_mean_us": 6.26,
+          "layer_latency_mean_us": 6.14,
+          "active_time_mean_us": 4.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_11",
+          "start_cycle": 213345,
+          "end_cycle": 223726,
+          "id": 12,
+          "run_time_mean_us": 12.37,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 10.38,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_12",
+          "start_cycle": 223727,
+          "end_cycle": 247000,
+          "id": 13,
+          "run_time_mean_us": 25.29,
+          "layer_latency_mean_us": 25.6,
+          "active_time_mean_us": 23.27,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_13",
+          "start_cycle": 247001,
+          "end_cycle": 256314,
+          "id": 14,
+          "run_time_mean_us": 11.23,
+          "layer_latency_mean_us": 11.26,
+          "active_time_mean_us": 9.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_14",
+          "start_cycle": 256315,
+          "end_cycle": 260628,
+          "id": 15,
+          "run_time_mean_us": 6.26,
+          "layer_latency_mean_us": 6.14,
+          "active_time_mean_us": 4.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_15",
+          "start_cycle": 260629,
+          "end_cycle": 279338,
+          "id": 16,
+          "run_time_mean_us": 20.6,
+          "layer_latency_mean_us": 20.48,
+          "active_time_mean_us": 18.71,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_16",
+          "start_cycle": 279339,
+          "end_cycle": 304590,
+          "id": 17,
+          "run_time_mean_us": 27.28,
+          "layer_latency_mean_us": 27.64,
+          "active_time_mean_us": 25.25,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_17",
+          "start_cycle": 304591,
+          "end_cycle": 315077,
+          "id": 18,
+          "run_time_mean_us": 12.51,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 10.48,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_18",
+          "start_cycle": 315078,
+          "end_cycle": 340121,
+          "id": 19,
+          "run_time_mean_us": 26.99,
+          "layer_latency_mean_us": 26.62,
+          "active_time_mean_us": 25.04,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_19",
+          "start_cycle": 340122,
+          "end_cycle": 342295,
+          "id": 20,
+          "run_time_mean_us": 4.13,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 2.17,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_20",
+          "start_cycle": 342296,
+          "end_cycle": 355982,
+          "id": 21,
+          "run_time_mean_us": 15.62,
+          "layer_latency_mean_us": 15.36,
+          "active_time_mean_us": 13.68,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_21",
+          "start_cycle": 355983,
+          "end_cycle": 379159,
+          "id": 22,
+          "run_time_mean_us": 25.15,
+          "layer_latency_mean_us": 25.6,
+          "active_time_mean_us": 23.17,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_22",
+          "start_cycle": 379160,
+          "end_cycle": 389646,
+          "id": 23,
+          "run_time_mean_us": 12.51,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 10.48,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_23",
+          "start_cycle": 389647,
+          "end_cycle": 391820,
+          "id": 24,
+          "run_time_mean_us": 4.13,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 2.17,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_24",
+          "start_cycle": 391821,
+          "end_cycle": 401746,
+          "id": 25,
+          "run_time_mean_us": 11.94,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 9.92,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_25",
+          "start_cycle": 401747,
+          "end_cycle": 424003,
+          "id": 26,
+          "run_time_mean_us": 24.15,
+          "layer_latency_mean_us": 24.57,
+          "active_time_mean_us": 22.25,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_26",
+          "start_cycle": 424004,
+          "end_cycle": 434490,
+          "id": 27,
+          "run_time_mean_us": 12.51,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 10.48,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_27",
+          "start_cycle": 434491,
+          "end_cycle": 436664,
+          "id": 28,
+          "run_time_mean_us": 4.13,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 2.17,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_28",
+          "start_cycle": 436665,
+          "end_cycle": 446590,
+          "id": 29,
+          "run_time_mean_us": 11.94,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 9.92,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_29",
+          "start_cycle": 446591,
+          "end_cycle": 468847,
+          "id": 30,
+          "run_time_mean_us": 24.15,
+          "layer_latency_mean_us": 24.57,
+          "active_time_mean_us": 22.25,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_30",
+          "start_cycle": 468848,
+          "end_cycle": 479334,
+          "id": 31,
+          "run_time_mean_us": 12.51,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 10.48,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_31",
+          "start_cycle": 479335,
+          "end_cycle": 482551,
+          "id": 32,
+          "run_time_mean_us": 5.13,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 3.21,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_32",
+          "start_cycle": 482552,
+          "end_cycle": 501237,
+          "id": 33,
+          "run_time_mean_us": 20.6,
+          "layer_latency_mean_us": 20.48,
+          "active_time_mean_us": 18.68,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_33",
+          "start_cycle": 501238,
+          "end_cycle": 541074,
+          "id": 34,
+          "run_time_mean_us": 41.76,
+          "layer_latency_mean_us": 41.98,
+          "active_time_mean_us": 39.83,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_34",
+          "start_cycle": 541075,
+          "end_cycle": 552381,
+          "id": 35,
+          "run_time_mean_us": 13.22,
+          "layer_latency_mean_us": 13.31,
+          "active_time_mean_us": 11.3,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_35",
+          "start_cycle": 552382,
+          "end_cycle": 587013,
+          "id": 36,
+          "run_time_mean_us": 36.65,
+          "layer_latency_mean_us": 36.86,
+          "active_time_mean_us": 34.63,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_36",
+          "start_cycle": 587014,
+          "end_cycle": 588147,
+          "id": 37,
+          "run_time_mean_us": 3.14,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.13,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_37",
+          "start_cycle": 588148,
+          "end_cycle": 603977,
+          "id": 38,
+          "run_time_mean_us": 17.76,
+          "layer_latency_mean_us": 17.4,
+          "active_time_mean_us": 15.83,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_38",
+          "start_cycle": 603978,
+          "end_cycle": 629346,
+          "id": 39,
+          "run_time_mean_us": 27.28,
+          "layer_latency_mean_us": 27.64,
+          "active_time_mean_us": 25.36,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_39",
+          "start_cycle": 629347,
+          "end_cycle": 640653,
+          "id": 40,
+          "run_time_mean_us": 13.22,
+          "layer_latency_mean_us": 13.31,
+          "active_time_mean_us": 11.3,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_40",
+          "start_cycle": 640654,
+          "end_cycle": 641787,
+          "id": 41,
+          "run_time_mean_us": 3.14,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.13,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_41",
+          "start_cycle": 641788,
+          "end_cycle": 657617,
+          "id": 42,
+          "run_time_mean_us": 17.76,
+          "layer_latency_mean_us": 17.4,
+          "active_time_mean_us": 15.83,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_42",
+          "start_cycle": 657618,
+          "end_cycle": 682986,
+          "id": 43,
+          "run_time_mean_us": 27.28,
+          "layer_latency_mean_us": 27.64,
+          "active_time_mean_us": 25.36,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_43",
+          "start_cycle": 682987,
+          "end_cycle": 694293,
+          "id": 44,
+          "run_time_mean_us": 13.22,
+          "layer_latency_mean_us": 13.31,
+          "active_time_mean_us": 11.3,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_44",
+          "start_cycle": 694294,
+          "end_cycle": 695427,
+          "id": 45,
+          "run_time_mean_us": 3.14,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.13,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_45",
+          "start_cycle": 695428,
+          "end_cycle": 711257,
+          "id": 46,
+          "run_time_mean_us": 17.76,
+          "layer_latency_mean_us": 17.4,
+          "active_time_mean_us": 15.83,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_46",
+          "start_cycle": 711258,
+          "end_cycle": 736626,
+          "id": 47,
+          "run_time_mean_us": 27.28,
+          "layer_latency_mean_us": 27.64,
+          "active_time_mean_us": 25.36,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_47",
+          "start_cycle": 736627,
+          "end_cycle": 747933,
+          "id": 48,
+          "run_time_mean_us": 13.22,
+          "layer_latency_mean_us": 13.31,
+          "active_time_mean_us": 11.3,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_48",
+          "start_cycle": 747934,
+          "end_cycle": 749067,
+          "id": 49,
+          "run_time_mean_us": 3.14,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.13,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_49",
+          "start_cycle": 749068,
+          "end_cycle": 764897,
+          "id": 50,
+          "run_time_mean_us": 17.76,
+          "layer_latency_mean_us": 17.4,
+          "active_time_mean_us": 15.83,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_50",
+          "start_cycle": 764898,
+          "end_cycle": 790266,
+          "id": 51,
+          "run_time_mean_us": 27.28,
+          "layer_latency_mean_us": 27.64,
+          "active_time_mean_us": 25.36,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_51",
+          "start_cycle": 790267,
+          "end_cycle": 801573,
+          "id": 52,
+          "run_time_mean_us": 13.22,
+          "layer_latency_mean_us": 13.31,
+          "active_time_mean_us": 11.3,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_52",
+          "start_cycle": 801574,
+          "end_cycle": 802707,
+          "id": 53,
+          "run_time_mean_us": 3.14,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.13,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_53",
+          "start_cycle": 802708,
+          "end_cycle": 818537,
+          "id": 54,
+          "run_time_mean_us": 17.76,
+          "layer_latency_mean_us": 17.4,
+          "active_time_mean_us": 15.83,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_54",
+          "start_cycle": 818538,
+          "end_cycle": 843906,
+          "id": 55,
+          "run_time_mean_us": 27.28,
+          "layer_latency_mean_us": 27.64,
+          "active_time_mean_us": 25.36,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_55",
+          "start_cycle": 843907,
+          "end_cycle": 855213,
+          "id": 56,
+          "run_time_mean_us": 13.22,
+          "layer_latency_mean_us": 13.31,
+          "active_time_mean_us": 11.3,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_56",
+          "start_cycle": 855214,
+          "end_cycle": 856347,
+          "id": 57,
+          "run_time_mean_us": 3.14,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.13,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_57",
+          "start_cycle": 856348,
+          "end_cycle": 872177,
+          "id": 58,
+          "run_time_mean_us": 17.76,
+          "layer_latency_mean_us": 17.4,
+          "active_time_mean_us": 15.83,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_58",
+          "start_cycle": 872178,
+          "end_cycle": 896436,
+          "id": 59,
+          "run_time_mean_us": 26.28,
+          "layer_latency_mean_us": 26.62,
+          "active_time_mean_us": 24.25,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_59",
+          "start_cycle": 896437,
+          "end_cycle": 941657,
+          "id": 60,
+          "run_time_mean_us": 47.15,
+          "layer_latency_mean_us": 47.1,
+          "active_time_mean_us": 45.22,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_60",
+          "start_cycle": 941658,
+          "end_cycle": 961971,
+          "id": 61,
+          "run_time_mean_us": 22.31,
+          "layer_latency_mean_us": 22.52,
+          "active_time_mean_us": 20.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_61",
+          "start_cycle": 961972,
+          "end_cycle": 1002850,
+          "id": 62,
+          "run_time_mean_us": 42.9,
+          "layer_latency_mean_us": 43.0,
+          "active_time_mean_us": 40.87,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_62",
+          "start_cycle": 1002851,
+          "end_cycle": 1004526,
+          "id": 63,
+          "run_time_mean_us": 3.56,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.67,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_63",
+          "start_cycle": 1004527,
+          "end_cycle": 1025691,
+          "id": 64,
+          "run_time_mean_us": 23.16,
+          "layer_latency_mean_us": 23.55,
+          "active_time_mean_us": 21.16,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_64",
+          "start_cycle": 1025692,
+          "end_cycle": 1068478,
+          "id": 65,
+          "run_time_mean_us": 44.74,
+          "layer_latency_mean_us": 45.05,
+          "active_time_mean_us": 42.78,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_65",
+          "start_cycle": 1068479,
+          "end_cycle": 1087772,
+          "id": 66,
+          "run_time_mean_us": 21.31,
+          "layer_latency_mean_us": 21.5,
+          "active_time_mean_us": 19.29,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_66",
+          "start_cycle": 1087773,
+          "end_cycle": 1089967,
+          "id": 67,
+          "run_time_mean_us": 4.12,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 2.19,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_67",
+          "start_cycle": 1089968,
+          "end_cycle": 1111132,
+          "id": 68,
+          "run_time_mean_us": 23.16,
+          "layer_latency_mean_us": 23.55,
+          "active_time_mean_us": 21.16,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_68",
+          "start_cycle": 1111133,
+          "end_cycle": 1153919,
+          "id": 69,
+          "run_time_mean_us": 44.74,
+          "layer_latency_mean_us": 45.05,
+          "active_time_mean_us": 42.78,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_69",
+          "start_cycle": 1153920,
+          "end_cycle": 1173213,
+          "id": 70,
+          "run_time_mean_us": 21.31,
+          "layer_latency_mean_us": 21.5,
+          "active_time_mean_us": 19.29,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_70",
+          "start_cycle": 1173214,
+          "end_cycle": 1174882,
+          "id": 71,
+          "run_time_mean_us": 3.56,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.66,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_71",
+          "start_cycle": 1174883,
+          "end_cycle": 1187595,
+          "id": 72,
+          "run_time_mean_us": 14.64,
+          "layer_latency_mean_us": 14.33,
+          "active_time_mean_us": 12.71,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/image.resize2d_72/0",
+          "start_cycle": 1187596,
+          "end_cycle": 1187982,
+          "id": 73,
+          "run_time_mean_us": 2.68,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.38,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_73",
+          "start_cycle": 1187983,
+          "end_cycle": 1188617,
+          "id": 74,
+          "run_time_mean_us": 2.71,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.63,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_74",
+          "start_cycle": 1188618,
+          "end_cycle": 1213986,
+          "id": 75,
+          "run_time_mean_us": 27.28,
+          "layer_latency_mean_us": 27.64,
+          "active_time_mean_us": 25.36,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_75",
+          "start_cycle": 1213987,
+          "end_cycle": 1217155,
+          "id": 76,
+          "run_time_mean_us": 5.12,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 3.16,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_78",
+          "start_cycle": 1217156,
+          "end_cycle": 1219024,
+          "id": 77,
+          "run_time_mean_us": 3.85,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 1.86,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_78_output",
+          "start_cycle": 1219025,
+          "end_cycle": 1223373,
+          "id": 78,
+          "run_time_mean_us": 6.26,
+          "layer_latency_mean_us": 6.14,
+          "active_time_mean_us": 4.34,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_76",
+          "start_cycle": 1223374,
+          "end_cycle": 1225370,
+          "id": 79,
+          "run_time_mean_us": 3.99,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 1.99,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/softmax_77",
+          "start_cycle": 1225371,
+          "end_cycle": 1227507,
+          "id": 80,
+          "run_time_mean_us": 4.13,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 2.13,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/softmax_77_output",
+          "start_cycle": 1227508,
+          "end_cycle": 1231529,
+          "id": 81,
+          "run_time_mean_us": 5.97,
+          "layer_latency_mean_us": 6.14,
+          "active_time_mean_us": 4.02,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        }
+      ],
+      "layer_profile_sum_run_time_us": [
+        1440.01,
+        1440.01,
+        1440.01
+      ],
+      "layer_count": 81,
+      "compiler_last_end_cycle": 1231529
+    },
+    "packed3-camera": {
+      "archive": "/workspace/GitHub/occupancy-prediction/artifacts/compile_with_qat_better_accuracy/compile-qat-packed3/flashocc_m0_camera_mpk.tar.gz",
+      "archive_sha256": "34ba43166fed41fdd2efa4c85e46bacb97fe4ae3a38f7ca4e921cd3c20b6a253",
+      "members": [
+        {
+          "path": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/packed3-camera/flashocc_m0_camera_stage1_mla.elf",
+          "bytes": 37576496,
+          "sha256": "1e277ebd521d4e88d79b11a9590657c4ad6da3460df600488f781057f7eefc34"
+        },
+        {
+          "path": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/packed3-camera/flashocc_m0_camera_stage1_mla_stats.yaml",
+          "bytes": 15058,
+          "sha256": "ae0059fcd62cbda7d9ec5892669827b076275dbcac270a3675dd7d06ac85d002"
+        }
+      ],
+      "mean_tile_ms": 4.467031333333333,
+      "mean_direct_api_ms": 4.539353666666667,
+      "calls_per_six_camera_update": 2,
+      "whole_elf_trials": [
+        {
+          "stats_us": {
+            "filesize": 37576496,
+            "tile.lat": {
+              "avg": 4467.005,
+              "runcount": 1000,
+              "min": 4466.398,
+              "max": 4469.637,
+              "std": 0.188
+            },
+            "api.lat": {
+              "avg": 4539.111,
+              "runcount": 1000,
+              "min": 4532.0,
+              "max": 4681.0,
+              "std": 9.727
+            },
+            "model.lat": {
+              "avg": 4533.279,
+              "runcount": 1000,
+              "min": 4530.0,
+              "max": 4612.0,
+              "std": 1.272
+            },
+            "gap.lat": {
+              "avg": 4.139,
+              "runcount": 999,
+              "min": 3.0,
+              "max": 13.0,
+              "std": 0.662
+            }
+          },
+          "environment": {
+            "appcomplex_active": "inactive",
+            "appcomplex_enabled": "disabled",
+            "mla_frequency_hz": 1000000000
+          },
+          "command": [
+            "sudo",
+            "-n",
+            "mla-rt",
+            "-a",
+            "mod,a65",
+            "-m",
+            "1000",
+            "-vs:usec:3",
+            "--stats",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/packed3-camera/whole-0.yaml",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/packed3-camera/flashocc_m0_camera_stage1_mla.elf"
+          ],
+          "log": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/packed3-camera/whole-0.log"
+        },
+        {
+          "stats_us": {
+            "filesize": 37576496,
+            "tile.lat": {
+              "avg": 4467.017,
+              "runcount": 1000,
+              "min": 4466.407,
+              "max": 4470.735,
+              "std": 0.283
+            },
+            "api.lat": {
+              "avg": 4538.879,
+              "runcount": 1000,
+              "min": 4533.0,
+              "max": 4681.0,
+              "std": 9.403
+            },
+            "model.lat": {
+              "avg": 4532.918,
+              "runcount": 1000,
+              "min": 4531.0,
+              "max": 4545.0,
+              "std": 0.949
+            },
+            "gap.lat": {
+              "avg": 4.308,
+              "runcount": 999,
+              "min": 3.0,
+              "max": 11.0,
+              "std": 0.381
+            }
+          },
+          "environment": {
+            "appcomplex_active": "inactive",
+            "appcomplex_enabled": "disabled",
+            "mla_frequency_hz": 1000000000
+          },
+          "command": [
+            "sudo",
+            "-n",
+            "mla-rt",
+            "-a",
+            "mod,a65",
+            "-m",
+            "1000",
+            "-vs:usec:3",
+            "--stats",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/packed3-camera/whole-1.yaml",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/packed3-camera/flashocc_m0_camera_stage1_mla.elf"
+          ],
+          "log": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/packed3-camera/whole-1.log"
+        },
+        {
+          "stats_us": {
+            "filesize": 37576496,
+            "tile.lat": {
+              "avg": 4467.072,
+              "runcount": 1000,
+              "min": 4466.323,
+              "max": 4470.714,
+              "std": 0.324
+            },
+            "api.lat": {
+              "avg": 4540.071,
+              "runcount": 1000,
+              "min": 4533.0,
+              "max": 4678.0,
+              "std": 9.214
+            },
+            "model.lat": {
+              "avg": 4533.957,
+              "runcount": 1000,
+              "min": 4531.0,
+              "max": 4545.0,
+              "std": 1.072
+            },
+            "gap.lat": {
+              "avg": 4.66,
+              "runcount": 999,
+              "min": 3.0,
+              "max": 12.0,
+              "std": 0.457
+            }
+          },
+          "environment": {
+            "appcomplex_active": "inactive",
+            "appcomplex_enabled": "disabled",
+            "mla_frequency_hz": 1000000000
+          },
+          "command": [
+            "sudo",
+            "-n",
+            "mla-rt",
+            "-a",
+            "mod,a65",
+            "-m",
+            "1000",
+            "-vs:usec:3",
+            "--stats",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/packed3-camera/whole-2.yaml",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/packed3-camera/flashocc_m0_camera_stage1_mla.elf"
+          ],
+          "log": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/packed3-camera/whole-2.log"
+        }
+      ],
+      "counter_profile_us": {
+        "filesize": 37576496,
+        "tile.lat": {
+          "avg": 4467.042,
+          "runcount": 1000,
+          "min": 4466.241,
+          "max": 4471.055,
+          "std": 0.267
+        },
+        "api.lat": {
+          "avg": 4614.291,
+          "runcount": 1000,
+          "min": 4591.0,
+          "max": 4813.0,
+          "std": 12.879
+        },
+        "model.lat": {
+          "avg": 4532.878,
+          "runcount": 1000,
+          "min": 4531.0,
+          "max": 4544.0,
+          "std": 0.974
+        },
+        "gap.lat": {
+          "avg": 78.536,
+          "runcount": 999,
+          "min": 61.0,
+          "max": 94.0,
+          "std": 3.043
+        },
+        "tile_active": {
+          "avg": 3890.053,
+          "runcount": 1000,
+          "min": 3890.053,
+          "max": 3890.053,
+          "std": 0.0
+        },
+        "sync_frz": {
+          "avg": 574.219,
+          "runcount": 1000,
+          "min": 573.418,
+          "max": 578.233,
+          "std": 0.267
+        },
+        "iq_sync_frz": {
+          "avg": 3.657,
+          "runcount": 1000,
+          "min": 3.166,
+          "max": 3.843,
+          "std": 0.056
+        },
+        "d_sync_frz": {
+          "avg": 574.219,
+          "runcount": 1000,
+          "min": 573.418,
+          "max": 578.233,
+          "std": 0.267
+        }
+      },
+      "layer_profiles": [
+        {
+          "name": "MLA_0/conv2d_add_relu_0_segment_0",
+          "start_cycle": 0,
+          "end_cycle": 58855,
+          "id": 6,
+          "run_time_mean_us": 89.53333333333333,
+          "layer_latency_mean_us": 90.11,
+          "active_time_mean_us": 58.85,
+          "l2_freeze_mean_us": 29.36,
+          "iq_freeze_mean_us": 3.83
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_0_segment_1",
+          "start_cycle": 58856,
+          "end_cycle": 117001,
+          "id": 7,
+          "run_time_mean_us": 60.07,
+          "layer_latency_mean_us": 60.41,
+          "active_time_mean_us": 58.14,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_0_segment_2",
+          "start_cycle": 117002,
+          "end_cycle": 171321,
+          "id": 8,
+          "run_time_mean_us": 56.25,
+          "layer_latency_mean_us": 56.32,
+          "active_time_mean_us": 54.32,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_0_2_MLA_0/multiply_2_1",
+          "start_cycle": 171322,
+          "end_cycle": 172217,
+          "id": 9,
+          "run_time_mean_us": 2.85,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.89,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_0_2_MLA_0/multiply_2_0",
+          "start_cycle": 172218,
+          "end_cycle": 177833,
+          "id": 10,
+          "run_time_mean_us": 7.54,
+          "layer_latency_mean_us": 7.16,
+          "active_time_mean_us": 5.61,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "concat_MLA_0/conv2d_add_relu_0_MLA_0/multiply_2_0",
+          "start_cycle": 177834,
+          "end_cycle": 192741,
+          "id": 11,
+          "run_time_mean_us": 16.91,
+          "layer_latency_mean_us": 17.4,
+          "active_time_mean_us": 14.9,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_2_in1_loader_MLA_0/constant_1_MLA_0/multiply_2_in1_broadcast_0",
+          "start_cycle": 192742,
+          "end_cycle": 193484,
+          "id": 12,
+          "run_time_mean_us": 2.71,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.74,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_2_in1_broadcast_segment_0",
+          "start_cycle": 193485,
+          "end_cycle": 201570,
+          "id": 13,
+          "run_time_mean_us": 10.1,
+          "layer_latency_mean_us": 10.24,
+          "active_time_mean_us": 8.08,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_2_segment_0",
+          "start_cycle": 201571,
+          "end_cycle": 260189,
+          "id": 14,
+          "run_time_mean_us": 60.51,
+          "layer_latency_mean_us": 60.41,
+          "active_time_mean_us": 58.61,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/multiply_2_0_MLA_0/max_pool2d_3_1",
+          "start_cycle": 260190,
+          "end_cycle": 260500,
+          "id": 15,
+          "run_time_mean_us": 2.69,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/max_pool2d_3_segment_0",
+          "start_cycle": 260501,
+          "end_cycle": 289381,
+          "id": 16,
+          "run_time_mean_us": 30.81,
+          "layer_latency_mean_us": 30.72,
+          "active_time_mean_us": 28.88,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_0_segment_3",
+          "start_cycle": 289382,
+          "end_cycle": 343701,
+          "id": 17,
+          "run_time_mean_us": 56.25,
+          "layer_latency_mean_us": 56.32,
+          "active_time_mean_us": 54.32,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_0_segment_4",
+          "start_cycle": 343702,
+          "end_cycle": 398021,
+          "id": 18,
+          "run_time_mean_us": 56.25,
+          "layer_latency_mean_us": 56.32,
+          "active_time_mean_us": 54.32,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_0_segment_5",
+          "start_cycle": 398022,
+          "end_cycle": 452341,
+          "id": 19,
+          "run_time_mean_us": 56.25,
+          "layer_latency_mean_us": 56.32,
+          "active_time_mean_us": 54.32,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "concat_MLA_0/conv2d_add_relu_0_MLA_0/multiply_2_1",
+          "start_cycle": 452342,
+          "end_cycle": 469508,
+          "id": 20,
+          "run_time_mean_us": 36.28,
+          "layer_latency_mean_us": 35.84,
+          "active_time_mean_us": 17.16,
+          "l2_freeze_mean_us": 17.14,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_2_in1_loader_MLA_0/constant_1_MLA_0/multiply_2_in1_broadcast_1",
+          "start_cycle": 469509,
+          "end_cycle": 470251,
+          "id": 21,
+          "run_time_mean_us": 2.71,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.74,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_2_in1_broadcast_segment_1",
+          "start_cycle": 470252,
+          "end_cycle": 478337,
+          "id": 22,
+          "run_time_mean_us": 10.1,
+          "layer_latency_mean_us": 10.24,
+          "active_time_mean_us": 8.08,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_2_segment_1",
+          "start_cycle": 478338,
+          "end_cycle": 536956,
+          "id": 23,
+          "run_time_mean_us": 60.51,
+          "layer_latency_mean_us": 60.41,
+          "active_time_mean_us": 58.61,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "concat_MLA_0/multiply_2_MLA_0/max_pool2d_3_1",
+          "start_cycle": 536957,
+          "end_cycle": 545697,
+          "id": 24,
+          "run_time_mean_us": 10.66,
+          "layer_latency_mean_us": 10.24,
+          "active_time_mean_us": 8.74,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/max_pool2d_3_segment_1",
+          "start_cycle": 545698,
+          "end_cycle": 565836,
+          "id": 25,
+          "run_time_mean_us": 22.02,
+          "layer_latency_mean_us": 22.52,
+          "active_time_mean_us": 20.13,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "concat_MLA_0/max_pool2d_3_MLA_0/conv2d_add_relu_4_0",
+          "start_cycle": 565837,
+          "end_cycle": 576102,
+          "id": 26,
+          "run_time_mean_us": 12.22,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 10.26,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_4",
+          "start_cycle": 576103,
+          "end_cycle": 583536,
+          "id": 27,
+          "run_time_mean_us": 9.38,
+          "layer_latency_mean_us": 9.21,
+          "active_time_mean_us": 7.43,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_6_in1_loader_MLA_0/constant_5",
+          "start_cycle": 583537,
+          "end_cycle": 583927,
+          "id": 28,
+          "run_time_mean_us": 2.68,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.39,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_6_in1_broadcast",
+          "start_cycle": 583928,
+          "end_cycle": 587099,
+          "id": 29,
+          "run_time_mean_us": 5.12,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 3.17,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_6",
+          "start_cycle": 587100,
+          "end_cycle": 619103,
+          "id": 30,
+          "run_time_mean_us": 33.95,
+          "layer_latency_mean_us": 33.79,
+          "active_time_mean_us": 32.0,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_7",
+          "start_cycle": 619104,
+          "end_cycle": 680610,
+          "id": 31,
+          "run_time_mean_us": 63.49,
+          "layer_latency_mean_us": 63.48,
+          "active_time_mean_us": 61.5,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_7_0_MLA_0/conv2d_add_8_1",
+          "start_cycle": 680611,
+          "end_cycle": 686204,
+          "id": 32,
+          "run_time_mean_us": 7.53,
+          "layer_latency_mean_us": 7.16,
+          "active_time_mean_us": 5.59,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_8_segment_0",
+          "start_cycle": 686205,
+          "end_cycle": 706528,
+          "id": 33,
+          "run_time_mean_us": 22.31,
+          "layer_latency_mean_us": 22.52,
+          "active_time_mean_us": 20.32,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_9_segment_0",
+          "start_cycle": 706529,
+          "end_cycle": 722166,
+          "id": 34,
+          "run_time_mean_us": 17.62,
+          "layer_latency_mean_us": 17.4,
+          "active_time_mean_us": 15.63,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_10_segment_0",
+          "start_cycle": 722167,
+          "end_cycle": 734247,
+          "id": 35,
+          "run_time_mean_us": 14.07,
+          "layer_latency_mean_us": 14.33,
+          "active_time_mean_us": 12.08,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_11_segment_0",
+          "start_cycle": 734248,
+          "end_cycle": 754648,
+          "id": 36,
+          "run_time_mean_us": 88.88666666666667,
+          "layer_latency_mean_us": 89.08,
+          "active_time_mean_us": 20.4,
+          "l2_freeze_mean_us": 66.49333333333334,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_8_segment_1",
+          "start_cycle": 754649,
+          "end_cycle": 771790,
+          "id": 37,
+          "run_time_mean_us": 19.04,
+          "layer_latency_mean_us": 19.45,
+          "active_time_mean_us": 17.14,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_9_segment_1",
+          "start_cycle": 771791,
+          "end_cycle": 787428,
+          "id": 38,
+          "run_time_mean_us": 17.62,
+          "layer_latency_mean_us": 17.4,
+          "active_time_mean_us": 15.63,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_10_segment_1",
+          "start_cycle": 787429,
+          "end_cycle": 797537,
+          "id": 39,
+          "run_time_mean_us": 12.08,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 10.1,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_11_segment_1",
+          "start_cycle": 797538,
+          "end_cycle": 812895,
+          "id": 40,
+          "run_time_mean_us": 17.34,
+          "layer_latency_mean_us": 17.4,
+          "active_time_mean_us": 15.35,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "concat_MLA_0/conv2d_add_relu_11_MLA_0/multiply_13_0",
+          "start_cycle": 812896,
+          "end_cycle": 829076,
+          "id": 41,
+          "run_time_mean_us": 82.45333333333333,
+          "layer_latency_mean_us": 82.94,
+          "active_time_mean_us": 16.18,
+          "l2_freeze_mean_us": 64.31666666666666,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_13_in1_loader_MLA_0/constant_12",
+          "start_cycle": 829077,
+          "end_cycle": 829466,
+          "id": 42,
+          "run_time_mean_us": 2.68,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.39,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_13_in1_broadcast",
+          "start_cycle": 829467,
+          "end_cycle": 832837,
+          "id": 43,
+          "run_time_mean_us": 5.27,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 3.37,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_13",
+          "start_cycle": 832838,
+          "end_cycle": 863041,
+          "id": 44,
+          "run_time_mean_us": 32.11,
+          "layer_latency_mean_us": 31.74,
+          "active_time_mean_us": 30.2,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_14",
+          "start_cycle": 863042,
+          "end_cycle": 924352,
+          "id": 45,
+          "run_time_mean_us": 63.2,
+          "layer_latency_mean_us": 63.48,
+          "active_time_mean_us": 61.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_14_0_MLA_0/conv2d_add_15_1",
+          "start_cycle": 924353,
+          "end_cycle": 929193,
+          "id": 46,
+          "run_time_mean_us": 6.83,
+          "layer_latency_mean_us": 7.16,
+          "active_time_mean_us": 4.84,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_15_segment_0",
+          "start_cycle": 929194,
+          "end_cycle": 946577,
+          "id": 47,
+          "run_time_mean_us": 19.31,
+          "layer_latency_mean_us": 19.45,
+          "active_time_mean_us": 17.38,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_16_segment_0",
+          "start_cycle": 946578,
+          "end_cycle": 958658,
+          "id": 48,
+          "run_time_mean_us": 14.07,
+          "layer_latency_mean_us": 14.33,
+          "active_time_mean_us": 12.08,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_17_segment_0",
+          "start_cycle": 958659,
+          "end_cycle": 975375,
+          "id": 49,
+          "run_time_mean_us": 89.63000000000001,
+          "layer_latency_mean_us": 89.76666666666667,
+          "active_time_mean_us": 16.71,
+          "l2_freeze_mean_us": 70.97333333333333,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_15_segment_1",
+          "start_cycle": 975376,
+          "end_cycle": 988807,
+          "id": 50,
+          "run_time_mean_us": 104.42666666666666,
+          "layer_latency_mean_us": 104.44,
+          "active_time_mean_us": 13.43,
+          "l2_freeze_mean_us": 89.03666666666666,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_16_segment_1",
+          "start_cycle": 988808,
+          "end_cycle": 998916,
+          "id": 51,
+          "run_time_mean_us": 12.08,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 10.1,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_17_segment_1",
+          "start_cycle": 998917,
+          "end_cycle": 1014274,
+          "id": 52,
+          "run_time_mean_us": 17.34,
+          "layer_latency_mean_us": 17.4,
+          "active_time_mean_us": 15.35,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "concat_MLA_0/conv2d_add_relu_17_MLA_0/multiply_19_0",
+          "start_cycle": 1014275,
+          "end_cycle": 1025295,
+          "id": 53,
+          "run_time_mean_us": 85.08,
+          "layer_latency_mean_us": 84.99,
+          "active_time_mean_us": 11.02,
+          "l2_freeze_mean_us": 72.1,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_19_in1_loader_MLA_0/constant_18",
+          "start_cycle": 1025296,
+          "end_cycle": 1025685,
+          "id": 54,
+          "run_time_mean_us": 2.68,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.39,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_19_in1_broadcast",
+          "start_cycle": 1025686,
+          "end_cycle": 1029056,
+          "id": 55,
+          "run_time_mean_us": 5.27,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 3.37,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_19",
+          "start_cycle": 1029057,
+          "end_cycle": 1059260,
+          "id": 56,
+          "run_time_mean_us": 32.11,
+          "layer_latency_mean_us": 31.74,
+          "active_time_mean_us": 30.2,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_20",
+          "start_cycle": 1059261,
+          "end_cycle": 1120571,
+          "id": 57,
+          "run_time_mean_us": 63.2,
+          "layer_latency_mean_us": 63.48,
+          "active_time_mean_us": 61.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_20_0_MLA_0/conv2d_add_21_1",
+          "start_cycle": 1120572,
+          "end_cycle": 1125412,
+          "id": 58,
+          "run_time_mean_us": 6.83,
+          "layer_latency_mean_us": 7.16,
+          "active_time_mean_us": 4.84,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_21_segment_0",
+          "start_cycle": 1125413,
+          "end_cycle": 1142796,
+          "id": 59,
+          "run_time_mean_us": 19.31,
+          "layer_latency_mean_us": 19.45,
+          "active_time_mean_us": 17.38,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_22_segment_0",
+          "start_cycle": 1142797,
+          "end_cycle": 1154877,
+          "id": 60,
+          "run_time_mean_us": 14.07,
+          "layer_latency_mean_us": 14.33,
+          "active_time_mean_us": 12.08,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_28_segment_0",
+          "start_cycle": 1154878,
+          "end_cycle": 1187731,
+          "id": 61,
+          "run_time_mean_us": 86.66666666666667,
+          "layer_latency_mean_us": 87.04,
+          "active_time_mean_us": 32.85,
+          "l2_freeze_mean_us": 51.843333333333334,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_23_segment_0",
+          "start_cycle": 1187732,
+          "end_cycle": 1227894,
+          "id": 62,
+          "run_time_mean_us": 42.19,
+          "layer_latency_mean_us": 41.98,
+          "active_time_mean_us": 40.16,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_21_segment_1",
+          "start_cycle": 1227895,
+          "end_cycle": 1241326,
+          "id": 63,
+          "run_time_mean_us": 79.17333333333333,
+          "layer_latency_mean_us": 79.18333333333334,
+          "active_time_mean_us": 13.43,
+          "l2_freeze_mean_us": 63.8,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_22_segment_1",
+          "start_cycle": 1241327,
+          "end_cycle": 1248486,
+          "id": 64,
+          "run_time_mean_us": 9.09,
+          "layer_latency_mean_us": 9.21,
+          "active_time_mean_us": 7.16,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_28_segment_1",
+          "start_cycle": 1248487,
+          "end_cycle": 1280627,
+          "id": 65,
+          "run_time_mean_us": 38.84,
+          "layer_latency_mean_us": 38.91,
+          "active_time_mean_us": 32.14,
+          "l2_freeze_mean_us": 4.74,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_23_segment_1",
+          "start_cycle": 1280628,
+          "end_cycle": 1308409,
+          "id": 66,
+          "run_time_mean_us": 29.69,
+          "layer_latency_mean_us": 29.69,
+          "active_time_mean_us": 27.78,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "concat_MLA_0/conv2d_add_relu_23_MLA_0/multiply_25_0",
+          "start_cycle": 1308410,
+          "end_cycle": 1340210,
+          "id": 67,
+          "run_time_mean_us": 33.81,
+          "layer_latency_mean_us": 33.79,
+          "active_time_mean_us": 31.8,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_25_in1_loader_MLA_0/constant_24",
+          "start_cycle": 1340211,
+          "end_cycle": 1340600,
+          "id": 68,
+          "run_time_mean_us": 2.68,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.39,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_25_in1_broadcast",
+          "start_cycle": 1340601,
+          "end_cycle": 1345443,
+          "id": 69,
+          "run_time_mean_us": 6.83,
+          "layer_latency_mean_us": 7.16,
+          "active_time_mean_us": 4.84,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_25",
+          "start_cycle": 1345444,
+          "end_cycle": 1406622,
+          "id": 70,
+          "run_time_mean_us": 63.2,
+          "layer_latency_mean_us": 63.48,
+          "active_time_mean_us": 61.17,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_26",
+          "start_cycle": 1406623,
+          "end_cycle": 1469898,
+          "id": 71,
+          "run_time_mean_us": 65.19,
+          "layer_latency_mean_us": 65.53,
+          "active_time_mean_us": 63.27,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_27",
+          "start_cycle": 1469899,
+          "end_cycle": 1496434,
+          "id": 72,
+          "run_time_mean_us": 28.56,
+          "layer_latency_mean_us": 28.67,
+          "active_time_mean_us": 26.53,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "concat_MLA_0/conv2d_add_28_MLA_0/add_relu_29_0",
+          "start_cycle": 1496435,
+          "end_cycle": 1518277,
+          "id": 73,
+          "run_time_mean_us": 67.24,
+          "layer_latency_mean_us": 67.58,
+          "active_time_mean_us": 21.84,
+          "l2_freeze_mean_us": 43.36,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_29",
+          "start_cycle": 1518278,
+          "end_cycle": 1527549,
+          "id": 74,
+          "run_time_mean_us": 11.23,
+          "layer_latency_mean_us": 11.26,
+          "active_time_mean_us": 9.27,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_30",
+          "start_cycle": 1527550,
+          "end_cycle": 1555379,
+          "id": 75,
+          "run_time_mean_us": 29.83,
+          "layer_latency_mean_us": 29.69,
+          "active_time_mean_us": 27.83,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_32_in1_loader_MLA_0/constant_31",
+          "start_cycle": 1555380,
+          "end_cycle": 1555506,
+          "id": 76,
+          "run_time_mean_us": 2.7,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.12,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_32_in1_broadcast",
+          "start_cycle": 1555507,
+          "end_cycle": 1557034,
+          "id": 77,
+          "run_time_mean_us": 3.42,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.52,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_32",
+          "start_cycle": 1557035,
+          "end_cycle": 1573529,
+          "id": 78,
+          "run_time_mean_us": 18.47,
+          "layer_latency_mean_us": 18.43,
+          "active_time_mean_us": 16.49,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_33",
+          "start_cycle": 1573530,
+          "end_cycle": 1637130,
+          "id": 79,
+          "run_time_mean_us": 65.62,
+          "layer_latency_mean_us": 65.53,
+          "active_time_mean_us": 63.6,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_34",
+          "start_cycle": 1637131,
+          "end_cycle": 1663666,
+          "id": 80,
+          "run_time_mean_us": 28.56,
+          "layer_latency_mean_us": 28.67,
+          "active_time_mean_us": 26.53,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_35",
+          "start_cycle": 1663667,
+          "end_cycle": 1673919,
+          "id": 81,
+          "run_time_mean_us": 12.23,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 10.25,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_36",
+          "start_cycle": 1673920,
+          "end_cycle": 1701749,
+          "id": 82,
+          "run_time_mean_us": 29.83,
+          "layer_latency_mean_us": 29.69,
+          "active_time_mean_us": 27.83,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_38_in1_loader_MLA_0/constant_37",
+          "start_cycle": 1701750,
+          "end_cycle": 1701876,
+          "id": 83,
+          "run_time_mean_us": 2.7,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.12,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_38_in1_broadcast",
+          "start_cycle": 1701877,
+          "end_cycle": 1703404,
+          "id": 84,
+          "run_time_mean_us": 3.42,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.52,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_38",
+          "start_cycle": 1703405,
+          "end_cycle": 1719899,
+          "id": 85,
+          "run_time_mean_us": 18.48,
+          "layer_latency_mean_us": 18.43,
+          "active_time_mean_us": 16.49,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_39",
+          "start_cycle": 1719900,
+          "end_cycle": 1783500,
+          "id": 86,
+          "run_time_mean_us": 65.62,
+          "layer_latency_mean_us": 65.53,
+          "active_time_mean_us": 63.6,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_40",
+          "start_cycle": 1783501,
+          "end_cycle": 1810036,
+          "id": 87,
+          "run_time_mean_us": 28.56,
+          "layer_latency_mean_us": 28.67,
+          "active_time_mean_us": 26.53,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_41",
+          "start_cycle": 1810037,
+          "end_cycle": 1820289,
+          "id": 88,
+          "run_time_mean_us": 12.23,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 10.25,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_42",
+          "start_cycle": 1820290,
+          "end_cycle": 1848119,
+          "id": 89,
+          "run_time_mean_us": 29.83,
+          "layer_latency_mean_us": 29.69,
+          "active_time_mean_us": 27.83,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_44_in1_loader_MLA_0/constant_43",
+          "start_cycle": 1848120,
+          "end_cycle": 1848246,
+          "id": 90,
+          "run_time_mean_us": 2.7,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.12,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_44_in1_broadcast",
+          "start_cycle": 1848247,
+          "end_cycle": 1849774,
+          "id": 91,
+          "run_time_mean_us": 3.42,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.52,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_44",
+          "start_cycle": 1849775,
+          "end_cycle": 1866269,
+          "id": 92,
+          "run_time_mean_us": 18.47,
+          "layer_latency_mean_us": 18.43,
+          "active_time_mean_us": 16.49,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_45",
+          "start_cycle": 1866270,
+          "end_cycle": 1929870,
+          "id": 93,
+          "run_time_mean_us": 65.62,
+          "layer_latency_mean_us": 65.53,
+          "active_time_mean_us": 63.6,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_46",
+          "start_cycle": 1929871,
+          "end_cycle": 1956406,
+          "id": 94,
+          "run_time_mean_us": 28.56,
+          "layer_latency_mean_us": 28.67,
+          "active_time_mean_us": 26.53,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_47",
+          "start_cycle": 1956407,
+          "end_cycle": 1963662,
+          "id": 95,
+          "run_time_mean_us": 9.24,
+          "layer_latency_mean_us": 9.21,
+          "active_time_mean_us": 7.25,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_53",
+          "start_cycle": 1963663,
+          "end_cycle": 2051259,
+          "id": 96,
+          "run_time_mean_us": 89.62,
+          "layer_latency_mean_us": 90.11,
+          "active_time_mean_us": 87.59,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_48",
+          "start_cycle": 2051260,
+          "end_cycle": 2103937,
+          "id": 97,
+          "run_time_mean_us": 54.68,
+          "layer_latency_mean_us": 54.27,
+          "active_time_mean_us": 52.67,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_50_in1_loader_MLA_0/constant_49",
+          "start_cycle": 2103938,
+          "end_cycle": 2104064,
+          "id": 98,
+          "run_time_mean_us": 2.7,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.12,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_50_in1_broadcast",
+          "start_cycle": 2104065,
+          "end_cycle": 2106360,
+          "id": 99,
+          "run_time_mean_us": 4.27,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 2.29,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_50",
+          "start_cycle": 2106361,
+          "end_cycle": 2136884,
+          "id": 100,
+          "run_time_mean_us": 32.53,
+          "layer_latency_mean_us": 32.76,
+          "active_time_mean_us": 30.52,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_51",
+          "start_cycle": 2136885,
+          "end_cycle": 2225226,
+          "id": 101,
+          "run_time_mean_us": 90.33,
+          "layer_latency_mean_us": 90.11,
+          "active_time_mean_us": 88.34,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_52",
+          "start_cycle": 2225227,
+          "end_cycle": 2253557,
+          "id": 102,
+          "run_time_mean_us": 30.26,
+          "layer_latency_mean_us": 30.72,
+          "active_time_mean_us": 28.33,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_54",
+          "start_cycle": 2253558,
+          "end_cycle": 2259418,
+          "id": 103,
+          "run_time_mean_us": 7.82,
+          "layer_latency_mean_us": 8.19,
+          "active_time_mean_us": 5.86,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_55",
+          "start_cycle": 2259419,
+          "end_cycle": 2292797,
+          "id": 104,
+          "run_time_mean_us": 35.37,
+          "layer_latency_mean_us": 35.84,
+          "active_time_mean_us": 33.37,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_57_in1_loader_MLA_0/constant_56",
+          "start_cycle": 2292798,
+          "end_cycle": 2292858,
+          "id": 105,
+          "run_time_mean_us": 2.69,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.06,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_57_in1_broadcast",
+          "start_cycle": 2292859,
+          "end_cycle": 2294181,
+          "id": 106,
+          "run_time_mean_us": 3.28,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.32,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_57",
+          "start_cycle": 2294182,
+          "end_cycle": 2302636,
+          "id": 107,
+          "run_time_mean_us": 10.38,
+          "layer_latency_mean_us": 10.24,
+          "active_time_mean_us": 8.45,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_58",
+          "start_cycle": 2302637,
+          "end_cycle": 2365514,
+          "id": 108,
+          "run_time_mean_us": 64.77,
+          "layer_latency_mean_us": 64.51,
+          "active_time_mean_us": 62.87,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_59",
+          "start_cycle": 2365515,
+          "end_cycle": 2393845,
+          "id": 109,
+          "run_time_mean_us": 30.26,
+          "layer_latency_mean_us": 30.72,
+          "active_time_mean_us": 28.33,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_60",
+          "start_cycle": 2393846,
+          "end_cycle": 2399706,
+          "id": 110,
+          "run_time_mean_us": 7.82,
+          "layer_latency_mean_us": 8.19,
+          "active_time_mean_us": 5.86,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_61",
+          "start_cycle": 2399707,
+          "end_cycle": 2433085,
+          "id": 111,
+          "run_time_mean_us": 35.37,
+          "layer_latency_mean_us": 35.84,
+          "active_time_mean_us": 33.37,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_63_in1_loader_MLA_0/constant_62",
+          "start_cycle": 2433086,
+          "end_cycle": 2433146,
+          "id": 112,
+          "run_time_mean_us": 2.69,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.06,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_63_in1_broadcast",
+          "start_cycle": 2433147,
+          "end_cycle": 2434469,
+          "id": 113,
+          "run_time_mean_us": 3.28,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.32,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_63",
+          "start_cycle": 2434470,
+          "end_cycle": 2442924,
+          "id": 114,
+          "run_time_mean_us": 10.38,
+          "layer_latency_mean_us": 10.24,
+          "active_time_mean_us": 8.45,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_64",
+          "start_cycle": 2442925,
+          "end_cycle": 2505802,
+          "id": 115,
+          "run_time_mean_us": 64.77,
+          "layer_latency_mean_us": 64.51,
+          "active_time_mean_us": 62.87,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_65",
+          "start_cycle": 2505803,
+          "end_cycle": 2534133,
+          "id": 116,
+          "run_time_mean_us": 30.26,
+          "layer_latency_mean_us": 30.72,
+          "active_time_mean_us": 28.33,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_66",
+          "start_cycle": 2534134,
+          "end_cycle": 2539994,
+          "id": 117,
+          "run_time_mean_us": 7.82,
+          "layer_latency_mean_us": 8.19,
+          "active_time_mean_us": 5.86,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_67",
+          "start_cycle": 2539995,
+          "end_cycle": 2573373,
+          "id": 118,
+          "run_time_mean_us": 35.37,
+          "layer_latency_mean_us": 35.84,
+          "active_time_mean_us": 33.37,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_69_in1_loader_MLA_0/constant_68",
+          "start_cycle": 2573374,
+          "end_cycle": 2573434,
+          "id": 119,
+          "run_time_mean_us": 2.69,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.06,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_69_in1_broadcast",
+          "start_cycle": 2573435,
+          "end_cycle": 2574757,
+          "id": 120,
+          "run_time_mean_us": 3.28,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.32,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_69",
+          "start_cycle": 2574758,
+          "end_cycle": 2583212,
+          "id": 121,
+          "run_time_mean_us": 10.38,
+          "layer_latency_mean_us": 10.24,
+          "active_time_mean_us": 8.45,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_70",
+          "start_cycle": 2583213,
+          "end_cycle": 2646090,
+          "id": 122,
+          "run_time_mean_us": 64.77,
+          "layer_latency_mean_us": 64.51,
+          "active_time_mean_us": 62.87,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_71",
+          "start_cycle": 2646091,
+          "end_cycle": 2674421,
+          "id": 123,
+          "run_time_mean_us": 30.26,
+          "layer_latency_mean_us": 30.72,
+          "active_time_mean_us": 28.33,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_72",
+          "start_cycle": 2674422,
+          "end_cycle": 2680282,
+          "id": 124,
+          "run_time_mean_us": 7.82,
+          "layer_latency_mean_us": 8.19,
+          "active_time_mean_us": 5.86,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_73",
+          "start_cycle": 2680283,
+          "end_cycle": 2713661,
+          "id": 125,
+          "run_time_mean_us": 35.37,
+          "layer_latency_mean_us": 35.84,
+          "active_time_mean_us": 33.37,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_75_in1_loader_MLA_0/constant_74",
+          "start_cycle": 2713662,
+          "end_cycle": 2713722,
+          "id": 126,
+          "run_time_mean_us": 2.69,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.06,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_75_in1_broadcast",
+          "start_cycle": 2713723,
+          "end_cycle": 2715045,
+          "id": 127,
+          "run_time_mean_us": 3.28,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.32,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_75",
+          "start_cycle": 2715046,
+          "end_cycle": 2723500,
+          "id": 128,
+          "run_time_mean_us": 10.38,
+          "layer_latency_mean_us": 10.24,
+          "active_time_mean_us": 8.45,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_76",
+          "start_cycle": 2723501,
+          "end_cycle": 2786378,
+          "id": 129,
+          "run_time_mean_us": 64.77,
+          "layer_latency_mean_us": 64.51,
+          "active_time_mean_us": 62.87,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_77",
+          "start_cycle": 2786379,
+          "end_cycle": 2814709,
+          "id": 130,
+          "run_time_mean_us": 30.26,
+          "layer_latency_mean_us": 30.72,
+          "active_time_mean_us": 28.33,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_78",
+          "start_cycle": 2814710,
+          "end_cycle": 2820570,
+          "id": 131,
+          "run_time_mean_us": 7.82,
+          "layer_latency_mean_us": 8.19,
+          "active_time_mean_us": 5.86,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_79",
+          "start_cycle": 2820571,
+          "end_cycle": 2853949,
+          "id": 132,
+          "run_time_mean_us": 35.37,
+          "layer_latency_mean_us": 35.84,
+          "active_time_mean_us": 33.37,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_81_in1_loader_MLA_0/constant_80",
+          "start_cycle": 2853950,
+          "end_cycle": 2854010,
+          "id": 133,
+          "run_time_mean_us": 2.69,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.06,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_81_in1_broadcast",
+          "start_cycle": 2854011,
+          "end_cycle": 2855333,
+          "id": 134,
+          "run_time_mean_us": 3.28,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.32,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_81",
+          "start_cycle": 2855334,
+          "end_cycle": 2863788,
+          "id": 135,
+          "run_time_mean_us": 10.38,
+          "layer_latency_mean_us": 10.24,
+          "active_time_mean_us": 8.45,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_82",
+          "start_cycle": 2863789,
+          "end_cycle": 2926666,
+          "id": 136,
+          "run_time_mean_us": 64.77,
+          "layer_latency_mean_us": 64.51,
+          "active_time_mean_us": 62.87,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_83",
+          "start_cycle": 2926667,
+          "end_cycle": 2954997,
+          "id": 137,
+          "run_time_mean_us": 30.26,
+          "layer_latency_mean_us": 30.72,
+          "active_time_mean_us": 28.33,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_84",
+          "start_cycle": 2954998,
+          "end_cycle": 2959301,
+          "id": 138,
+          "run_time_mean_us": 6.26,
+          "layer_latency_mean_us": 6.14,
+          "active_time_mean_us": 4.3,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_91",
+          "start_cycle": 2959302,
+          "end_cycle": 3085194,
+          "id": 139,
+          "run_time_mean_us": 127.81,
+          "layer_latency_mean_us": 128.0,
+          "active_time_mean_us": 125.89,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_86",
+          "start_cycle": 3085195,
+          "end_cycle": 3143525,
+          "id": 140,
+          "run_time_mean_us": 60.22,
+          "layer_latency_mean_us": 60.41,
+          "active_time_mean_us": 58.33,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_85",
+          "start_cycle": 3143526,
+          "end_cycle": 3200070,
+          "id": 141,
+          "run_time_mean_us": 59.28,
+          "layer_latency_mean_us": 59.39,
+          "active_time_mean_us": 56.54,
+          "l2_freeze_mean_us": 1.08,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_88_in1_loader_MLA_0/constant_87",
+          "start_cycle": 3200071,
+          "end_cycle": 3200175,
+          "id": 142,
+          "run_time_mean_us": 2.71,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.1,
+          "l2_freeze_mean_us": 0.07,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_88_in1_broadcast",
+          "start_cycle": 3200176,
+          "end_cycle": 3201882,
+          "id": 143,
+          "run_time_mean_us": 3.71,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 1.7,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_88",
+          "start_cycle": 3201883,
+          "end_cycle": 3217626,
+          "id": 144,
+          "run_time_mean_us": 17.76,
+          "layer_latency_mean_us": 17.4,
+          "active_time_mean_us": 15.74,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_89",
+          "start_cycle": 3217627,
+          "end_cycle": 3347939,
+          "id": 145,
+          "run_time_mean_us": 132.22,
+          "layer_latency_mean_us": 132.09,
+          "active_time_mean_us": 130.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_90",
+          "start_cycle": 3347940,
+          "end_cycle": 3387663,
+          "id": 146,
+          "run_time_mean_us": 41.62,
+          "layer_latency_mean_us": 41.98,
+          "active_time_mean_us": 39.72,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_92",
+          "start_cycle": 3387664,
+          "end_cycle": 3390612,
+          "id": 147,
+          "run_time_mean_us": 4.84,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 2.94,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_93",
+          "start_cycle": 3390613,
+          "end_cycle": 3442072,
+          "id": 148,
+          "run_time_mean_us": 53.39,
+          "layer_latency_mean_us": 53.24,
+          "active_time_mean_us": 51.46,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_95_in1_loader_MLA_0/constant_94",
+          "start_cycle": 3442073,
+          "end_cycle": 3442116,
+          "id": 149,
+          "run_time_mean_us": 2.73,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.04,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_95_in1_broadcast",
+          "start_cycle": 3442117,
+          "end_cycle": 3443105,
+          "id": 150,
+          "run_time_mean_us": 3.0,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.98,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_95",
+          "start_cycle": 3443106,
+          "end_cycle": 3448808,
+          "id": 151,
+          "run_time_mean_us": 7.68,
+          "layer_latency_mean_us": 8.19,
+          "active_time_mean_us": 5.7,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_96",
+          "start_cycle": 3448809,
+          "end_cycle": 3535463,
+          "id": 152,
+          "run_time_mean_us": 88.62,
+          "layer_latency_mean_us": 89.08,
+          "active_time_mean_us": 86.65,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_97",
+          "start_cycle": 3535464,
+          "end_cycle": 3575187,
+          "id": 153,
+          "run_time_mean_us": 41.62,
+          "layer_latency_mean_us": 41.98,
+          "active_time_mean_us": 39.72,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_98",
+          "start_cycle": 3575188,
+          "end_cycle": 3577361,
+          "id": 154,
+          "run_time_mean_us": 4.13,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 2.17,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_99",
+          "start_cycle": 3577362,
+          "end_cycle": 3628820,
+          "id": 155,
+          "run_time_mean_us": 53.39,
+          "layer_latency_mean_us": 53.24,
+          "active_time_mean_us": 51.45,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_101_in1_loader_MLA_0/constant_100",
+          "start_cycle": 3628821,
+          "end_cycle": 3628864,
+          "id": 156,
+          "run_time_mean_us": 2.73,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.04,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_101_in1_broadcast",
+          "start_cycle": 3628865,
+          "end_cycle": 3629853,
+          "id": 157,
+          "run_time_mean_us": 3.0,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.98,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_101",
+          "start_cycle": 3629854,
+          "end_cycle": 3635556,
+          "id": 158,
+          "run_time_mean_us": 7.68,
+          "layer_latency_mean_us": 8.19,
+          "active_time_mean_us": 5.7,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_102",
+          "start_cycle": 3635557,
+          "end_cycle": 3722211,
+          "id": 159,
+          "run_time_mean_us": 88.62,
+          "layer_latency_mean_us": 89.08,
+          "active_time_mean_us": 86.65,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_103",
+          "start_cycle": 3722212,
+          "end_cycle": 3761935,
+          "id": 160,
+          "run_time_mean_us": 41.62,
+          "layer_latency_mean_us": 41.98,
+          "active_time_mean_us": 39.72,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_104",
+          "start_cycle": 3761936,
+          "end_cycle": 3764109,
+          "id": 161,
+          "run_time_mean_us": 4.13,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 2.17,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_105",
+          "start_cycle": 3764110,
+          "end_cycle": 3798948,
+          "id": 162,
+          "run_time_mean_us": 36.79,
+          "layer_latency_mean_us": 36.86,
+          "active_time_mean_us": 34.83,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/image.resize2d_106/0",
+          "start_cycle": 3798949,
+          "end_cycle": 3799687,
+          "id": 163,
+          "run_time_mean_us": 2.71,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.73,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_107",
+          "start_cycle": 3799688,
+          "end_cycle": 3800940,
+          "id": 164,
+          "run_time_mean_us": 3.28,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.25,
+          "l2_freeze_mean_us": 0.06,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_109_in1_loader_MLA_0/constant_108",
+          "start_cycle": 3800941,
+          "end_cycle": 3801001,
+          "id": 165,
+          "run_time_mean_us": 2.69,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.06,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_109_in1_broadcast",
+          "start_cycle": 3801002,
+          "end_cycle": 3802331,
+          "id": 166,
+          "run_time_mean_us": 3.28,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.33,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/multiply_109",
+          "start_cycle": 3802332,
+          "end_cycle": 3810770,
+          "id": 167,
+          "run_time_mean_us": 10.37,
+          "layer_latency_mean_us": 10.24,
+          "active_time_mean_us": 8.43,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_110",
+          "start_cycle": 3810771,
+          "end_cycle": 3874444,
+          "id": 168,
+          "run_time_mean_us": 65.61333333333333,
+          "layer_latency_mean_us": 65.53,
+          "active_time_mean_us": 63.67,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_111",
+          "start_cycle": 3874445,
+          "end_cycle": 3881302,
+          "id": 169,
+          "run_time_mean_us": 8.82,
+          "layer_latency_mean_us": 9.21,
+          "active_time_mean_us": 6.85,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_114",
+          "start_cycle": 3881303,
+          "end_cycle": 3882917,
+          "id": 170,
+          "run_time_mean_us": 3.56,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.61,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_114_output",
+          "start_cycle": 3882918,
+          "end_cycle": 3883967,
+          "id": 171,
+          "run_time_mean_us": 2.98,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.05,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_112",
+          "start_cycle": 3883968,
+          "end_cycle": 3885282,
+          "id": 172,
+          "run_time_mean_us": 3.28,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.31,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/softmax_113",
+          "start_cycle": 3885283,
+          "end_cycle": 3888677,
+          "id": 173,
+          "run_time_mean_us": 5.41,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 3.39,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/softmax_113_output",
+          "start_cycle": 3888678,
+          "end_cycle": 3890019,
+          "id": 174,
+          "run_time_mean_us": 3.27,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.34,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        }
+      ],
+      "layer_profile_sum_run_time_us": [
+        4803.87,
+        4804.27,
+        4804.62
+      ],
+      "layer_count": 169,
+      "compiler_last_end_cycle": 3890019
+    },
+    "bev": {
+      "archive": "/workspace/GitHub/occupancy-prediction/artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+      "archive_sha256": "56e0e8071edf8f7805dac2086cdedd766c6cc585746bc6c3dd796613132f8739",
+      "members": [
+        {
+          "path": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/bev/flashocc_m0_bev_stage1_mla.elf",
+          "bytes": 24660024,
+          "sha256": "f96d07167baee5ae9fcebca56cb8ba2c2e69910aded741bc8d9033a3981cb5c9"
+        },
+        {
+          "path": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/bev/flashocc_m0_bev_stage1_mla_stats.yaml",
+          "bytes": 7080,
+          "sha256": "a7067d939728a1ddede1d8baf3db5834ab9e272748ce4f0a51c699133b67f887"
+        }
+      ],
+      "mean_tile_ms": 4.0760076666666665,
+      "mean_direct_api_ms": 4.148234333333334,
+      "calls_per_six_camera_update": 1,
+      "whole_elf_trials": [
+        {
+          "stats_us": {
+            "filesize": 24660024,
+            "tile.lat": {
+              "avg": 4076.029,
+              "runcount": 1000,
+              "min": 4074.09,
+              "max": 4086.178,
+              "std": 0.799
+            },
+            "api.lat": {
+              "avg": 4147.645,
+              "runcount": 1000,
+              "min": 4140.0,
+              "max": 4288.0,
+              "std": 9.38
+            },
+            "model.lat": {
+              "avg": 4141.915,
+              "runcount": 1000,
+              "min": 4138.0,
+              "max": 4155.0,
+              "std": 1.355
+            },
+            "gap.lat": {
+              "avg": 4.067,
+              "runcount": 999,
+              "min": 3.0,
+              "max": 15.0,
+              "std": 0.647
+            }
+          },
+          "environment": {
+            "appcomplex_active": "inactive",
+            "appcomplex_enabled": "disabled",
+            "mla_frequency_hz": 1000000000
+          },
+          "command": [
+            "sudo",
+            "-n",
+            "mla-rt",
+            "-a",
+            "mod,a65",
+            "-m",
+            "1000",
+            "-vs:usec:3",
+            "--stats",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/bev/whole-0.yaml",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/bev/flashocc_m0_bev_stage1_mla.elf"
+          ],
+          "log": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/bev/whole-0.log"
+        },
+        {
+          "stats_us": {
+            "filesize": 24660024,
+            "tile.lat": {
+              "avg": 4076.058,
+              "runcount": 1000,
+              "min": 4074.065,
+              "max": 4085.873,
+              "std": 0.82
+            },
+            "api.lat": {
+              "avg": 4147.966,
+              "runcount": 1000,
+              "min": 4140.0,
+              "max": 4294.0,
+              "std": 10.028
+            },
+            "model.lat": {
+              "avg": 4141.971,
+              "runcount": 1000,
+              "min": 4138.0,
+              "max": 4154.0,
+              "std": 1.463
+            },
+            "gap.lat": {
+              "avg": 4.201,
+              "runcount": 999,
+              "min": 3.0,
+              "max": 15.0,
+              "std": 0.744
+            }
+          },
+          "environment": {
+            "appcomplex_active": "inactive",
+            "appcomplex_enabled": "disabled",
+            "mla_frequency_hz": 1000000000
+          },
+          "command": [
+            "sudo",
+            "-n",
+            "mla-rt",
+            "-a",
+            "mod,a65",
+            "-m",
+            "1000",
+            "-vs:usec:3",
+            "--stats",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/bev/whole-1.yaml",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/bev/flashocc_m0_bev_stage1_mla.elf"
+          ],
+          "log": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/bev/whole-1.log"
+        },
+        {
+          "stats_us": {
+            "filesize": 24660024,
+            "tile.lat": {
+              "avg": 4075.936,
+              "runcount": 1000,
+              "min": 4074.064,
+              "max": 4084.181,
+              "std": 0.736
+            },
+            "api.lat": {
+              "avg": 4149.092,
+              "runcount": 1000,
+              "min": 4142.0,
+              "max": 4292.0,
+              "std": 9.581
+            },
+            "model.lat": {
+              "avg": 4142.815,
+              "runcount": 1000,
+              "min": 4139.0,
+              "max": 4155.0,
+              "std": 1.295
+            },
+            "gap.lat": {
+              "avg": 4.677,
+              "runcount": 999,
+              "min": 3.0,
+              "max": 8.0,
+              "std": 0.344
+            }
+          },
+          "environment": {
+            "appcomplex_active": "inactive",
+            "appcomplex_enabled": "disabled",
+            "mla_frequency_hz": 1000000000
+          },
+          "command": [
+            "sudo",
+            "-n",
+            "mla-rt",
+            "-a",
+            "mod,a65",
+            "-m",
+            "1000",
+            "-vs:usec:3",
+            "--stats",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/bev/whole-2.yaml",
+            "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/bev/flashocc_m0_bev_stage1_mla.elf"
+          ],
+          "log": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/validated/bev/whole-2.log"
+        }
+      ],
+      "counter_profile_us": {
+        "filesize": 24660024,
+        "tile.lat": {
+          "avg": 4075.811,
+          "runcount": 1000,
+          "min": 4073.898,
+          "max": 4085.43,
+          "std": 0.764
+        },
+        "api.lat": {
+          "avg": 4213.066,
+          "runcount": 1000,
+          "min": 4178.0,
+          "max": 4423.0,
+          "std": 20.698
+        },
+        "model.lat": {
+          "avg": 4141.714,
+          "runcount": 1000,
+          "min": 4138.0,
+          "max": 4154.0,
+          "std": 1.274
+        },
+        "gap.lat": {
+          "avg": 68.337,
+          "runcount": 999,
+          "min": 40.0,
+          "max": 101.0,
+          "std": 13.223
+        },
+        "tile_active": {
+          "avg": 3638.441,
+          "runcount": 1000,
+          "min": 3638.441,
+          "max": 3638.441,
+          "std": 0.0
+        },
+        "sync_frz": {
+          "avg": 377.929,
+          "runcount": 1000,
+          "min": 376.021,
+          "max": 387.328,
+          "std": 0.756
+        },
+        "iq_sync_frz": {
+          "avg": 87.138,
+          "runcount": 1000,
+          "min": 85.076,
+          "max": 95.755,
+          "std": 0.778
+        },
+        "d_sync_frz": {
+          "avg": 295.105,
+          "runcount": 1000,
+          "min": 294.412,
+          "max": 298.559,
+          "std": 0.244
+        }
+      },
+      "layer_profiles": [
+        {
+          "name": "MLA_0/conv2d_add_relu_0",
+          "start_cycle": 0,
+          "end_cycle": 46181,
+          "id": 1,
+          "run_time_mean_us": 106.17,
+          "layer_latency_mean_us": 106.49,
+          "active_time_mean_us": 46.18,
+          "l2_freeze_mean_us": 58.666666666666664,
+          "iq_freeze_mean_us": 4.266666666666667
+        },
+        {
+          "name": "MLA_0/conv2d_add_1",
+          "start_cycle": 46182,
+          "end_cycle": 116112,
+          "id": 2,
+          "run_time_mean_us": 71.86,
+          "layer_latency_mean_us": 71.68,
+          "active_time_mean_us": 69.93,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_2",
+          "start_cycle": 116113,
+          "end_cycle": 162247,
+          "id": 3,
+          "run_time_mean_us": 48.15,
+          "layer_latency_mean_us": 48.12,
+          "active_time_mean_us": 46.13,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_3",
+          "start_cycle": 162248,
+          "end_cycle": 164149,
+          "id": 4,
+          "run_time_mean_us": 3.83,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 1.9,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_4",
+          "start_cycle": 164150,
+          "end_cycle": 234079,
+          "id": 5,
+          "run_time_mean_us": 71.86,
+          "layer_latency_mean_us": 71.68,
+          "active_time_mean_us": 69.93,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_5",
+          "start_cycle": 234080,
+          "end_cycle": 304010,
+          "id": 6,
+          "run_time_mean_us": 71.86,
+          "layer_latency_mean_us": 71.68,
+          "active_time_mean_us": 69.93,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_6",
+          "start_cycle": 304011,
+          "end_cycle": 306731,
+          "id": 7,
+          "run_time_mean_us": 4.7,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 2.72,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_9",
+          "start_cycle": 306732,
+          "end_cycle": 359552,
+          "id": 8,
+          "run_time_mean_us": 54.83,
+          "layer_latency_mean_us": 55.29,
+          "active_time_mean_us": 52.82,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_7",
+          "start_cycle": 359553,
+          "end_cycle": 402045,
+          "id": 9,
+          "run_time_mean_us": 44.46,
+          "layer_latency_mean_us": 44.03,
+          "active_time_mean_us": 42.49,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_8",
+          "start_cycle": 402046,
+          "end_cycle": 487693,
+          "id": 10,
+          "run_time_mean_us": 87.63,
+          "layer_latency_mean_us": 88.06,
+          "active_time_mean_us": 85.64,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_10",
+          "start_cycle": 487694,
+          "end_cycle": 489106,
+          "id": 11,
+          "run_time_mean_us": 3.42,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.41,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_11",
+          "start_cycle": 489107,
+          "end_cycle": 575194,
+          "id": 12,
+          "run_time_mean_us": 88.06,
+          "layer_latency_mean_us": 88.06,
+          "active_time_mean_us": 86.08,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_12",
+          "start_cycle": 575195,
+          "end_cycle": 661282,
+          "id": 13,
+          "run_time_mean_us": 88.06,
+          "layer_latency_mean_us": 88.06,
+          "active_time_mean_us": 86.08,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_13",
+          "start_cycle": 661283,
+          "end_cycle": 663102,
+          "id": 14,
+          "run_time_mean_us": 3.71,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 1.82,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_16",
+          "start_cycle": 663103,
+          "end_cycle": 711571,
+          "id": 15,
+          "run_time_mean_us": 50.42,
+          "layer_latency_mean_us": 50.17,
+          "active_time_mean_us": 48.46,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_14",
+          "start_cycle": 711572,
+          "end_cycle": 760041,
+          "id": 16,
+          "run_time_mean_us": 50.42,
+          "layer_latency_mean_us": 50.17,
+          "active_time_mean_us": 48.47,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_15",
+          "start_cycle": 760042,
+          "end_cycle": 846026,
+          "id": 17,
+          "run_time_mean_us": 87.91,
+          "layer_latency_mean_us": 88.06,
+          "active_time_mean_us": 85.98,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_17",
+          "start_cycle": 846027,
+          "end_cycle": 847062,
+          "id": 18,
+          "run_time_mean_us": 2.99,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.03,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_18",
+          "start_cycle": 847063,
+          "end_cycle": 933046,
+          "id": 19,
+          "run_time_mean_us": 87.91,
+          "layer_latency_mean_us": 88.06,
+          "active_time_mean_us": 85.98,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_19",
+          "start_cycle": 933047,
+          "end_cycle": 1019031,
+          "id": 20,
+          "run_time_mean_us": 87.91,
+          "layer_latency_mean_us": 88.06,
+          "active_time_mean_us": 85.98,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/add_relu_20",
+          "start_cycle": 1019032,
+          "end_cycle": 1020067,
+          "id": 21,
+          "run_time_mean_us": 2.99,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 1.03,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/add_relu_20_0_MLA_0/image.resize2d_21_3",
+          "start_cycle": 1020068,
+          "end_cycle": 1020551,
+          "id": 22,
+          "run_time_mean_us": 2.7,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.48,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/add_relu_20_0_MLA_0/image.resize2d_21_2",
+          "start_cycle": 1020552,
+          "end_cycle": 1020997,
+          "id": 23,
+          "run_time_mean_us": 2.72,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.44,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/add_relu_20_0_MLA_0/image.resize2d_21_1",
+          "start_cycle": 1020998,
+          "end_cycle": 1021366,
+          "id": 24,
+          "run_time_mean_us": 2.66,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.36,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/add_relu_20_0_MLA_0/image.resize2d_21_0",
+          "start_cycle": 1021367,
+          "end_cycle": 1021857,
+          "id": 25,
+          "run_time_mean_us": 2.69,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.49,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/image.resize2d_21_segment_1",
+          "start_cycle": 1021858,
+          "end_cycle": 1032685,
+          "id": 26,
+          "run_time_mean_us": 22.15,
+          "layer_latency_mean_us": 22.18,
+          "active_time_mean_us": 10.82,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 9.326666666666666
+        },
+        {
+          "name": "MLA_0/image.resize2d_21_segment_2",
+          "start_cycle": 1032686,
+          "end_cycle": 1043607,
+          "id": 27,
+          "run_time_mean_us": 20.916666666666668,
+          "layer_latency_mean_us": 20.48,
+          "active_time_mean_us": 10.92,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 8.063333333333333
+        },
+        {
+          "name": "MLA_0/image.resize2d_21_segment_3",
+          "start_cycle": 1043608,
+          "end_cycle": 1059367,
+          "id": 28,
+          "run_time_mean_us": 25.203333333333333,
+          "layer_latency_mean_us": 25.6,
+          "active_time_mean_us": 15.76,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 7.493333333333333
+        },
+        {
+          "name": "MLA_0/image.resize2d_21_segment_0",
+          "start_cycle": 1059368,
+          "end_cycle": 1069467,
+          "id": 29,
+          "run_time_mean_us": 19.38,
+          "layer_latency_mean_us": 19.45,
+          "active_time_mean_us": 10.1,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 7.319999999999999
+        },
+        {
+          "name": "concat_MLA_0/image.resize2d_21_MLA_0/tuple_concat_22_0",
+          "start_cycle": 1069468,
+          "end_cycle": 1083391,
+          "id": 30,
+          "run_time_mean_us": 15.92,
+          "layer_latency_mean_us": 16.38,
+          "active_time_mean_us": 13.92,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/tuple_concat_22",
+          "start_cycle": 1083392,
+          "end_cycle": 1109869,
+          "id": 31,
+          "run_time_mean_us": 28.41,
+          "layer_latency_mean_us": 28.67,
+          "active_time_mean_us": 26.47,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/tuple_concat_22_0_MLA_0/conv2d_add_relu_23_1",
+          "start_cycle": 1109870,
+          "end_cycle": 1116027,
+          "id": 32,
+          "run_time_mean_us": 8.1,
+          "layer_latency_mean_us": 8.19,
+          "active_time_mean_us": 6.15,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_23_segment_0",
+          "start_cycle": 1116028,
+          "end_cycle": 1515921,
+          "id": 33,
+          "run_time_mean_us": 401.87,
+          "layer_latency_mean_us": 401.4,
+          "active_time_mean_us": 399.89,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_23_segment_1",
+          "start_cycle": 1515922,
+          "end_cycle": 1915892,
+          "id": 34,
+          "run_time_mean_us": 401.9,
+          "layer_latency_mean_us": 401.4,
+          "active_time_mean_us": 399.97,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "concat_MLA_0/conv2d_add_relu_23_MLA_0/conv2d_add_relu_24_0",
+          "start_cycle": 1915893,
+          "end_cycle": 1924964,
+          "id": 35,
+          "run_time_mean_us": 11.09,
+          "layer_latency_mean_us": 11.26,
+          "active_time_mean_us": 9.07,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_24",
+          "start_cycle": 1924965,
+          "end_cycle": 2269244,
+          "id": 36,
+          "run_time_mean_us": 346.21,
+          "layer_latency_mean_us": 346.11,
+          "active_time_mean_us": 344.28,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_24_0_MLA_0/image.resize2d_25_6",
+          "start_cycle": 2269245,
+          "end_cycle": 2272668,
+          "id": 37,
+          "run_time_mean_us": 5.41,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 3.42,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_24_0_MLA_0/image.resize2d_25_5",
+          "start_cycle": 2272669,
+          "end_cycle": 2275408,
+          "id": 38,
+          "run_time_mean_us": 4.7,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 2.74,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_24_0_MLA_0/image.resize2d_25_4",
+          "start_cycle": 2275409,
+          "end_cycle": 2278377,
+          "id": 39,
+          "run_time_mean_us": 4.99,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 2.96,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_24_0_MLA_0/image.resize2d_25_3",
+          "start_cycle": 2278378,
+          "end_cycle": 2281565,
+          "id": 40,
+          "run_time_mean_us": 5.12,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 3.18,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_24_0_MLA_0/image.resize2d_25_2",
+          "start_cycle": 2281566,
+          "end_cycle": 2284720,
+          "id": 41,
+          "run_time_mean_us": 5.13,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 3.15,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_24_0_MLA_0/image.resize2d_25_1",
+          "start_cycle": 2284721,
+          "end_cycle": 2287762,
+          "id": 42,
+          "run_time_mean_us": 4.97,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 3.04,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_24_0_MLA_0/image.resize2d_25_0",
+          "start_cycle": 2287763,
+          "end_cycle": 2290789,
+          "id": 43,
+          "run_time_mean_us": 4.98,
+          "layer_latency_mean_us": 5.12,
+          "active_time_mean_us": 3.02,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/image.resize2d_25_segment_0",
+          "start_cycle": 2290790,
+          "end_cycle": 2305370,
+          "id": 44,
+          "run_time_mean_us": 21.563333333333333,
+          "layer_latency_mean_us": 21.5,
+          "active_time_mean_us": 14.58,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 5.05
+        },
+        {
+          "name": "MLA_0/image.resize2d_25_segment_1",
+          "start_cycle": 2305371,
+          "end_cycle": 2319471,
+          "id": 45,
+          "run_time_mean_us": 27.1,
+          "layer_latency_mean_us": 26.96,
+          "active_time_mean_us": 14.1,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 11.06
+        },
+        {
+          "name": "slice_MLA_0/image.resize2d_25_1_MLA_0/conv2d_add_relu_26_1",
+          "start_cycle": 2319472,
+          "end_cycle": 2319862,
+          "id": 46,
+          "run_time_mean_us": 2.68,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.39,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "concat_MLA_0/image.resize2d_25_MLA_0/conv2d_add_relu_26_0",
+          "start_cycle": 2319863,
+          "end_cycle": 2324575,
+          "id": 47,
+          "run_time_mean_us": 6.69,
+          "layer_latency_mean_us": 7.16,
+          "active_time_mean_us": 4.71,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_26_segment_0",
+          "start_cycle": 2324576,
+          "end_cycle": 2505266,
+          "id": 48,
+          "run_time_mean_us": 205.99,
+          "layer_latency_mean_us": 205.82,
+          "active_time_mean_us": 180.69,
+          "l2_freeze_mean_us": 25.76,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/image.resize2d_25_segment_2",
+          "start_cycle": 2505267,
+          "end_cycle": 2525963,
+          "id": 49,
+          "run_time_mean_us": 37.656666666666666,
+          "layer_latency_mean_us": 37.88,
+          "active_time_mean_us": 20.69,
+          "l2_freeze_mean_us": 7.93,
+          "iq_freeze_mean_us": 8.39
+        },
+        {
+          "name": "MLA_0/image.resize2d_25_segment_3",
+          "start_cycle": 2525964,
+          "end_cycle": 2540064,
+          "id": 50,
+          "run_time_mean_us": 24.28,
+          "layer_latency_mean_us": 24.57,
+          "active_time_mean_us": 14.1,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 8.246666666666666
+        },
+        {
+          "name": "slice_MLA_0/image.resize2d_25_3_MLA_0/conv2d_add_relu_26_2",
+          "start_cycle": 2540065,
+          "end_cycle": 2540455,
+          "id": 51,
+          "run_time_mean_us": 2.68,
+          "layer_latency_mean_us": 3.07,
+          "active_time_mean_us": 0.39,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "concat_MLA_0/image.resize2d_25_MLA_0/conv2d_add_relu_26_1",
+          "start_cycle": 2540456,
+          "end_cycle": 2553172,
+          "id": 52,
+          "run_time_mean_us": 14.64,
+          "layer_latency_mean_us": 14.33,
+          "active_time_mean_us": 12.71,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_26_segment_1",
+          "start_cycle": 2553173,
+          "end_cycle": 2735023,
+          "id": 53,
+          "run_time_mean_us": 207.32,
+          "layer_latency_mean_us": 206.84,
+          "active_time_mean_us": 181.85,
+          "l2_freeze_mean_us": 25.93,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/image.resize2d_25_segment_4",
+          "start_cycle": 2735024,
+          "end_cycle": 2755086,
+          "id": 54,
+          "run_time_mean_us": 34.85,
+          "layer_latency_mean_us": 34.81,
+          "active_time_mean_us": 20.06,
+          "l2_freeze_mean_us": 7.93,
+          "iq_freeze_mean_us": 6.14
+        },
+        {
+          "name": "MLA_0/image.resize2d_25_segment_5",
+          "start_cycle": 2755087,
+          "end_cycle": 2775109,
+          "id": 55,
+          "run_time_mean_us": 30.23,
+          "layer_latency_mean_us": 30.72,
+          "active_time_mean_us": 20.02,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 8.193333333333333
+        },
+        {
+          "name": "MLA_0/image.resize2d_25_segment_6",
+          "start_cycle": 2775110,
+          "end_cycle": 2788607,
+          "id": 56,
+          "run_time_mean_us": 22.093333333333334,
+          "layer_latency_mean_us": 22.52,
+          "active_time_mean_us": 13.49,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 6.67
+        },
+        {
+          "name": "concat_MLA_0/image.resize2d_25_MLA_0/conv2d_add_relu_26_2",
+          "start_cycle": 2788608,
+          "end_cycle": 2811065,
+          "id": 57,
+          "run_time_mean_us": 24.44,
+          "layer_latency_mean_us": 24.57,
+          "active_time_mean_us": 22.45,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_26_segment_2",
+          "start_cycle": 2811066,
+          "end_cycle": 3068481,
+          "id": 58,
+          "run_time_mean_us": 259.31,
+          "layer_latency_mean_us": 259.07,
+          "active_time_mean_us": 257.41,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "concat_MLA_0/conv2d_add_relu_26_MLA_0/conv2d_add_27_0",
+          "start_cycle": 3068482,
+          "end_cycle": 3095128,
+          "id": 59,
+          "run_time_mean_us": 56.49,
+          "layer_latency_mean_us": 56.32,
+          "active_time_mean_us": 26.64,
+          "l2_freeze_mean_us": 27.94,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_27",
+          "start_cycle": 3095129,
+          "end_cycle": 3124070,
+          "id": 60,
+          "run_time_mean_us": 30.83,
+          "layer_latency_mean_us": 30.72,
+          "active_time_mean_us": 28.94,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_relu_28",
+          "start_cycle": 3124071,
+          "end_cycle": 3362438,
+          "id": 61,
+          "run_time_mean_us": 240.28,
+          "layer_latency_mean_us": 240.64,
+          "active_time_mean_us": 238.36,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_relu_28_0_MLA_0/conv2d_add_29_1",
+          "start_cycle": 3362439,
+          "end_cycle": 3372364,
+          "id": 62,
+          "run_time_mean_us": 11.94,
+          "layer_latency_mean_us": 12.28,
+          "active_time_mean_us": 9.92,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_29_segment_0",
+          "start_cycle": 3372365,
+          "end_cycle": 3409062,
+          "id": 63,
+          "run_time_mean_us": 38.663333333333334,
+          "layer_latency_mean_us": 38.91,
+          "active_time_mean_us": 36.69,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/softplus_30_segment_0",
+          "start_cycle": 3409063,
+          "end_cycle": 3416000,
+          "id": 64,
+          "run_time_mean_us": 8.96,
+          "layer_latency_mean_us": 9.21,
+          "active_time_mean_us": 6.93,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_31_segment_0",
+          "start_cycle": 3416001,
+          "end_cycle": 3479416,
+          "id": 65,
+          "run_time_mean_us": 65.33,
+          "layer_latency_mean_us": 65.53,
+          "active_time_mean_us": 63.41,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_31_0_MLA_0/conv2d_add_31_output_1",
+          "start_cycle": 3479417,
+          "end_cycle": 3490386,
+          "id": 66,
+          "run_time_mean_us": 12.94,
+          "layer_latency_mean_us": 13.31,
+          "active_time_mean_us": 10.97,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_31_output_segment_1",
+          "start_cycle": 3490387,
+          "end_cycle": 3492208,
+          "id": 67,
+          "run_time_mean_us": 3.85,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 1.82,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_31_0_MLA_0/conv2d_add_31_output_0",
+          "start_cycle": 3492209,
+          "end_cycle": 3506819,
+          "id": 68,
+          "run_time_mean_us": 61.28,
+          "layer_latency_mean_us": 61.44,
+          "active_time_mean_us": 14.61,
+          "l2_freeze_mean_us": 44.656666666666666,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_31_output_segment_0",
+          "start_cycle": 3506820,
+          "end_cycle": 3508641,
+          "id": 69,
+          "run_time_mean_us": 3.85,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 1.82,
+          "l2_freeze_mean_us": 2.49,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_29_segment_1",
+          "start_cycle": 3508642,
+          "end_cycle": 3538827,
+          "id": 70,
+          "run_time_mean_us": 91.28,
+          "layer_latency_mean_us": 91.13,
+          "active_time_mean_us": 30.18,
+          "l2_freeze_mean_us": 60.45333333333333,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/softplus_30_segment_1",
+          "start_cycle": 3538828,
+          "end_cycle": 3545765,
+          "id": 71,
+          "run_time_mean_us": 8.96,
+          "layer_latency_mean_us": 9.21,
+          "active_time_mean_us": 6.93,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_31_segment_1",
+          "start_cycle": 3545766,
+          "end_cycle": 3609181,
+          "id": 72,
+          "run_time_mean_us": 65.33,
+          "layer_latency_mean_us": 65.53,
+          "active_time_mean_us": 63.41,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_31_1_MLA_0/conv2d_add_31_output_3",
+          "start_cycle": 3609182,
+          "end_cycle": 3620151,
+          "id": 73,
+          "run_time_mean_us": 12.94,
+          "layer_latency_mean_us": 13.31,
+          "active_time_mean_us": 10.97,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_31_output_segment_3",
+          "start_cycle": 3620152,
+          "end_cycle": 3621973,
+          "id": 74,
+          "run_time_mean_us": 3.85,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 1.82,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "slice_MLA_0/conv2d_add_31_1_MLA_0/conv2d_add_31_output_2",
+          "start_cycle": 3621974,
+          "end_cycle": 3636584,
+          "id": 75,
+          "run_time_mean_us": 61.35333333333333,
+          "layer_latency_mean_us": 61.44,
+          "active_time_mean_us": 14.61,
+          "l2_freeze_mean_us": 44.76,
+          "iq_freeze_mean_us": 0.0
+        },
+        {
+          "name": "MLA_0/conv2d_add_31_output_segment_2",
+          "start_cycle": 3636585,
+          "end_cycle": 3638407,
+          "id": 76,
+          "run_time_mean_us": 3.85,
+          "layer_latency_mean_us": 4.09,
+          "active_time_mean_us": 1.82,
+          "l2_freeze_mean_us": 0.0,
+          "iq_freeze_mean_us": 0.0
+        }
+      ],
+      "layer_profile_sum_run_time_us": [
+        4170.03,
+        4169.26,
+        4170.32
+      ],
+      "layer_count": 76,
+      "compiler_last_end_cycle": 3638407
+    }
+  },
+  "comparison": {
+    "sequential": {
+      "camera_mla_ms_per_six_views": 7.697814,
+      "shared_bev_mla_ms": 4.0760076666666665,
+      "camera_plus_bev_mla_ms": 11.773821666666667,
+      "camera_direct_api_ms_per_six_views": 8.279962000000001,
+      "camera_tile_active_ms_per_six_views": 7.389378000000001,
+      "camera_sync_freeze_counter_ms_per_six_views": 0.30173400000000006
+    },
+    "packed3": {
+      "camera_mla_ms_per_six_views": 8.934062666666666,
+      "shared_bev_mla_ms": 4.0760076666666665,
+      "camera_plus_bev_mla_ms": 13.010070333333331,
+      "camera_direct_api_ms_per_six_views": 9.078707333333334,
+      "camera_tile_active_ms_per_six_views": 7.780106,
+      "camera_sync_freeze_counter_ms_per_six_views": 1.148438
+    },
+    "packed3_camera_hardware_slowdown_percent": 16.059736785880574
+  },
+  "evidence_files": [
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/counters.log",
+      "sha256": "39d35531117df79c9644cefd9e0c95e137790f44d709d6f4f610c2c871885d59"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/counters.yaml",
+      "sha256": "e6cf2523c5d7e526daa1bf3ce36b3531cdf14062b97a19db38d03727a197ee58"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/flashocc_m0_bev_stage1_mla_stats.yaml",
+      "sha256": "a7067d939728a1ddede1d8baf3db5834ab9e272748ce4f0a51c699133b67f887"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/layers-0.log",
+      "sha256": "311b20585a755457c1a00ba84ab87910bc022fe7ef31296665acd2dce794a573"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/layers-0.yaml",
+      "sha256": "a7067d939728a1ddede1d8baf3db5834ab9e272748ce4f0a51c699133b67f887"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/layers-0_output.yaml",
+      "sha256": "377461b2b73ff3f91ef8f69f8c5385138c92670f2f6ad862da606d1684602917"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/layers-1.log",
+      "sha256": "58f3e1439c7b0e11e52ed52a4ae91cc91a8ff2af6653edd714b6eb9860f43e33"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/layers-1.yaml",
+      "sha256": "a7067d939728a1ddede1d8baf3db5834ab9e272748ce4f0a51c699133b67f887"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/layers-1_output.yaml",
+      "sha256": "5daf0654e80813e6f20ede0e913e73a937ec0b67a51e02133943e23fd2d99181"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/layers-2.log",
+      "sha256": "36434670abf5366dd71f594de392aaad97f9ed10ed3056121cd3548d6914451c"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/layers-2.yaml",
+      "sha256": "a7067d939728a1ddede1d8baf3db5834ab9e272748ce4f0a51c699133b67f887"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/layers-2_output.yaml",
+      "sha256": "8460cdfc0bf0d99ee33606e9a91af1a892cd3088696bf6535c7bf22b24715363"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/whole-0.log",
+      "sha256": "47ecd251217b87df15cbf57ea902498856021361e5fd6cb529b2410fc1d9c7c1"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/whole-0.yaml",
+      "sha256": "086af943ff3ca66f15758e054ca4eadee0b33e1f2b955254812ec07c8602f767"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/whole-1.log",
+      "sha256": "8883c44bac26ddfea9ffbf74c7d721db092246e673d181fc76cd6f7cc1d3625d"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/whole-1.yaml",
+      "sha256": "741eb2970e00f52777dcfe1de35afc1aa786e0cfdbb499dafa6ce3e35170b2f5"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/whole-2.log",
+      "sha256": "020f4b2d0eccfc8c593b1410920a6b3cb69a9f8f55866063fdcbe10661586a7f"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/bev/whole-2.yaml",
+      "sha256": "60359310907e3d7569a0834bebabb57c47454bfae72d2b6225a05eec315cbc2f"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/mla-rt-help.txt",
+      "sha256": "a4131596b73ca467c464ad91fcc37f4516fe112ae645711c93a8a35548345b03"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/counters.log",
+      "sha256": "2732ee22f7ceef988e5eefa6f10775caf87ac03102ae34307b54c479d88e5b0e"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/counters.yaml",
+      "sha256": "eaa8bf0fe5441bc1ddb395e3c38b0ed04aec8953eb95e6c38ddc06839165b2a3"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/flashocc_m0_camera_stage1_mla_stats.yaml",
+      "sha256": "ae0059fcd62cbda7d9ec5892669827b076275dbcac270a3675dd7d06ac85d002"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/layers-0.log",
+      "sha256": "d95d718ae889808e3415d67a394af0b1ea1eda8ff355155075cdc42725880efb"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/layers-0.yaml",
+      "sha256": "ae0059fcd62cbda7d9ec5892669827b076275dbcac270a3675dd7d06ac85d002"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/layers-0_output.yaml",
+      "sha256": "85f9446392f52d677c3cbb798726d9c4477a7082b6bc5d54561bf615d238c1aa"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/layers-1.log",
+      "sha256": "bcfaaf56ad6ba99311aea84c0d445de23c917ce6b837952222a334e729a2d032"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/layers-1.yaml",
+      "sha256": "ae0059fcd62cbda7d9ec5892669827b076275dbcac270a3675dd7d06ac85d002"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/layers-1_output.yaml",
+      "sha256": "fcc9c63beaf920d297346962bac93057b38ec31bb95ae1c1ce7e38ce8d236424"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/layers-2.log",
+      "sha256": "6111995bc47177619b40dd4b1318459d43aaa5960561ad3809efd6ba40fffe42"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/layers-2.yaml",
+      "sha256": "ae0059fcd62cbda7d9ec5892669827b076275dbcac270a3675dd7d06ac85d002"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/layers-2_output.yaml",
+      "sha256": "6eeafb6c92abde231d716645414056184c1c48ae67b7b97737fcbf6573783d29"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/whole-0.log",
+      "sha256": "e92be13fa5d9f9fcafac4aebccaf9247cee3d05a0a4584c0848fd1c4448adedc"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/whole-0.yaml",
+      "sha256": "c9017adf1a39865352048999f7b2150169b491f3cf8ca7aa02bf7527ac119443"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/whole-1.log",
+      "sha256": "729de38b66bca693c5b5a21ce67c46e001ef92bc8b6e1316ef11428af879f906"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/whole-1.yaml",
+      "sha256": "2e0aa7431e4c56595a5f869431950d7f1c307866db6ea18cccdf4921f0c7e5f9"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/whole-2.log",
+      "sha256": "c8a70f1d1e9381305c545dbca63072ff0c14d1c8437920f18edbaed6904cf371"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/packed3-camera/whole-2.yaml",
+      "sha256": "258f646b7dae0a011a283e2ab20539314a8216110de907ae35f7b8105352fe6f"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/restore-initialization.log",
+      "sha256": "e2a3ed24972c635621fad1f02b61c1f672f526bda287b2ec92d1224a60bee2aa"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/counters.log",
+      "sha256": "1d2376d171ab96ab41c3b1d44f9b2c79034584b78fcf182bf171c697a16cb9fe"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/counters.yaml",
+      "sha256": "1418c39e970d172c369ec5858abea2c0474fcd2cf4ba1d77f3ed9faea96e6bc0"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/flashocc_m0_camera_stage1_mla_stats.yaml",
+      "sha256": "ccc45183650a3a0adf23bad9fd0b039fc05f558731065b9540197c539d753da1"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/layers-0.log",
+      "sha256": "f5057b0bdde227d3353c55b73b8b0fc4dc9e56b0218167128cb0b8cc673bc536"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/layers-0.yaml",
+      "sha256": "ccc45183650a3a0adf23bad9fd0b039fc05f558731065b9540197c539d753da1"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/layers-0_output.yaml",
+      "sha256": "6e3b82838e084992673e3402f00d01a8e853762b7f370b87288cc747fcf06fbf"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/layers-1.log",
+      "sha256": "f7a9a150727860ec021e3b48d7e5d74d3ecb7dc7d04ce9a0acc30a094596b8eb"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/layers-1.yaml",
+      "sha256": "ccc45183650a3a0adf23bad9fd0b039fc05f558731065b9540197c539d753da1"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/layers-1_output.yaml",
+      "sha256": "b62fd7da3db42ee43c143ff376e5f2d8fb58689b0f7b5ca20eca577f172cb90e"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/layers-2.log",
+      "sha256": "d8057e76d051b9739fce13de56f93cfce317a7839ff136279814a1f5a86e5bbd"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/layers-2.yaml",
+      "sha256": "ccc45183650a3a0adf23bad9fd0b039fc05f558731065b9540197c539d753da1"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/layers-2_output.yaml",
+      "sha256": "8ed4ebb17a36795abbc8d92d4de62c28c89b550e005259d7e913273eb76d5db5"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/whole-0.log",
+      "sha256": "0f4fa1aaa2ed2b643e97a16624314cfc81c217a56a3012f2c2fede44b5eaca9e"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/whole-0.yaml",
+      "sha256": "db58159616c7713fc9a3f29baeff66a11963291e51fbc93cc0b6faeec5e049d0"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/whole-1.log",
+      "sha256": "152dbbda4dbcac950dc43a8b0478bca2b78880eb6c69dc587cd52245327c5ff8"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/whole-1.yaml",
+      "sha256": "76cf776718c1b37f5ed87e80c491b66c4b70ffdbb5fa8963c5d6a2407f7f89af"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/whole-2.log",
+      "sha256": "0d0991fc2dee309040f5604c87c01397debdc7e02e62b68e15e6ecd91d1c6347"
+    },
+    {
+      "path": "artifacts/mla-only-20261028/validated/sequential-camera/whole-2.yaml",
+      "sha256": "a27c0af94e5a6aedff71bcbf8b2cc0702341428a70040a0ede363c7813ca92b5"
+    }
+  ],
+  "post_restore_validation": {
+    "ev74_preprocessing_passed": true,
+    "full_packed_camera_pool_bev_replay_passed": true,
+    "finite_logits_checked": true,
+    "token": "281b92269fd648d4b52d06ac06ca6d65",
+    "labels_byte_identical_to_previous_run": true,
+    "label_sha256": "22435a5895ef15cedd301817643f8bd904350194efe55addcdeb1edb2995400b",
+    "previous_labels": "artifacts/qat-packed-ev74-20261028/replay-regression/281b92269fd648d4b52d06ac06ca6d65.labels.u8",
+    "commands": [
+      {
+        "command": [
+          "build/modalix/check_packed_preprocess",
+          "configs/experiments/qat-packed3-ev74-bgr.json",
+          "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/restored-ev74-check"
+        ],
+        "passed": true,
+        "log": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/restored-check-0.log"
+      },
+      {
+        "command": [
+          "build/modalix/flashocc_replay",
+          "--camera-model",
+          "artifacts/compile_with_qat_better_accuracy/compile-qat-packed3/flashocc_m0_camera_mpk.tar.gz",
+          "--bev-model",
+          "artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+          "--camera-mode",
+          "packed",
+          "--camera-pack-size",
+          "3",
+          "--camera-pre-target",
+          "A65",
+          "--camera-post-target",
+          "A65",
+          "--bev-pre-target",
+          "AUTO",
+          "--bev-post-target",
+          "A65",
+          "--input-dir",
+          "artifacts/app-replay-inputs",
+          "--output-dir",
+          "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/restored-mla-check",
+          "--limit",
+          "1",
+          "--warmup",
+          "0",
+          "--repeat",
+          "1"
+        ],
+        "passed": true,
+        "log": "/workspace/GitHub/occupancy-prediction/artifacts/mla-only-20261028/restored-check-1.log"
+      }
+    ]
+  }
+}

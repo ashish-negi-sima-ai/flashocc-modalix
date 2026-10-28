@@ -1,0 +1,130 @@
+{
+  "scope": "AFE simulator (use_jax) of each quantized camera model, unpacked outputs, FP32 reference pooling, deployed QAT PTQ BEV model; 32 QAT validation samples. Not Modalix hardware measurements.",
+  "protocol": "Occ3D camera mask; aggregate confusion matrix; mIoU classes 0-16",
+  "fp32_source": {
+    "source": "/project/davinci_users/software/ashish.negi/workspace/experiments/flashocc-modalix/artifacts/qat-runs/m0-full/onnx-stripped/camera.fp32.onnx",
+    "source_sha256": "d345bcaaa61ac0567edc0341c5a3bfec77cabd812bbc139b41ec013a957bcec2",
+    "normalized": "/project/davinci_users/software/ashish.negi/workspace/experiments/flashocc-modalix/artifacts/onnx-qat/camera.onnx",
+    "normalized_sha256": "c6be7963e91635af286b0b872a19818f2f86c0fa2f8e877b7ac350a11f6018ba",
+    "changes": {
+      "resize_sizes": [
+        1,
+        256,
+        16,
+        44
+      ],
+      "removed_nodes": {
+        "Concat": 1,
+        "Constant": 452,
+        "Identity": 50,
+        "Shape": 1,
+        "Slice": 1
+      }
+    },
+    "learned_parameters_unchanged": true,
+    "fp32_bit_exact_vs_source": true,
+    "checked_camera_images": 48
+  },
+  "variants": {
+    "deployed_qat_ptq": {
+      "cameras_per_call": 1,
+      "calls_per_six_cameras": 6,
+      "camera_masked_miou": 0.3429213958459143,
+      "camera_masked_accuracy": 0.8635043378104739,
+      "mean_depth_relative_rmse_vs_fp32": 0.2473827253699607,
+      "mean_features_relative_rmse_vs_fp32": 0.24423127647150114,
+      "archive": "artifacts/qat-runs/m0-full/ptq-compile/camera/flashocc_m0_camera_mpk.tar.gz",
+      "archive_sha256": "a66706506cccb06385c7a9700675dec7d74d3d4a256627cc159d20f7ea050ad0",
+      "calibration": "64 CAM_FRONT_LEFT images (compile_qat_ptq_w8a8.py)"
+    },
+    "sequential_control": {
+      "cameras_per_call": 1,
+      "calls_per_six_cameras": 6,
+      "camera_masked_miou": 0.3454201011637701,
+      "camera_masked_accuracy": 0.867295974288952,
+      "mean_depth_relative_rmse_vs_fp32": 0.22227074014004755,
+      "mean_features_relative_rmse_vs_fp32": 0.23641321028898682,
+      "archive": "artifacts/compile-qat-sequential/camera/flashocc_m0_camera_mpk.tar.gz",
+      "archive_sha256": "90b45527bab19619bde3d9de543c22ef7688a6cddf6faa90c8fc40d4b38e78b5",
+      "model": "artifacts/onnx-qat/camera.onnx",
+      "model_sha256": "c6be7963e91635af286b0b872a19818f2f86c0fa2f8e877b7ac350a11f6018ba",
+      "calibration": "384 images: all six views of the first 64 calibration samples",
+      "calibration_tensors": 384,
+      "label_agreement_vs_deployed_qat_ptq": 0.9565673828125,
+      "mean_depth_relative_rmse_vs_deployed_qat_ptq": 0.2453799838510874,
+      "mean_features_relative_rmse_vs_deployed_qat_ptq": 0.20585663610513788
+    },
+    "packed2": {
+      "cameras_per_call": 2,
+      "calls_per_six_cameras": 3,
+      "camera_masked_miou": 0.34203717843449133,
+      "camera_masked_accuracy": 0.8591967155250887,
+      "mean_depth_relative_rmse_vs_fp32": 0.20393517628111357,
+      "mean_features_relative_rmse_vs_fp32": 0.21851333260134387,
+      "archive": "artifacts/compile-qat-packed2/camera/flashocc_m0_camera_mpk.tar.gz",
+      "archive_sha256": "0bc7728e9103d7c210a2aac90195b2aa353d56f4682f89bf838f3741d4fc16ad",
+      "model": "artifacts/onnx-qat-packed2/camera_spatial.onnx",
+      "model_sha256": "6924fb8581ea287a3f429cce7047b1897653f19492ba936e2e38ab470320d9f6",
+      "calibration": "384 images: all six views of the first 64 calibration samples",
+      "calibration_tensors": 192,
+      "label_agreement_vs_deployed_qat_ptq": 0.95689912109375,
+      "mean_depth_relative_rmse_vs_deployed_qat_ptq": 0.23119684130294935,
+      "mean_features_relative_rmse_vs_deployed_qat_ptq": 0.18358567742791265,
+      "label_agreement_vs_sequential_control": 0.9537023437500001,
+      "mean_depth_relative_rmse_vs_sequential_control": 0.22585914015373204,
+      "mean_features_relative_rmse_vs_sequential_control": 0.20084303908863854,
+      "fp32_packing_bit_exact": {
+        "all_outputs_bit_exact": true,
+        "camera_images": 48
+      }
+    },
+    "packed3": {
+      "cameras_per_call": 3,
+      "calls_per_six_cameras": 2,
+      "camera_masked_miou": 0.3420428360454432,
+      "camera_masked_accuracy": 0.8630347953705252,
+      "mean_depth_relative_rmse_vs_fp32": 0.20930923094964207,
+      "mean_features_relative_rmse_vs_fp32": 0.22401785264677848,
+      "archive": "artifacts/compile-qat-packed3/camera/flashocc_m0_camera_mpk.tar.gz",
+      "archive_sha256": "34ba43166fed41fdd2efa4c85e46bacb97fe4ae3a38f7ca4e921cd3c20b6a253",
+      "model": "artifacts/onnx-qat-packed3/camera_spatial.onnx",
+      "model_sha256": "0ec314c2d7dc1348d9902815df9934f85fe6b55d792d5df96ac65a5057cd312a",
+      "calibration": "384 images: all six views of the first 64 calibration samples",
+      "calibration_tensors": 128,
+      "label_agreement_vs_deployed_qat_ptq": 0.959001220703125,
+      "mean_depth_relative_rmse_vs_deployed_qat_ptq": 0.24313868276861592,
+      "mean_features_relative_rmse_vs_deployed_qat_ptq": 0.19472922187942127,
+      "label_agreement_vs_sequential_control": 0.9592968261718751,
+      "mean_depth_relative_rmse_vs_sequential_control": 0.20987039775955854,
+      "mean_features_relative_rmse_vs_sequential_control": 0.17983322818469544,
+      "fp32_packing_bit_exact": {
+        "all_outputs_bit_exact": true,
+        "camera_images": 48
+      }
+    },
+    "packed6": {
+      "cameras_per_call": 6,
+      "calls_per_six_cameras": 1,
+      "camera_masked_miou": 0.34616754002372746,
+      "camera_masked_accuracy": 0.8653987627487042,
+      "mean_depth_relative_rmse_vs_fp32": 0.2236735675992358,
+      "mean_features_relative_rmse_vs_fp32": 0.2415204687621114,
+      "archive": "artifacts/compile-qat-packed6/camera/flashocc_m0_camera_mpk.tar.gz",
+      "archive_sha256": "6bd484eb2b1fa04147da366cb1a75dbeaf346a9e56b26e23cf90519702517589",
+      "model": "artifacts/onnx-qat-packed6/camera_spatial.onnx",
+      "model_sha256": "2c9af95e930d3fac98eab490171ae01afec1419bd6c40cd9549f7a31de4c48d8",
+      "calibration": "384 images: all six views of the first 64 calibration samples",
+      "calibration_tensors": 64,
+      "label_agreement_vs_deployed_qat_ptq": 0.9546087890625,
+      "mean_depth_relative_rmse_vs_deployed_qat_ptq": 0.258593603991101,
+      "mean_features_relative_rmse_vs_deployed_qat_ptq": 0.21362884859397624,
+      "label_agreement_vs_sequential_control": 0.9560923828125001,
+      "mean_depth_relative_rmse_vs_sequential_control": 0.22955433699023664,
+      "mean_features_relative_rmse_vs_sequential_control": 0.2022312365157773,
+      "fp32_packing_bit_exact": {
+        "all_outputs_bit_exact": true,
+        "camera_images": 48
+      }
+    }
+  }
+}

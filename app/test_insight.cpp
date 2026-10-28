@@ -85,7 +85,14 @@ int main() {
     configure_execution(packed_settings,{{"camera_pre_target","EV74"}});
     require(finalize_execution(packed_settings).camera_pre_target=="EV74","Explicit packed target override lost");
     require(finalize_execution(legacy).camera_mode=="sequential" && camera_input_width(legacy)==704,"Changed sequential defaults");
-    for(const Json invalid:{Json{{"camera_mode","other"}},Json{{"camera_mode","packed"},{"camera_input","ev74-bgr"}},
+    Options packed_ev74;configure_execution(packed_ev74,{{"camera_mode","packed"},{"camera_pack_size",3},
+      {"camera_input","ev74-bgr"},{"camera_pre_target","EV74"}});
+    auto packed_model_options=model_options(256,2176,3,"camera",packed_ev74);
+    auto normalize_options=PackedCameraPreprocess::normalizer_options(packed_ev74);
+    require(packed_model_options.preprocess.kind==neat::InputKind::Tensor &&
+            normalize_options.preprocess.kind==neat::InputKind::Image &&
+            normalize_options.preprocess.resize.width==704,"Packed EV74 preprocessing contract lost");
+    for(const Json invalid:{Json{{"camera_mode","other"}},Json{{"camera_mode","packed"},{"camera_input","ev74-nv12"}},
                            Json{{"camera_mode","packed"},{"camera_guard_width",31}},Json{{"camera_guard_width",32.5}},
                            Json{{"camera_pack_size",4}},Json{{"camera_pack_size",3.5}}}) {
       rejected=false;try{Options o;configure_execution(o,invalid);}catch(const std::exception&){rejected=true;}

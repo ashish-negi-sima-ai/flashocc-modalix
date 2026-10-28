@@ -10,6 +10,8 @@ investigation implementations separate from its build/run workflow.
   [NEAT_BATCHING_BUG](../docs/experiments/NEAT_BATCHING_BUG.md).
 - `packing/`: spatial packing exports/calibration, validation and reports for
   two, three or six cameras per batch-one invocation.
+  [QAT_PACKING](../docs/experiments/QAT_PACKING.md) applies it to the QAT W8A8
+  camera model.
 - `configs/experiments` at the repository root contains packed and native-NV12
   presets. Native NV12 remains experimental due to its measured preprocessing
   mismatch; retain explicit selection in the application.

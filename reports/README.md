@@ -23,6 +23,19 @@ and evaluate the matching model pair before attributing a difference to any
 single compiler, quantizer or runtime component. Performance is the complete
 six-camera app, not reciprocal synthetic model latency.
 
+`qat-packed/comparison.json` compares packed QAT W8A8 camera archives with the
+deployed QAT camera in the simulator; see
+[QAT packing](../docs/experiments/QAT_PACKING.md).
+The separate [2026-10-28 packed QAT app benchmark](qat-packed/MODALIX_APP.md)
+records Modalix timing, model hashes and all per-update measurements. Sequential
+EV74 remains fastest at 8.21 FPS; packed ARM routes measured 5.23–5.29 FPS.
+The [packed-3 EV74 follow-up](qat-packed/PACKED3_EV74.md) records the opt-in EV74
+implementation, input/output validation and actual throughput with visualization
+disabled: 11.79 FPS, versus 12.13 FPS for sequential EV74.
+The [direct MLA ELF profile](qat-packed/MLA_ONLY.md) isolates accelerator execution
+with AppComplex disabled: six sequential-camera executions take 7.70 ms, versus
+8.93 ms for two packed-3 executions; the shared BEV ELF takes 4.08 ms.
+
 Fresh cleanup validation belongs under ignored `artifacts/cleanup-validation/`.
 Only its compact final audit should be added here; do not add image tensors,
 checkpoints, full compiler IR or model binaries.
