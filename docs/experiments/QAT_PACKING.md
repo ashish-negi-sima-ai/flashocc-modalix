@@ -82,18 +82,35 @@ bit-identical to sequential outputs, since activation scales come from
 calibration. Camera relative RMSE against FP32 is 20–25% for every INT8 variant,
 including the deployed one. Details: `reports/qat-packed/comparison.json`.
 
-Application presets and open work
----------------------------------
+Application presets and hardware validation
+-------------------------------------------
 
-`configs/experiments/qat-packed{6,3,2}.json` select each packed QAT camera with the
-deployed compatible QAT BEV archive (`artifacts/qat-app/compatible/`). The app
-requires `camera_input=arm-fp32` for packed mode, so these presets use ARM
+`configs/experiments/qat-packed{6,3,2}.json` select the supplied packed QAT camera
+archives under `artifacts/compile_with_qat_better_accuracy/compile-qat-packedN/`
+with the deployed compatible QAT BEV archive (`artifacts/qat-app/compatible/`). These presets use ARM
 normalization and A65 camera conversion like the BF16 packed presets. The
 fastest sequential QAT preset uses EV74 preprocessing instead (8.26 versus
 5.05 FPS for sequential ARM FP32).
 
-Not yet measured: Modalix hardware execution, startup output-contract checks,
-EV74 versus A65 input quantization speed on the wide inputs, Neat latency, and
-full-application FPS. Copy the archives to the device workspace, then follow the
-[packed validation workflow](CAMERA_BATCH.md#modalix-validation-workflow-for-the-packed-model)
-and the [benchmark command](../../app/EXECUTION.md#packed-camera-inference).
+On 2026-10-28, all three supplied archives passed startup output-contract checks
+and eight normalized replay groups on Modalix, with finite BEV logits and valid
+semantic labels. Packed outputs agreed with sequential QAT labels on 95.6–96.1%
+of voxels in these eight groups; these are prediction-agreement checks, not
+ground-truth accuracy measurements.
+
+The full app measured 5.23, 5.29 and 5.25 FPS for two, three and six cameras per
+call, respectively. Sequential QAT + EV74 measured 8.21 FPS. Packing reduces
+camera runtime to approximately 19–20 ms per six-camera update, but ARM image
+preparation and input copies take approximately 83 ms. The sequential EV74 route
+takes approximately 5 ms for image preparation and input copies.
+
+See the [hardware timing report](../../reports/qat-packed/MODALIX_APP.md) for
+the protocol, model hashes, timing breakdown and reproduction commands. Hardware
+ground-truth accuracy remains unmeasured; the simulator accuracy table above is unchanged.
+
+The follow-up [packed-3 EV74 implementation and benchmark](../../reports/qat-packed/PACKED3_EV74.md)
+adds `configs/experiments/qat-packed3-ev74-bgr.json`. EV74 normalizes and quantizes
+individual cameras before ARM packs the INT8 values. With visualization disabled,
+it measured 11.79 FPS versus 6.50 FPS for packed ARM and 12.13 FPS for sequential
+EV74. The full Insight route measured 8.22 FPS. These measurements use the same
+compiled archives; the EV74 path changes preprocessing and runtime composition.

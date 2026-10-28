@@ -131,7 +131,7 @@ To switch back, stop and start with `configs/execution/arm-fp32.json`, or use
 `configs/execution/ev74-bgr.json` for sequential calls with EV74 normalization.
 With no mode specified the application retains sequential inference.
 
-In packed mode ARM normalizes six BGR images, places them side by side with
+In the original packed ARM route, ARM normalizes six BGR images, places them side by side with
 32-pixel zero guards, and submits one 256×4384×3 tensor. The camera archive is
 `artifacts/compile-packed/camera/flashocc_m0_camera_mpk.tar.gz`. Its outputs are
 16×274×44 depth probabilities and 16×274×64 features. ARM removes the two output
@@ -141,23 +141,39 @@ See [camera packing validation](CAMERA_BATCH.md) for graph preparation and
 compiler/hardware evidence.
 
 QAT W8A8 packed camera archives use `configs/experiments/qat-packed{6,3,2}.json`.
-They have simulator accuracy only and have not been run on Modalix; see
-[QAT packing](../docs/experiments/QAT_PACKING.md).
+The presets point to the supplied archives under
+`artifacts/compile_with_qat_better_accuracy/compile-qat-packedN/`.
+All three ran successfully on Modalix on 2026-10-28. Full-app throughput was
+5.23–5.29 FPS with ARM normalization, compared with 8.21 FPS for sequential
+QAT + EV74. See the [hardware timing report](../reports/qat-packed/MODALIX_APP.md)
+and [QAT packing](../docs/experiments/QAT_PACKING.md).
 
-The preset uses `camera_input=arm-fp32` and A65 camera pre/post conversion.
-Packed mode currently requires normalization before inserting guards; combining
-it with `ev74-bgr` or `ev74-nv12` is rejected. AUTO and EV74 remain explicit
-conversion options, but both measured approximately 4.3 seconds for this wide
-input on the installed runtime, compared with approximately 7 ms on A65.
+The original presets use `camera_input=arm-fp32` and A65 camera pre/post conversion.
+For the QAT packed-3 archive, the opt-in
+`configs/experiments/qat-packed3-ev74-bgr.json` enables a different route: EV74
+normalizes and quantizes six 704×256 camera images, ARM packs the INT8 results
+with quantized-zero gaps, and the app makes two packed MLA calls. Six preprocessing
+requests are queued before collecting their outputs. The existing archive is
+reused through public model-stage APIs; no model recompilation is required.
+
+This route requires natural INT8 ingress and matching normalization/MLA
+quantization parameters. Packed NV12 remains unsupported. The earlier ~4.3-second
+AUTO/EV74 conversion measurements refer to the old wide FP32 tensor route, not
+this per-camera image preprocessing path. See the
+[packed-3 EV74 report](../reports/qat-packed/PACKED3_EV74.md) for measured results,
+numerical differences and reproduction commands.
 
 `camera_model` can override the default archive. The application checks batch
 size and output shapes at startup, rejecting an archive that does not match
 the selected mode and guard width. Changing `camera_guard_width` requires a
 matching re-exported and compiled model; it does not modify archive geometry.
 The supplied archive uses 32 pixels. Runtime timing records include
-`camera_calls` (one, two, three or six), `camera_pack_ms`, `camera_route_ms` and
+`camera_calls` (one, two, three or six), `camera_normalize_ms`, `camera_pack_ms`, `camera_route_ms` and
 `camera_unpack_ms`. `camera_route_ms` includes model input/output conversion,
 MLA execution and runtime overhead; it is not pure accelerator time.
+In packed EV74 mode, `camera_normalize_ms` includes preprocessing requests and
+runtime handoffs. Both it and `camera_pack_ms` are subsets of `camera_input_ms`;
+they must not be added to that timer again.
 
 For the intermediate two-call approach, use `configs/experiments/packed3.json`:
 

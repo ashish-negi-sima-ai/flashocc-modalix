@@ -146,8 +146,8 @@ void configure_execution(Options& o,const Json& config) {
   }
   if(o.camera_guard_width<32 || o.camera_guard_width>1024 || o.camera_guard_width%32)
     throw std::invalid_argument("camera_guard_width must be a multiple of 32 in 32..1024 and match the compiled model");
-  if(o.camera_mode=="packed" && o.camera_input!="arm-fp32")
-    throw std::invalid_argument("Packed mode requires camera_input=arm-fp32; normalize before inserting zero guards");
+  if(o.camera_mode=="packed" && o.camera_input!="arm-fp32" && o.camera_input!="ev74-bgr")
+    throw std::invalid_argument("Packed mode supports arm-fp32 or ev74-bgr; packed NV12 is not implemented");
   if(o.camera_input!="arm-fp32" && o.camera_input!="ev74-bgr" && o.camera_input!="ev74-nv12")throw std::invalid_argument("Invalid camera_input");
   if(o.camera_model_order!="BGR" && o.camera_model_order!="RGB")throw std::invalid_argument("Invalid camera_model_order");
   if(o.camera_input=="ev74-nv12" && o.camera_model_order!="RGB")throw std::invalid_argument("ev74-nv12 requires the RGB-input camera model and camera_model_order=RGB");
@@ -227,7 +227,7 @@ neat::Model::Options model_options(int height,int width,int depth,const std::str
   o.preprocess.resize.enable=neat::AutoFlag::Off;
   o.preprocess.color_convert.enable=neat::AutoFlag::Off;
   const bool camera=name=="camera";
-  if(camera && options.camera_input!="arm-fp32") {
+  if(camera && options.camera_input!="arm-fp32" && options.camera_mode=="sequential") {
     o.preprocess.kind=neat::InputKind::Image;
     o.preprocess.normalize.enable=neat::AutoFlag::On;
     // Image preproc normalizes uint8 to [0,1] before mean/std. Public
@@ -286,10 +286,93 @@ struct RunnerGuard {
   ~RunnerGuard() {try{runner.close();}catch(const std::exception& e){std::cerr<<"Runner close: "<<e.what()<<'\n';}}
 };
 
+struct GraphRunnerGuard {
+  neat::Run run;
+  ~GraphRunnerGuard(){try{run.close();}catch(const std::exception& e){std::cerr<<"Graph close: "<<e.what()<<'\n';}}
+};
+
+// Normalize at the validated single-camera width, then pack natural INT8 tensors.
+// The same archive supplies preprocessing quantization and packed MLA weights.
+struct PackedCameraPreprocess {
+  Options options;
+  neat::Model normalizer;
+  GraphRunnerGuard runner;
+  std::vector<std::int8_t> packed;
+  double multiplier=0.;
+  std::int8_t zero=0;
+  bool built=false;
+
+  static neat::Model::Options normalizer_options(Options options) {
+    options.camera_mode="sequential";
+    auto result=model_options(256,704,3,"camera",options);
+    result.name_suffix="camera_normalize";
+    // Only this model's preprocess fragment runs. Its MLA fragment is never used
+    // with the single-camera output geometry.
+    result.preprocess.resize.enable=neat::AutoFlag::On;
+    result.preprocess.resize.width=704;result.preprocess.resize.height=256;
+    result.preprocess.resize.mode=neat::ResizeMode::Stretch;
+    return result;
+  }
+  PackedCameraPreprocess(const Options& settings,const neat::Model& camera):options(settings),
+      normalizer(settings.camera.string(),normalizer_options(settings)),
+      packed(256*camera_input_width(settings)*3) {
+    const auto req=camera.preprocess_requirements(),norm=normalizer.preprocess_requirements();
+    if(!req.quant_needed || req.tess_needed || !req.q_scale || !req.q_zp ||
+       !std::isfinite(*req.q_scale) || *req.q_scale<=0 || *req.q_zp < -128 || *req.q_zp>127 ||
+       norm.q_scale!=req.q_scale || norm.q_zp!=req.q_zp || norm.tess_needed)
+      throw std::invalid_argument("Packed EV74 requires matching natural INT8 preprocessing and MLA ingress");
+    multiplier=*req.q_scale;zero=static_cast<std::int8_t>(*req.q_zp);
+  }
+  neat::TensorList run(const neat::TensorList& images,double& normalize_ms,double& pack_ms) {
+    if(images.size()!=6)throw std::invalid_argument("Packed EV74 requires six camera images");
+    if(!built) {
+      neat::InputOptions input;input.payload_type=neat::PayloadType::Image;input.format=neat::FormatTag::RGB;
+      input.width=704;input.height=256;input.depth=3;input.buffer_name="decoder";
+      input.memory_policy=neat::InputMemoryPolicy::Ev74;
+      neat::Graph graph("flashocc_packed_normalization");graph.add(neat::nodes::Input("camera",input));
+      graph.add(normalizer.preprocess());graph.add(neat::nodes::Output("normalized"));
+      neat::RunOptions runtime;runtime.queue_depth=6;runtime.output_memory=neat::OutputMemory::Owned;
+      runner.run=graph.build(neat::TensorList{images.front()},runtime);built=true;
+    }
+    normalize_ms=0.;pack_ms=0.;neat::TensorList inputs;
+    auto queued=Clock::now();
+    for(const auto& image:images)if(!runner.run.push("camera",neat::TensorList{image}))
+      throw std::runtime_error("Packed EV74 normalization input rejected");
+    normalize_ms+=elapsed(queued);
+    const std::size_t width=camera_input_width(options),stride=(704+options.camera_guard_width)*3;
+    for(int first=0;first<6;first+=options.camera_pack_size) {
+      auto start=Clock::now();std::fill(packed.begin(),packed.end(),zero);pack_ms+=elapsed(start);
+      for(int camera=0;camera<options.camera_pack_size;++camera) {
+        start=Clock::now();auto sample=runner.run.pull("normalized",options.timeout);
+        if(!sample)throw std::runtime_error("Packed EV74 normalization output timed out");
+        auto output=neat::tensors_from_sample(*sample,false);
+        normalize_ms+=elapsed(start);
+        if(output.size()!=1)throw std::runtime_error("Packed EV74 normalization must return one tensor");
+        const auto& tensor=output.front();auto shape=tensor.shape;
+        if(shape.size()==4 && shape.front()==1)shape.erase(shape.begin());
+        if(tensor.dtype!=neat::TensorDType::Int8 || shape!=std::vector<std::int64_t>{256,704,3} || !tensor.is_contiguous())
+          throw std::runtime_error("Unexpected packed normalization output: "+tensor_spec(tensor).dump());
+        start=Clock::now();auto view=tensor.view_read();
+        if(!view.data || view.size_bytes<256*704*3)throw std::runtime_error("Short packed normalization output");
+        const auto* source=static_cast<const std::int8_t*>(view.data);
+        for(std::size_t row=0;row<256;++row)
+          std::copy_n(source+row*704*3,704*3,packed.data()+row*width*3+camera*stride);
+        pack_ms+=elapsed(start);
+      }
+      auto tensor=neat::Tensor::from_vector(packed,{256,static_cast<std::int64_t>(width),3},neat::TensorMemory::EV74);
+      neat::QuantSpec quant;quant.scale=static_cast<float>(1./multiplier);quant.zero_point=zero;
+      tensor.semantic.quant=quant;inputs.push_back(std::move(tensor));
+    }
+    return inputs;
+  }
+};
+
 struct Pipeline {
   Options options;
   neat::Model camera,bev;
   RunnerGuard camera_runner,bev_runner;
+  GraphRunnerGuard packed_camera_runner;
+  std::unique_ptr<PackedCameraPreprocess> packed_normalizer;
   std::unique_ptr<flashocc::Pooler> pooler;
   flashocc::OccupancyLabels selector;
   std::vector<float> depth=std::vector<float>(6*pixels*depth_bins),features=std::vector<float>(6*pixels*channels);
@@ -309,12 +392,15 @@ struct Pipeline {
     if(output_specs.size()!=2 || !have_depth || !have_features)
       throw std::invalid_argument("Camera archive outputs do not match camera_mode, camera_pack_size and camera_guard_width: "+specs(output_specs).dump());
     if(options.camera_mode=="packed")packed_images.resize(256*camera_input_width(options)*3);
+    if(options.camera_mode=="packed" && options.camera_input=="ev74-bgr")
+      packed_normalizer=std::make_unique<PackedCameraPreprocess>(options,camera);
   }
   Json contracts() {return Json{{"camera",{{"inputs",specs(camera.input_specs())},{"outputs",specs(camera.output_specs())}}},
                                {"bev",{{"inputs",specs(bev.input_specs())},{"outputs",specs(bev.output_specs())}}}};}
   Json run(const Frame& frame,const std::string& token,bool write,int repeat,
            std::vector<std::uint8_t>* result_labels=nullptr,const neat::TensorList* camera_images=nullptr) {
-    if((options.camera_mode=="packed" && camera_images) ||
+    if((packed_normalizer && !camera_images) ||
+       (options.camera_mode=="packed" && !packed_normalizer && camera_images) ||
        (camera_images?camera_images->size()!=6:frame.images.size()!=6*256*704*3) ||
        (!frame.reference.empty() && frame.reference.size()!=voxels) ||
        (!frame.sdk_reference.empty() && frame.sdk_reference.size()!=voxels))
@@ -328,7 +414,11 @@ struct Pipeline {
     begin=Clock::now();neat::TensorList inputs;
     constexpr std::size_t image_values=256*704*3;
     metrics["camera_pack_ms"]=0.;
-    if(options.camera_mode=="packed") {
+    metrics["camera_normalize_ms"]=0.;
+    if(packed_normalizer) {
+      double normalize_ms=0.,pack_ms=0.;inputs=packed_normalizer->run(*camera_images,normalize_ms,pack_ms);
+      metrics["camera_normalize_ms"]=normalize_ms;metrics["camera_pack_ms"]=pack_ms;
+    } else if(options.camera_mode=="packed") {
       double pack_ms=0;
       for(std::size_t first=0;first<6;first+=options.camera_pack_size) {
         const auto pack_start=Clock::now();
@@ -346,7 +436,11 @@ struct Pipeline {
     metrics["camera_input_ms"]=elapsed(begin);
     if(!built) {
       neat::RunOptions run_options;run_options.queue_depth=1;
-      camera_runner.runner=camera.build(neat::TensorList{inputs[0]},neat::Model::RouteOptions{},run_options);
+      if(packed_normalizer) {
+        neat::Graph graph("flashocc_packed_camera");graph.add(neat::nodes::Input("packed_camera"));
+        graph.add(camera.inference());graph.add(camera.postprocess());graph.add(neat::nodes::Output("camera_outputs"));
+        packed_camera_runner.run=graph.build(neat::TensorList{inputs[0]},run_options);
+      } else camera_runner.runner=camera.build(neat::TensorList{inputs[0]},neat::Model::RouteOptions{},run_options);
       auto seed=neat::Tensor::from_vector(pooled,{200,200,64},neat::TensorMemory::EV74);
       bev_runner.runner=bev.build(neat::TensorList{seed},neat::Model::RouteOptions{},run_options);built=true;
     }
@@ -354,7 +448,8 @@ struct Pipeline {
     const int output_width=camera_output_width(options);
     for(std::size_t i=0;i<inputs.size();++i) {
       const auto call_start=Clock::now();
-      auto outputs=camera_runner.runner.run(neat::TensorList{inputs[i]},options.timeout);
+      auto outputs=packed_normalizer?packed_camera_runner.run.run(neat::TensorList{inputs[i]},options.timeout):
+                                    camera_runner.runner.run(neat::TensorList{inputs[i]},options.timeout);
       route_ms+=elapsed(call_start);const auto unpack_start=Clock::now();
       if(outputs.size()!=2)throw std::runtime_error("Camera must return depth and features; got "+std::to_string(outputs.size()));
       // Select by shape rather than assuming physical output ordering.

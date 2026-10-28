@@ -1,0 +1,667 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-28",
+  "scope": "Packed-3 EV74 follow-up: actual no-visualization throughput plus one full Insight run",
+  "protocol": {
+    "updates_per_run": 256,
+    "warmup_updates": 64,
+    "measured_updates": 192,
+    "snapshots_hz": 2,
+    "logit_scan": false,
+    "no_render_input_fps": 20,
+    "full_app_input_fps": 12,
+    "runs_per_mode": 1,
+    "run_order": [
+      "packed3-ev74-full",
+      "sequential-ev74-no-render",
+      "packed3-arm-no-render",
+      "packed3-ev74-no-render"
+    ]
+  },
+  "models": {
+    "camera": {
+      "path": "artifacts/compile_with_qat_better_accuracy/compile-qat-packed3/flashocc_m0_camera_mpk.tar.gz",
+      "sha256": "34ba43166fed41fdd2efa4c85e46bacb97fe4ae3a38f7ca4e921cd3c20b6a253"
+    },
+    "bev": {
+      "path": "artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+      "sha256": "56e0e8071edf8f7805dac2086cdedd766c6cc585746bc6c3dd796613132f8739"
+    }
+  },
+  "source": {
+    "git_commit": "70cb4caa3aac0857aabadeac7308fcf4666bf43b",
+    "source_files_sha256": {
+      "app/replay_core.hpp": "59614cc684bbb7e55a13104deb72503d84a7de685f21a8f4a09c21212aac1123",
+      "app/insight.cpp": "596bfe6d368d1b6e397c6c81b13a81fa2d6c1c17da211ea2eabc53178a825512",
+      "app/check_preprocess.cpp": "7c7bd2cb1e8aceeca5a6d3e4d50736004e92ee34229a7e58f8c7728c413b9d85",
+      "experiments/packing/check_packed_preprocess.cpp": "8ae4b9eff4491fb79da50fd9548f4a51da4868420637c0956e835ececb0988b9",
+      "configs/experiments/qat-packed3-ev74-bgr.json": "55d601314c9cff4e316facbee6ba5dc74202b97741e388c12347bca4a8ad3aa0"
+    },
+    "binaries_sha256": {
+      "flashocc_insight": "293ba07f62e1d20b4499c572e25b787907e18f205c89f80463a73aeeb5e9bbae",
+      "check_preprocess": "86f6aadff5af4f00cb3889dc98a92c0b85f8f6a6f0974f561cb0ca7324169281",
+      "check_packed_preprocess": "b73965fceeb139934306725e6e9745bd3b8e3529fc055fcb204155c8bc5a8218",
+      "test_insight": "7bef0961306da939d85928ea5348f5cd843b4c36ff074d54d4ef93ced7ad11a2"
+    },
+    "working_tree_dirty_at_build": true
+  },
+  "variants": {
+    "packed3-arm-no-render": {
+      "input_fps": 20,
+      "visualization": false,
+      "camera_calls": 2,
+      "mean_ms": {
+        "preparation_ms": 75.14899459375,
+        "camera_input_ms": 7.664601104166667,
+        "camera_normalize_ms": 0.0,
+        "camera_pack_ms": 3.6591659635416667,
+        "camera_route_ms": 18.190591182291666,
+        "camera_unpack_ms": 0.6206447239583334,
+        "camera_six_views_ms": 18.836472890625,
+        "geometry_plan_ms": 6.258415744791667,
+        "pooling_ms": 5.484492369791667,
+        "bev_input_ms": 3.11380340625,
+        "bev_inference_ms": 24.148929307291667,
+        "argmax_ms": 4.591118197916667,
+        "logit_finite_check_ms": 0.0,
+        "render_ms": 0.0,
+        "volume_publish_ms": 6.617436588541667,
+        "compute_ms": 70.14575638020834,
+        "application_ms": 152.10563578645832,
+        "preparation_and_compute_ms": 145.29475097395834
+      },
+      "output_fps": 6.499960469860826,
+      "invalid_markers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "execution": {
+        "argmax_threads": 8,
+        "bev_model": "artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+        "bev_post_target": "A65",
+        "bev_pre_target": "AUTO",
+        "camera_guard_width": 32,
+        "camera_input": "arm-fp32",
+        "camera_mode": "packed",
+        "camera_model": "artifacts/compile_with_qat_better_accuracy/compile-qat-packed3/flashocc_m0_camera_mpk.tar.gz",
+        "camera_model_order": "BGR",
+        "camera_pack_size": 3,
+        "camera_post_target": "A65",
+        "camera_pre_target": "A65",
+        "check_finite_logits": false,
+        "mean": [
+          123.67500305175781,
+          116.27999877929688,
+          103.52999877929688
+        ],
+        "pool_threads": 8,
+        "render_threads": 6,
+        "stddev": [
+          58.39500045776367,
+          57.119998931884766,
+          57.375
+        ],
+        "timeout_ms": 20000,
+        "visualization": false
+      },
+      "summary_sha256": "273f3dce7abdf3a59436f6ee792ee30c6d01239841018c360ada44a9ff225769"
+    },
+    "packed3-ev74-full": {
+      "input_fps": 12,
+      "visualization": true,
+      "camera_calls": 2,
+      "mean_ms": {
+        "preparation_ms": 3.6249505416666667,
+        "camera_input_ms": 17.005227114583334,
+        "camera_normalize_ms": 14.691955776041667,
+        "camera_pack_ms": 1.06694140625,
+        "camera_route_ms": 14.946057171875,
+        "camera_unpack_ms": 0.601552984375,
+        "camera_six_views_ms": 15.570577994791666,
+        "geometry_plan_ms": 6.385511697916667,
+        "pooling_ms": 5.350930588541667,
+        "bev_input_ms": 2.9908088854166666,
+        "bev_inference_ms": 23.994050911458334,
+        "argmax_ms": 4.51008475,
+        "logit_finite_check_ms": 0.0,
+        "render_ms": 31.82598671875,
+        "volume_publish_ms": 5.213404932291667,
+        "compute_ms": 75.85351133854167,
+        "application_ms": 121.16721389583333,
+        "preparation_and_compute_ms": 79.47846188020833
+      },
+      "output_fps": 8.221399978775317,
+      "invalid_markers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "execution": {
+        "argmax_threads": 8,
+        "bev_model": "artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+        "bev_post_target": "A65",
+        "bev_pre_target": "AUTO",
+        "camera_guard_width": 32,
+        "camera_input": "ev74-bgr",
+        "camera_mode": "packed",
+        "camera_model": "artifacts/compile_with_qat_better_accuracy/compile-qat-packed3/flashocc_m0_camera_mpk.tar.gz",
+        "camera_model_order": "BGR",
+        "camera_pack_size": 3,
+        "camera_post_target": "A65",
+        "camera_pre_target": "EV74",
+        "check_finite_logits": false,
+        "mean": [
+          123.67500305175781,
+          116.27999877929688,
+          103.52999877929688
+        ],
+        "pool_threads": 8,
+        "render_threads": 6,
+        "stddev": [
+          58.39500045776367,
+          57.119998931884766,
+          57.375
+        ],
+        "timeout_ms": 20000,
+        "visualization": true
+      },
+      "summary_sha256": "d5da279da6de25e384da05939da6cace90206c0284efdc41282ddb8787e9dde2",
+      "browser": {
+        "passed": true,
+        "elapsed_seconds": 20.010199999999255,
+        "browser_fps": 8.245794644731495,
+        "dropped_frames": 0,
+        "first": {
+          "time_ms": 22985,
+          "frames": 55,
+          "dropped": 0,
+          "width": 1536,
+          "height": 864
+        },
+        "last": {
+          "time_ms": 42995.199999999255,
+          "frames": 220,
+          "dropped": 0,
+          "width": 1536,
+          "height": 864
+        },
+        "errors": [],
+        "viewer": "https://10.42.0.1:8081/static/viewer.html?mode=light&src=0&max_channels=4"
+      }
+    },
+    "packed3-ev74-no-render": {
+      "input_fps": 20,
+      "visualization": false,
+      "camera_calls": 2,
+      "mean_ms": {
+        "preparation_ms": 3.467863375,
+        "camera_input_ms": 16.656230848958334,
+        "camera_normalize_ms": 14.391660046875,
+        "camera_pack_ms": 1.0397008385416666,
+        "camera_route_ms": 14.91170615625,
+        "camera_unpack_ms": 0.6134842395833333,
+        "camera_six_views_ms": 15.546932229166666,
+        "geometry_plan_ms": 6.65986834375,
+        "pooling_ms": 5.271261536458334,
+        "bev_input_ms": 3.0529365572916665,
+        "bev_inference_ms": 24.22600390104167,
+        "argmax_ms": 4.668879630208333,
+        "logit_finite_check_ms": 0.0,
+        "render_ms": 0.0,
+        "volume_publish_ms": 3.853320682291667,
+        "compute_ms": 76.12850461458333,
+        "application_ms": 83.64775878645834,
+        "preparation_and_compute_ms": 79.59636798958333
+      },
+      "output_fps": 11.793439450920093,
+      "invalid_markers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "execution": {
+        "argmax_threads": 8,
+        "bev_model": "artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+        "bev_post_target": "A65",
+        "bev_pre_target": "AUTO",
+        "camera_guard_width": 32,
+        "camera_input": "ev74-bgr",
+        "camera_mode": "packed",
+        "camera_model": "artifacts/compile_with_qat_better_accuracy/compile-qat-packed3/flashocc_m0_camera_mpk.tar.gz",
+        "camera_model_order": "BGR",
+        "camera_pack_size": 3,
+        "camera_post_target": "A65",
+        "camera_pre_target": "EV74",
+        "check_finite_logits": false,
+        "mean": [
+          123.67500305175781,
+          116.27999877929688,
+          103.52999877929688
+        ],
+        "pool_threads": 8,
+        "render_threads": 6,
+        "stddev": [
+          58.39500045776367,
+          57.119998931884766,
+          57.375
+        ],
+        "timeout_ms": 20000,
+        "visualization": false
+      },
+      "summary_sha256": "878d1b8f0a1572b761fd7ef3f5315881412b0951d38d7ec78c5a86c1259cafb2"
+    },
+    "sequential-ev74-no-render": {
+      "input_fps": 20,
+      "visualization": false,
+      "camera_calls": 6,
+      "mean_ms": {
+        "preparation_ms": 3.349486869791667,
+        "camera_input_ms": 0.020141161458333334,
+        "camera_normalize_ms": 0.0,
+        "camera_pack_ms": 0.0,
+        "camera_route_ms": 30.73329284375,
+        "camera_unpack_ms": 0.6744350416666667,
+        "camera_six_views_ms": 31.463395817708335,
+        "geometry_plan_ms": 6.488031651041666,
+        "pooling_ms": 5.331160020833333,
+        "bev_input_ms": 3.0283733437500002,
+        "bev_inference_ms": 23.965698583333335,
+        "argmax_ms": 4.434793078125,
+        "logit_finite_check_ms": 0.0,
+        "render_ms": 0.0,
+        "volume_publish_ms": 3.72922240625,
+        "compute_ms": 74.78054683854167,
+        "application_ms": 82.03624423958334,
+        "preparation_and_compute_ms": 78.13003370833333
+      },
+      "output_fps": 12.134964827214242,
+      "invalid_markers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "execution": {
+        "argmax_threads": 8,
+        "bev_model": "artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+        "bev_post_target": "A65",
+        "bev_pre_target": "AUTO",
+        "camera_guard_width": 32,
+        "camera_input": "ev74-bgr",
+        "camera_mode": "sequential",
+        "camera_model": "artifacts/compile_with_qat_better_accuracy/flashocc_m0_camera_mpk.tar.gz",
+        "camera_model_order": "BGR",
+        "camera_pack_size": 6,
+        "camera_post_target": "A65",
+        "camera_pre_target": "EV74",
+        "check_finite_logits": false,
+        "mean": [
+          123.67500305175781,
+          116.27999877929688,
+          103.52999877929688
+        ],
+        "pool_threads": 8,
+        "render_threads": 6,
+        "stddev": [
+          58.39500045776367,
+          57.119998931884766,
+          57.375
+        ],
+        "timeout_ms": 20000,
+        "visualization": false
+      },
+      "summary_sha256": "765a5ba6b9b0c9ed55ffcc365eca22eeb4dd85072c77a50ffd7dcda39b7e4131"
+    }
+  },
+  "pixel_and_guard_validation": {
+    "camera_images": 6,
+    "exact_pixel_fraction": 0.52734375,
+    "execution": {
+      "argmax_threads": 8,
+      "bev_model": "/workspace/GitHub/occupancy-prediction/artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+      "bev_post_target": "A65",
+      "bev_pre_target": "AUTO",
+      "camera_guard_width": 32,
+      "camera_input": "ev74-bgr",
+      "camera_mode": "packed",
+      "camera_model": "/workspace/GitHub/occupancy-prediction/artifacts/compile_with_qat_better_accuracy/compile-qat-packed3/flashocc_m0_camera_mpk.tar.gz",
+      "camera_model_order": "BGR",
+      "camera_pack_size": 3,
+      "camera_post_target": "A65",
+      "camera_pre_target": "EV74",
+      "check_finite_logits": true,
+      "mean": [
+        123.67500305175781,
+        116.27999877929688,
+        103.52999877929688
+      ],
+      "pool_threads": 8,
+      "render_threads": 6,
+      "stddev": [
+        58.39500045776367,
+        57.119998931884766,
+        57.375
+      ],
+      "timeout_ms": 20000,
+      "visualization": true
+    },
+    "guard_values_checked": 98304,
+    "max_quantized_pixel_error": 1,
+    "normalize_ms": 24.924182,
+    "pack_ms": 1.074328,
+    "passed": true,
+    "pixel_values": 3244032,
+    "quantization_multiplier": 54.17700846989239,
+    "quantized_zero": -16
+  },
+  "decoded_fixture_comparison": {
+    "comparison": "Same packed-3 archive and decoded NV12 fixtures, ARM FP32 versus EV74 normalization/quantization",
+    "ground_truth_accuracy_measured": false,
+    "samples": [
+      {
+        "token": "3e8750f331d7499e9b5123e9eb70f2e2",
+        "label_agreement": 0.974,
+        "outputs": {
+          "depth": {
+            "relative_rmse": 0.17313324988312861,
+            "max_absolute_error": 0.46621090173721313
+          },
+          "features": {
+            "relative_rmse": 0.1428117006936143,
+            "max_absolute_error": 5.325056076049805
+          },
+          "pooled": {
+            "relative_rmse": 0.12298819344732013,
+            "max_absolute_error": 16.535873413085938
+          },
+          "logits": {
+            "relative_rmse": 0.038930455406448586,
+            "max_absolute_error": 4.315223693847656
+          }
+        }
+      },
+      {
+        "token": "de7593d76648450e947ba0c203dee1b0",
+        "label_agreement": 0.9771484375,
+        "outputs": {
+          "depth": {
+            "relative_rmse": 0.15801828325338316,
+            "max_absolute_error": 0.48188188672065735
+          },
+          "features": {
+            "relative_rmse": 0.13418873427227648,
+            "max_absolute_error": 6.656318664550781
+          },
+          "pooled": {
+            "relative_rmse": 0.12065905516907836,
+            "max_absolute_error": 23.02533721923828
+          },
+          "logits": {
+            "relative_rmse": 0.03857725414682756,
+            "max_absolute_error": 4.7467498779296875
+          }
+        }
+      }
+    ],
+    "mean_label_agreement": 0.97557421875
+  },
+  "queued_vs_synchronous_outputs_byte_identical": true,
+  "no_neat_or_compiler_patch": true,
+  "input_clip_verification": {
+    "12": [
+      {
+        "file": "flashocc-cam_front_left.mp4",
+        "decoded_pixels_sha256": "f40111db4b2166061e3ae64c4146e4a3e44c25740b8aba91ad71a8a47cb71f9a",
+        "probe": {
+          "avg_frame_rate": "655360/54613",
+          "duration": "3.333313",
+          "nb_frames": "40"
+        }
+      },
+      {
+        "file": "flashocc-cam_front.mp4",
+        "decoded_pixels_sha256": "4c8ff24cfb4f603a3bccacc5b0111fe7c1d51f4ed4bacc420aea83c501757aa7",
+        "probe": {
+          "avg_frame_rate": "655360/54613",
+          "duration": "3.333313",
+          "nb_frames": "40"
+        }
+      },
+      {
+        "file": "flashocc-cam_front_right.mp4",
+        "decoded_pixels_sha256": "5a9d16f0a8e3954c2e5b3198f48e01815a69e907115ae6e99acd2d4bc15cf31f",
+        "probe": {
+          "avg_frame_rate": "655360/54613",
+          "duration": "3.333313",
+          "nb_frames": "40"
+        }
+      },
+      {
+        "file": "flashocc-cam_back_left.mp4",
+        "decoded_pixels_sha256": "8efa8774f45f79086dc0b8fbe4659fa4947209a1a428f3b014cdbcc80559c18b",
+        "probe": {
+          "avg_frame_rate": "655360/54613",
+          "duration": "3.333313",
+          "nb_frames": "40"
+        }
+      },
+      {
+        "file": "flashocc-cam_back.mp4",
+        "decoded_pixels_sha256": "41eb0116c7b034f3cb03956f68c96392f5fa93179818626dbe4a279ba351aac3",
+        "probe": {
+          "avg_frame_rate": "655360/54613",
+          "duration": "3.333313",
+          "nb_frames": "40"
+        }
+      },
+      {
+        "file": "flashocc-cam_back_right.mp4",
+        "decoded_pixels_sha256": "dcebfa60130cc90e8f5255652da52d160e5da1597e641455d8680d08464d18f9",
+        "probe": {
+          "avg_frame_rate": "655360/54613",
+          "duration": "3.333313",
+          "nb_frames": "40"
+        }
+      }
+    ],
+    "20": [
+      {
+        "file": "flashocc-cam_front_left.mp4",
+        "decoded_pixels_sha256": "f40111db4b2166061e3ae64c4146e4a3e44c25740b8aba91ad71a8a47cb71f9a",
+        "probe": {
+          "avg_frame_rate": "20/1",
+          "duration": "2.000000",
+          "nb_frames": "40"
+        }
+      },
+      {
+        "file": "flashocc-cam_front.mp4",
+        "decoded_pixels_sha256": "4c8ff24cfb4f603a3bccacc5b0111fe7c1d51f4ed4bacc420aea83c501757aa7",
+        "probe": {
+          "avg_frame_rate": "20/1",
+          "duration": "2.000000",
+          "nb_frames": "40"
+        }
+      },
+      {
+        "file": "flashocc-cam_front_right.mp4",
+        "decoded_pixels_sha256": "5a9d16f0a8e3954c2e5b3198f48e01815a69e907115ae6e99acd2d4bc15cf31f",
+        "probe": {
+          "avg_frame_rate": "20/1",
+          "duration": "2.000000",
+          "nb_frames": "40"
+        }
+      },
+      {
+        "file": "flashocc-cam_back_left.mp4",
+        "decoded_pixels_sha256": "8efa8774f45f79086dc0b8fbe4659fa4947209a1a428f3b014cdbcc80559c18b",
+        "probe": {
+          "avg_frame_rate": "20/1",
+          "duration": "2.000000",
+          "nb_frames": "40"
+        }
+      },
+      {
+        "file": "flashocc-cam_back.mp4",
+        "decoded_pixels_sha256": "41eb0116c7b034f3cb03956f68c96392f5fa93179818626dbe4a279ba351aac3",
+        "probe": {
+          "avg_frame_rate": "20/1",
+          "duration": "2.000000",
+          "nb_frames": "40"
+        }
+      },
+      {
+        "file": "flashocc-cam_back_right.mp4",
+        "decoded_pixels_sha256": "dcebfa60130cc90e8f5255652da52d160e5da1597e641455d8680d08464d18f9",
+        "probe": {
+          "avg_frame_rate": "20/1",
+          "duration": "2.000000",
+          "nb_frames": "40"
+        }
+      }
+    ]
+  },
+  "fixture_files": [
+    {
+      "path": "artifacts/preprocess-validation/frame0-camera0.nv12",
+      "sha256": "2a70d96bd15caf73e7d527e2f30fedeb2f3ff93214349ff13773ade65b129f3f"
+    },
+    {
+      "path": "artifacts/preprocess-validation/frame0-camera1.nv12",
+      "sha256": "5f55ed791ad3632b9c95529d4cd9ab7f92848c03d64c6718a86150873853938a"
+    },
+    {
+      "path": "artifacts/preprocess-validation/frame0-camera2.nv12",
+      "sha256": "9db99af22ab77a502d0db9e6f427cfad5a69696f518ef6d1945e3da0cd8f9930"
+    },
+    {
+      "path": "artifacts/preprocess-validation/frame0-camera3.nv12",
+      "sha256": "f3c5f559daba23f4e8409a6b026695df738db789826f20d2f1482c3e4a85d281"
+    },
+    {
+      "path": "artifacts/preprocess-validation/frame0-camera4.nv12",
+      "sha256": "95317b395e2140a581fe6be1a91818468b4311e9e734633d5f3d14b5f34e171f"
+    },
+    {
+      "path": "artifacts/preprocess-validation/frame0-camera5.nv12",
+      "sha256": "856f59bf80b992b58deb91e79410bea67d69b8ad8e14e4867b675f082cdecbdd"
+    },
+    {
+      "path": "artifacts/preprocess-validation/frame13-camera0.nv12",
+      "sha256": "55aee678e324371b90d02eb42843682b4b3ecdd521169f46e27acdc4ead06e42"
+    },
+    {
+      "path": "artifacts/preprocess-validation/frame13-camera1.nv12",
+      "sha256": "f6f589e7152516beb3e68eb14128b7d35ba1314f033059dd8c4da3a0108e04e0"
+    },
+    {
+      "path": "artifacts/preprocess-validation/frame13-camera2.nv12",
+      "sha256": "5a04be6eaa7881e1918147292f5a4b4ca0693de2cc3062b27a50dcc88231bd51"
+    },
+    {
+      "path": "artifacts/preprocess-validation/frame13-camera3.nv12",
+      "sha256": "ddbb5bf3a9ea750594cdcf2da0e3c1255a6956b657cabe39addf0422380d1741"
+    },
+    {
+      "path": "artifacts/preprocess-validation/frame13-camera4.nv12",
+      "sha256": "7d95c8d4860c397ac1a000d29368c6ddf6427ae799f484b51f2fe00cab57229e"
+    },
+    {
+      "path": "artifacts/preprocess-validation/frame13-camera5.nv12",
+      "sha256": "751c3e9b5accd09749bc34fbaafeda2850bd4787602f585a13e07df3bc5fa4b3"
+    }
+  ],
+  "runtime": {
+    "device": "sima@10.42.0.102",
+    "runtime": {
+      "_note": "Generated by scripts/build/generate_package_buildinfo.py; do not hand-edit.",
+      "format_version": 1,
+      "package": "gh:sima-neat/core",
+      "version": "0.5.0",
+      "source": "vulcan",
+      "vulcan": {
+        "environment": "prod",
+        "repository": "core",
+        "ref": "v0.5.0",
+        "ref_key": "v0.5.0",
+        "ref_type": "tag",
+        "spec": "7274b4eeb797"
+      },
+      "build": {
+        "repository": "sima-neat/core",
+        "git_ref": "v0.5.0",
+        "git_ref_type": "tag",
+        "git_sha": "7274b4eeb7975140c7b764315b5946c173cc2faf",
+        "git_short_sha": "7274b4eeb797",
+        "built_at_utc": "2026-10-05T13:09:29.147724+00:00",
+        "github_run_id": "",
+        "github_run_attempt": ""
+      },
+      "dependencies": {
+        "internals": {
+          "ref": "v0.5.0",
+          "spec": "f33a8292921f"
+        },
+        "llima": {
+          "ref": "v0.5.0",
+          "spec": "a23a2caa70b9"
+        }
+      },
+      "compatibility": {
+        "target": {
+          "board": "any Modalix DevKit",
+          "arch": "aarch64",
+          "glibc_min": "2.34",
+          "opencv": "4.6",
+          "gstreamer": "1.0",
+          "cxx_std": "20",
+          "platform_sw": "2.1.3"
+        },
+        "host_sdk": {
+          "os": [
+            "Ubuntu 22.04 / 24.04",
+            "Windows 11 (WSL2 + Docker Engine inside WSL)",
+            "macOS (Colima + Docker)"
+          ],
+          "sysroot": "/opt/toolchain/aarch64/modalix",
+          "sdk": "2.1.3",
+          "elxr": "2.1.3",
+          "toolchain": "aarch64-linux-gnu-g++ 12.2.0"
+        },
+        "pyneat": {
+          "platform": "linux_aarch64",
+          "python_abi": "CPython 3.11 (cp311)",
+          "numpy": ">=1.24,<2",
+          "torch": ">=2.3.0 (optional)",
+          "source_python_min": "3.9"
+        },
+        "tools": {
+          "sima_cli": "latest"
+        }
+      }
+    },
+    "source_commit": "70cb4caa3aac0857aabadeac7308fcf4666bf43b",
+    "library_sha256": "4b1496cbd8bc6a30592b67e1d49abc2e2ed02c281d2bb690cd87a48a7dbf88e1"
+  },
+  "measurements": {
+    "path": "packed3-ev74-20261028-measurements.json",
+    "sha256": "d001d2f71f63dca3123bad96d452f0a16298f93a2422b578ffab8379352646ca"
+  },
+  "existing_packed_arm_regression": {
+    "groups": 8,
+    "labels_byte_identical": true,
+    "finite_logits_check": true
+  }
+}

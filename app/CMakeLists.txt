@@ -26,6 +26,11 @@ add_executable(check_preprocess check_preprocess.cpp)
 target_include_directories(check_preprocess SYSTEM PRIVATE ${FLASHOCC_OPENCV_INCLUDE})
 target_link_libraries(check_preprocess PRIVATE flashocc_pool SimaNeat::sima_neat
   ${FLASHOCC_OPENCV_CORE} ${FLASHOCC_OPENCV_IMGPROC} ${FLASHOCC_OPENCV_IMGCODECS})
+add_executable(check_packed_preprocess ../experiments/packing/check_packed_preprocess.cpp)
+target_include_directories(check_packed_preprocess PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(check_packed_preprocess SYSTEM PRIVATE ${FLASHOCC_OPENCV_INCLUDE})
+target_link_libraries(check_packed_preprocess PRIVATE flashocc_pool SimaNeat::sima_neat
+  ${FLASHOCC_OPENCV_CORE} ${FLASHOCC_OPENCV_IMGPROC} ${FLASHOCC_OPENCV_IMGCODECS})
 add_executable(check_camera_batch ../experiments/batch6/check_camera_batch.cpp)
 target_include_directories(check_camera_batch PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(check_camera_batch PRIVATE flashocc_pool SimaNeat::sima_neat)

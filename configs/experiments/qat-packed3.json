@@ -3,7 +3,7 @@
   "camera_pack_size": 3,
   "camera_input": "arm-fp32",
   "camera_guard_width": 32,
-  "camera_model": "artifacts/compile-qat-packed3/camera/flashocc_m0_camera_mpk.tar.gz",
+  "camera_model": "artifacts/compile_with_qat_better_accuracy/compile-qat-packed3/flashocc_m0_camera_mpk.tar.gz",
   "camera_pre_target": "A65",
   "camera_post_target": "A65",
   "bev_model": "artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
