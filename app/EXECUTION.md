@@ -140,6 +140,10 @@ by the existing NEON pooler. This is spatial packing with network batch one.
 See [camera packing validation](CAMERA_BATCH.md) for graph preparation and
 compiler/hardware evidence.
 
+QAT W8A8 packed camera archives use `configs/experiments/qat-packed{6,3,2}.json`.
+They have simulator accuracy only and have not been run on Modalix; see
+[QAT packing](../docs/experiments/QAT_PACKING.md).
+
 The preset uses `camera_input=arm-fp32` and A65 camera pre/post conversion.
 Packed mode currently requires normalization before inserting guards; combining
 it with `ev74-bgr` or `ev74-nv12` is rejected. AUTO and EV74 remain explicit

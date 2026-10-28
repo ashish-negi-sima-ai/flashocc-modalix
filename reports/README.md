@@ -23,6 +23,10 @@ and evaluate the matching model pair before attributing a difference to any
 single compiler, quantizer or runtime component. Performance is the complete
 six-camera app, not reciprocal synthetic model latency.
 
+`qat-packed/comparison.json` compares packed QAT W8A8 camera archives with the
+deployed QAT camera in the simulator; see
+[QAT packing](../docs/experiments/QAT_PACKING.md).
+
 Fresh cleanup validation belongs under ignored `artifacts/cleanup-validation/`.
 Only its compact final audit should be added here; do not add image tensors,
 checkpoints, full compiler IR or model binaries.
