@@ -35,6 +35,10 @@ disabled: 11.79 FPS, versus 12.13 FPS for sequential EV74.
 The [direct MLA ELF profile](qat-packed/MLA_ONLY.md) isolates accelerator execution
 with AppComplex disabled: six sequential-camera executions take 7.70 ms, versus
 8.93 ms for two packed-3 executions; the shared BEV ELF takes 4.08 ms.
+The [packed-6 EV74 follow-up](qat-packed/PACKED6_EV74.md) validates the single-call
+INT8 packing route and records fresh visualization-disabled throughput:
+11.70 FPS for packed-6, 11.79 FPS for packed-3 and 12.08 FPS for sequential EV74.
+It includes numerical checks and the observed shutdown limitations.
 
 Fresh cleanup validation belongs under ignored `artifacts/cleanup-validation/`.
 Only its compact final audit should be added here; do not add image tensors,

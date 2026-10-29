@@ -149,10 +149,11 @@ QAT + EV74. See the [hardware timing report](../reports/qat-packed/MODALIX_APP.m
 and [QAT packing](../docs/experiments/QAT_PACKING.md).
 
 The original presets use `camera_input=arm-fp32` and A65 camera pre/post conversion.
-For the QAT packed-3 archive, the opt-in
-`configs/experiments/qat-packed3-ev74-bgr.json` enables a different route: EV74
+For the QAT packed-3 and packed-6 archives, the opt-in
+`configs/experiments/qat-packed3-ev74-bgr.json` and
+`configs/experiments/qat-packed6-ev74-bgr.json` enable a different route: EV74
 normalizes and quantizes six 704×256 camera images, ARM packs the INT8 results
-with quantized-zero gaps, and the app makes two packed MLA calls. Six preprocessing
+with quantized-zero gaps, and the app makes two or one packed MLA calls, respectively. Six preprocessing
 requests are queued before collecting their outputs. The existing archive is
 reused through public model-stage APIs; no model recompilation is required.
 
@@ -161,7 +162,9 @@ quantization parameters. Packed NV12 remains unsupported. The earlier ~4.3-secon
 AUTO/EV74 conversion measurements refer to the old wide FP32 tensor route, not
 this per-camera image preprocessing path. See the
 [packed-3 EV74 report](../reports/qat-packed/PACKED3_EV74.md) for measured results,
-numerical differences and reproduction commands.
+numerical differences and reproduction commands. The
+[packed-6 EV74 follow-up](../reports/qat-packed/PACKED6_EV74.md) records its
+pixel/padding checks, full-pipeline validation and fresh three-mode comparison.
 
 `camera_model` can override the default archive. The application checks batch
 size and output shapes at startup, rejecting an archive that does not match

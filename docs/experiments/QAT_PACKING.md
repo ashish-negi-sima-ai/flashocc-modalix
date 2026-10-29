@@ -114,3 +114,12 @@ individual cameras before ARM packs the INT8 values. With visualization disabled
 it measured 11.79 FPS versus 6.50 FPS for packed ARM and 12.13 FPS for sequential
 EV74. The full Insight route measured 8.22 FPS. These measurements use the same
 compiled archives; the EV74 path changes preprocessing and runtime composition.
+
+The [packed-6 EV74 follow-up](../../reports/qat-packed/PACKED6_EV74.md) adds
+`configs/experiments/qat-packed6-ev74-bgr.json` using the same generic code.
+Fresh visualization-disabled runs measured 12.08 FPS for sequential EV74,
+11.79 FPS for packed-3 EV74 and 11.70 FPS for packed-6 EV74. All processed 256
+updates with 64 warmups and 2 Hz occupancy snapshots. Packed-6 passed pixel,
+camera-order, gap and full-pipeline fixture checks; its app run exited cleanly.
+The report also records intermittent shutdown hangs in one fixture check and
+the fresh packed-3 control, separate from their completed inference outputs.

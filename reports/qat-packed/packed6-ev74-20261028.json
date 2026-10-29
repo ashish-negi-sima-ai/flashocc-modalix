@@ -1,0 +1,841 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-28",
+  "scope": "Modalix full RTSP application with visualization disabled; existing QAT archives and unchanged application binary",
+  "protocol": {
+    "device": "sima@10.42.0.102",
+    "input_fps": 20,
+    "updates_per_mode": 256,
+    "warmup_updates": 64,
+    "measured_updates": 192,
+    "volume_fps": 2,
+    "visualization": false,
+    "check_finite_logits": false,
+    "run_order": [
+      "packed6-ev74",
+      "sequential-ev74",
+      "packed3-ev74"
+    ],
+    "fps_scope": "completion intervals of the 192 measured updates; excludes process shutdown",
+    "timing_scope": "application processing after synchronized input acquisition; Neat route timings include conversions and runtime; not pure MLA execution",
+    "commands": [
+      {
+        "variant": "packed6-ev74",
+        "command": [
+          "/opt/neat-insight/venv/bin/python3",
+          "scripts/benchmark_insight_fps.py",
+          "--device",
+          "sima@10.42.0.102",
+          "--api",
+          "https://10.42.0.1:9900",
+          "--base",
+          "artifacts/insight-demo/config.json",
+          "--rates",
+          "20",
+          "--frames",
+          "256",
+          "--warmup",
+          "64",
+          "--volume-fps",
+          "2",
+          "--binary",
+          "build/modalix/flashocc_insight",
+          "--execution",
+          "/workspace/GitHub/occupancy-prediction/artifacts/qat-packed6-ev74-20261028/configs/packed6-ev74-no-render.json",
+          "--inputs-dir",
+          "/workspace/GitHub/occupancy-prediction/artifacts/qat-packed6-ev74-20261028/inputs",
+          "--output-dir",
+          "/workspace/GitHub/occupancy-prediction/artifacts/qat-packed6-ev74-20261028/live/packed6-ev74"
+        ]
+      },
+      {
+        "variant": "sequential-ev74",
+        "command": [
+          "/opt/neat-insight/venv/bin/python3",
+          "scripts/benchmark_insight_fps.py",
+          "--device",
+          "sima@10.42.0.102",
+          "--api",
+          "https://10.42.0.1:9900",
+          "--base",
+          "artifacts/insight-demo/config.json",
+          "--rates",
+          "20",
+          "--frames",
+          "256",
+          "--warmup",
+          "64",
+          "--volume-fps",
+          "2",
+          "--binary",
+          "build/modalix/flashocc_insight",
+          "--execution",
+          "/workspace/GitHub/occupancy-prediction/artifacts/qat-packed6-ev74-20261028/configs/sequential-ev74-no-render.json",
+          "--inputs-dir",
+          "/workspace/GitHub/occupancy-prediction/artifacts/qat-packed6-ev74-20261028/inputs",
+          "--output-dir",
+          "/workspace/GitHub/occupancy-prediction/artifacts/qat-packed6-ev74-20261028/live/sequential-ev74"
+        ]
+      },
+      {
+        "variant": "packed3-ev74",
+        "command": [
+          "/opt/neat-insight/venv/bin/python3",
+          "scripts/benchmark_insight_fps.py",
+          "--device",
+          "sima@10.42.0.102",
+          "--api",
+          "https://10.42.0.1:9900",
+          "--base",
+          "artifacts/insight-demo/config.json",
+          "--rates",
+          "20",
+          "--frames",
+          "256",
+          "--warmup",
+          "64",
+          "--volume-fps",
+          "2",
+          "--binary",
+          "build/modalix/flashocc_insight",
+          "--execution",
+          "/workspace/GitHub/occupancy-prediction/artifacts/qat-packed6-ev74-20261028/configs/packed3-ev74-no-render.json",
+          "--inputs-dir",
+          "/workspace/GitHub/occupancy-prediction/artifacts/qat-packed6-ev74-20261028/inputs",
+          "--output-dir",
+          "/workspace/GitHub/occupancy-prediction/artifacts/qat-packed6-ev74-20261028/live/packed3-ev74"
+        ]
+      }
+    ]
+  },
+  "identities": {
+    "git_commit": "af00cd7a7587c54cd61e8f00e2a3366c03ea9d4a",
+    "source_sha256": {
+      "app/replay_core.hpp": "59614cc684bbb7e55a13104deb72503d84a7de685f21a8f4a09c21212aac1123",
+      "app/insight.cpp": "596bfe6d368d1b6e397c6c81b13a81fa2d6c1c17da211ea2eabc53178a825512",
+      "app/check_preprocess.cpp": "7c7bd2cb1e8aceeca5a6d3e4d50736004e92ee34229a7e58f8c7728c413b9d85",
+      "experiments/packing/check_packed_preprocess.cpp": "8ae4b9eff4491fb79da50fd9548f4a51da4868420637c0956e835ececb0988b9",
+      "scripts/benchmark_insight_fps.py": "2fb8fe8f77d720e34f94e744966ff0391adc2c5f81d93c60d14de4527cbae9f7",
+      "configs/experiments/qat-packed6-ev74-bgr.json": "5cebdafb6310edf11cda060141135e49cb7a5439e074c48b1295bec63ea5b0c7"
+    },
+    "binary_sha256": {
+      "flashocc_insight": "293ba07f62e1d20b4499c572e25b787907e18f205c89f80463a73aeeb5e9bbae",
+      "check_preprocess": "86f6aadff5af4f00cb3889dc98a92c0b85f8f6a6f0974f561cb0ca7324169281",
+      "check_packed_preprocess": "b73965fceeb139934306725e6e9745bd3b8e3529fc055fcb204155c8bc5a8218"
+    },
+    "models": {
+      "packed6-camera": {
+        "path": "artifacts/compile_with_qat_better_accuracy/compile-qat-packed6/flashocc_m0_camera_mpk.tar.gz",
+        "sha256": "6bd484eb2b1fa04147da366cb1a75dbeaf346a9e56b26e23cf90519702517589"
+      },
+      "packed3-camera": {
+        "path": "artifacts/compile_with_qat_better_accuracy/compile-qat-packed3/flashocc_m0_camera_mpk.tar.gz",
+        "sha256": "34ba43166fed41fdd2efa4c85e46bacb97fe4ae3a38f7ca4e921cd3c20b6a253"
+      },
+      "single-camera": {
+        "path": "artifacts/compile_with_qat_better_accuracy/flashocc_m0_camera_mpk.tar.gz",
+        "sha256": "a66706506cccb06385c7a9700675dec7d74d3d4a256627cc159d20f7ea050ad0"
+      },
+      "bev": {
+        "path": "artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+        "sha256": "56e0e8071edf8f7805dac2086cdedd766c6cc585746bc6c3dd796613132f8739"
+      }
+    }
+  },
+  "runtime": {
+    "library": "/lib/libsima_neat.so.5",
+    "library_sha256": "4b1496cbd8bc6a30592b67e1d49abc2e2ed02c281d2bb690cd87a48a7dbf88e1",
+    "packages": "neat-appcomplex\t0.5.0\nneat-common\t0.5.0\nneat-ev74-firmware\t0.5.0\nneat-gst-plugins\t0.5.0\nneat-runtime\t0.5.0\n",
+    "appcomplex": "active",
+    "mla_frequency_hz": 1000000000
+  },
+  "variants": {
+    "sequential-ev74": {
+      "input_fps": 20,
+      "measured_groups": 192,
+      "warmup_groups": 64,
+      "elapsed_seconds": 15.809466593000002,
+      "output_fps": 12.081369025098518,
+      "observed_input_fps": 19.924770905267188,
+      "skipped_groups": 124,
+      "skipped_fraction": 0.39365079365079364,
+      "median_compute_ms": 74.95531299999999,
+      "median_application_ms": 78.836097,
+      "median_render_ms": 0.0,
+      "invalid_markers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "camera_received": [
+        633,
+        603,
+        562,
+        520,
+        480,
+        440
+      ],
+      "output_directory": "artifacts/qat-packed6-ev74-20261028/live/sequential-ev74/20",
+      "process_shutdown": "clean exit",
+      "mean_ms": {
+        "application_ms": 82.226228625,
+        "argmax_ms": 4.564625260416666,
+        "bev_inference_ms": 24.019945505208334,
+        "bev_input_ms": 3.00319128125,
+        "camera_input_ms": 0.018919458333333333,
+        "camera_normalize_ms": 0.0,
+        "camera_pack_ms": 0.0,
+        "camera_route_ms": 30.539840770833333,
+        "camera_six_views_ms": 31.253110713541666,
+        "camera_unpack_ms": 0.65915084375,
+        "compute_ms": 75.05878738541666,
+        "frame_ms": 75.15154155208333,
+        "geometry_plan_ms": 6.766326161458333,
+        "logit_finite_check_ms": 0.0,
+        "output_io_ms": 0.00037645833333333335,
+        "pooling_ms": 5.3855623125,
+        "preparation_ms": 3.575506609375,
+        "render_ms": 0.0,
+        "validation_ms": 0.08547098958333334,
+        "volume_publish_ms": 3.4116918854166665
+      },
+      "camera_calls": [
+        6
+      ],
+      "execution": {
+        "argmax_threads": 8,
+        "bev_model": "/workspace/GitHub/occupancy-prediction/artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+        "bev_post_target": "A65",
+        "bev_pre_target": "AUTO",
+        "camera_guard_width": 32,
+        "camera_input": "ev74-bgr",
+        "camera_mode": "sequential",
+        "camera_model": "/workspace/GitHub/occupancy-prediction/artifacts/compile_with_qat_better_accuracy/flashocc_m0_camera_mpk.tar.gz",
+        "camera_model_order": "BGR",
+        "camera_pack_size": 6,
+        "camera_post_target": "A65",
+        "camera_pre_target": "EV74",
+        "check_finite_logits": false,
+        "mean": [
+          123.67500305175781,
+          116.27999877929688,
+          103.52999877929688
+        ],
+        "pool_threads": 8,
+        "render_threads": 6,
+        "stddev": [
+          58.39500045776367,
+          57.119998931884766,
+          57.375
+        ],
+        "timeout_ms": 20000,
+        "visualization": false
+      }
+    },
+    "packed3-ev74": {
+      "input_fps": 20,
+      "measured_groups": 192,
+      "warmup_groups": 64,
+      "elapsed_seconds": 16.193552715,
+      "output_fps": 11.794817564837254,
+      "observed_input_fps": 19.884456837055478,
+      "skipped_groups": 131,
+      "skipped_fraction": 0.40683229813664595,
+      "median_compute_ms": 76.349581,
+      "median_application_ms": 80.2486055,
+      "median_render_ms": 0.0,
+      "invalid_markers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "camera_received": [
+        640,
+        610,
+        570,
+        535,
+        493,
+        450
+      ],
+      "output_directory": "artifacts/qat-packed6-ev74-20261028/live/packed3-ev74/20",
+      "process_shutdown": "forced stop after all outputs and summary were written",
+      "mean_ms": {
+        "application_ms": 83.73536918229166,
+        "argmax_ms": 4.602993260416667,
+        "bev_inference_ms": 23.920951270833335,
+        "bev_input_ms": 2.979560546875,
+        "camera_input_ms": 16.98351790625,
+        "camera_normalize_ms": 14.632793421875,
+        "camera_pack_ms": 1.0704540572916668,
+        "camera_route_ms": 14.887193583333334,
+        "camera_six_views_ms": 15.515294026041667,
+        "camera_unpack_ms": 0.607195921875,
+        "compute_ms": 76.46816300520834,
+        "frame_ms": 76.56345730208334,
+        "geometry_plan_ms": 6.861339802083333,
+        "logit_finite_check_ms": 0.0,
+        "output_io_ms": 0.00036604166666666664,
+        "pooling_ms": 5.556484848958333,
+        "preparation_ms": 3.563581953125,
+        "render_ms": 0.0,
+        "validation_ms": 0.088558625,
+        "volume_publish_ms": 3.5137883177083333
+      },
+      "camera_calls": [
+        2
+      ],
+      "execution": {
+        "argmax_threads": 8,
+        "bev_model": "/workspace/GitHub/occupancy-prediction/artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+        "bev_post_target": "A65",
+        "bev_pre_target": "AUTO",
+        "camera_guard_width": 32,
+        "camera_input": "ev74-bgr",
+        "camera_mode": "packed",
+        "camera_model": "/workspace/GitHub/occupancy-prediction/artifacts/compile_with_qat_better_accuracy/compile-qat-packed3/flashocc_m0_camera_mpk.tar.gz",
+        "camera_model_order": "BGR",
+        "camera_pack_size": 3,
+        "camera_post_target": "A65",
+        "camera_pre_target": "EV74",
+        "check_finite_logits": false,
+        "mean": [
+          123.67500305175781,
+          116.27999877929688,
+          103.52999877929688
+        ],
+        "pool_threads": 8,
+        "render_threads": 6,
+        "stddev": [
+          58.39500045776367,
+          57.119998931884766,
+          57.375
+        ],
+        "timeout_ms": 20000,
+        "visualization": false
+      }
+    },
+    "packed6-ev74": {
+      "input_fps": 20,
+      "measured_groups": 192,
+      "warmup_groups": 64,
+      "elapsed_seconds": 16.328895134000003,
+      "output_fps": 11.69705595097491,
+      "observed_input_fps": 19.903367455847363,
+      "skipped_groups": 134,
+      "skipped_fraction": 0.4123076923076923,
+      "median_compute_ms": 77.496029,
+      "median_application_ms": 81.37087199999999,
+      "median_render_ms": 0.0,
+      "invalid_markers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "camera_received": [
+        659,
+        614,
+        575,
+        535,
+        494,
+        453
+      ],
+      "output_directory": "artifacts/qat-packed6-ev74-20261028/live/packed6-ev74/20",
+      "process_shutdown": "clean exit",
+      "mean_ms": {
+        "application_ms": 84.74121276041667,
+        "argmax_ms": 4.593979390625,
+        "bev_inference_ms": 24.180856895833333,
+        "bev_input_ms": 2.996431244791667,
+        "camera_input_ms": 17.406138979166666,
+        "camera_normalize_ms": 15.103384067708333,
+        "camera_pack_ms": 1.1300428854166666,
+        "camera_route_ms": 15.575654390625,
+        "camera_six_views_ms": 16.203565260416667,
+        "camera_unpack_ms": 0.6132060260416666,
+        "compute_ms": 77.5582726875,
+        "frame_ms": 77.65445640625,
+        "geometry_plan_ms": 6.703071765625,
+        "logit_finite_check_ms": 0.0,
+        "output_io_ms": 0.00036291666666666666,
+        "pooling_ms": 5.427302005208333,
+        "preparation_ms": 3.614914333333333,
+        "render_ms": 0.0,
+        "validation_ms": 0.089327640625,
+        "volume_publish_ms": 3.3888217447916666
+      },
+      "camera_calls": [
+        1
+      ],
+      "execution": {
+        "argmax_threads": 8,
+        "bev_model": "/workspace/GitHub/occupancy-prediction/artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+        "bev_post_target": "A65",
+        "bev_pre_target": "AUTO",
+        "camera_guard_width": 32,
+        "camera_input": "ev74-bgr",
+        "camera_mode": "packed",
+        "camera_model": "/workspace/GitHub/occupancy-prediction/artifacts/compile_with_qat_better_accuracy/compile-qat-packed6/flashocc_m0_camera_mpk.tar.gz",
+        "camera_model_order": "BGR",
+        "camera_pack_size": 6,
+        "camera_post_target": "A65",
+        "camera_pre_target": "EV74",
+        "check_finite_logits": false,
+        "mean": [
+          123.67500305175781,
+          116.27999877929688,
+          103.52999877929688
+        ],
+        "pool_threads": 8,
+        "render_threads": 6,
+        "stddev": [
+          58.39500045776367,
+          57.119998931884766,
+          57.375
+        ],
+        "timeout_ms": 20000,
+        "visualization": false
+      }
+    }
+  },
+  "pixel_and_guard_validation": {
+    "camera_images": 6,
+    "exact_pixel_fraction": 0.52734375,
+    "execution": {
+      "argmax_threads": 8,
+      "bev_model": "/workspace/GitHub/occupancy-prediction/artifacts/qat-app/compatible/flashocc_m0_bev_mpk.tar.gz",
+      "bev_post_target": "A65",
+      "bev_pre_target": "AUTO",
+      "camera_guard_width": 32,
+      "camera_input": "ev74-bgr",
+      "camera_mode": "packed",
+      "camera_model": "/workspace/GitHub/occupancy-prediction/artifacts/compile_with_qat_better_accuracy/compile-qat-packed6/flashocc_m0_camera_mpk.tar.gz",
+      "camera_model_order": "BGR",
+      "camera_pack_size": 6,
+      "camera_post_target": "A65",
+      "camera_pre_target": "EV74",
+      "check_finite_logits": true,
+      "mean": [
+        123.67500305175781,
+        116.27999877929688,
+        103.52999877929688
+      ],
+      "pool_threads": 8,
+      "render_threads": 6,
+      "stddev": [
+        58.39500045776367,
+        57.119998931884766,
+        57.375
+      ],
+      "timeout_ms": 20000,
+      "visualization": true
+    },
+    "guard_values_checked": 122880,
+    "max_quantized_pixel_error": 1,
+    "normalize_ms": 27.480234999999997,
+    "pack_ms": 0.987927,
+    "passed": true,
+    "pixel_values": 3244032,
+    "quantization_multiplier": 54.17700846989239,
+    "quantized_zero": -16
+  },
+  "decoded_fixture_comparison": {
+    "scope": "same packed6 camera and QAT BEV archives; EV74 versus ARM preprocessing; not ground-truth accuracy",
+    "frames": [
+      {
+        "token": "3e8750f331d7499e9b5123e9eb70f2e2",
+        "label_agreement": 0.9749484375,
+        "files": {
+          "packed6-arm": {
+            "3e8750f331d7499e9b5123e9eb70f2e2.depth.f32": {
+              "bytes": 743424,
+              "sha256": "1f474c5d2c5c0d2b58f2fd4248184841d4dd2c5ed50289e7660989fe79427bce"
+            },
+            "3e8750f331d7499e9b5123e9eb70f2e2.features.f32": {
+              "bytes": 1081344,
+              "sha256": "3379b9ab5e01c1638240e1c6564ab7a8dd33cee9fd9be788b19053a877b6f20a"
+            },
+            "3e8750f331d7499e9b5123e9eb70f2e2.labels.u8": {
+              "bytes": 640000,
+              "sha256": "ce8ea466800b6be0eff7d0c13130673125ca26249a8645ee5e57c03da86758c3"
+            },
+            "3e8750f331d7499e9b5123e9eb70f2e2.logits.f32": {
+              "bytes": 46080000,
+              "sha256": "c96f68fd199a7cb13e5d531312fa6390368b45a1fa3c412216d8a06fbf3f6cdf"
+            },
+            "3e8750f331d7499e9b5123e9eb70f2e2.pooled.f32": {
+              "bytes": 10240000,
+              "sha256": "2969b1d444bd02b886ab0f85e72335ece5b706ac897d9ded32b4258d6507f302"
+            }
+          },
+          "packed6-ev74": {
+            "3e8750f331d7499e9b5123e9eb70f2e2.depth.f32": {
+              "bytes": 743424,
+              "sha256": "c879ef554d547c61eee0d3fac691d0a87892c696723e8cf9ae4c51058ad0aa1e"
+            },
+            "3e8750f331d7499e9b5123e9eb70f2e2.features.f32": {
+              "bytes": 1081344,
+              "sha256": "546deea430719f7df8e552846a9c24292c8697b93d06fbf7abb4a53c27789aed"
+            },
+            "3e8750f331d7499e9b5123e9eb70f2e2.labels.u8": {
+              "bytes": 640000,
+              "sha256": "a5f18d88d8fa57deddbdc32484e1947bf46d0091c5f68f52317f1a6d4d3f5a56"
+            },
+            "3e8750f331d7499e9b5123e9eb70f2e2.logits.f32": {
+              "bytes": 46080000,
+              "sha256": "42a91c1074e29231fb9cc5276aa6ba2c22a48e9e216c7fca28a6b62347900524"
+            },
+            "3e8750f331d7499e9b5123e9eb70f2e2.pooled.f32": {
+              "bytes": 10240000,
+              "sha256": "21a10c13fb341a66086b9c00766be9578a2dd05ec9afb348c0df5a52438ffb95"
+            }
+          }
+        },
+        "tensors": {
+          "depth": {
+            "elements": 185856,
+            "relative_rmse": 0.17260583477329827,
+            "max_abs": 0.3721851706504822
+          },
+          "features": {
+            "elements": 270336,
+            "relative_rmse": 0.14752430987260626,
+            "max_abs": 6.317420959472656
+          },
+          "pooled": {
+            "elements": 2560000,
+            "relative_rmse": 0.12957445869464854,
+            "max_abs": 24.684882640838623
+          },
+          "logits": {
+            "elements": 11520000,
+            "relative_rmse": 0.0432757387648127,
+            "max_abs": 7.335880279541016
+          }
+        }
+      },
+      {
+        "token": "de7593d76648450e947ba0c203dee1b0",
+        "label_agreement": 0.979528125,
+        "files": {
+          "packed6-arm": {
+            "de7593d76648450e947ba0c203dee1b0.depth.f32": {
+              "bytes": 743424,
+              "sha256": "7d6f015765052c315ad50a955bdce2a5ec8516a8e86970a07a01f8de95c06cef"
+            },
+            "de7593d76648450e947ba0c203dee1b0.features.f32": {
+              "bytes": 1081344,
+              "sha256": "353d54361a155706e02a6c00a0e342096ea83bd66bf8fd7583d848c66836a749"
+            },
+            "de7593d76648450e947ba0c203dee1b0.labels.u8": {
+              "bytes": 640000,
+              "sha256": "c8500163228e16a8a2b6a6e1d164bcbc8ad6973148d9b518ed7fff3c294970b3"
+            },
+            "de7593d76648450e947ba0c203dee1b0.logits.f32": {
+              "bytes": 46080000,
+              "sha256": "10f3daa70c9a6711b2f5406b27fea8ab476713c8fd756341727551af8d772297"
+            },
+            "de7593d76648450e947ba0c203dee1b0.pooled.f32": {
+              "bytes": 10240000,
+              "sha256": "bb56a8cb1ba62197f09803932cbc5a141b040b061825a6974e70e1b3bbe04ff2"
+            }
+          },
+          "packed6-ev74": {
+            "de7593d76648450e947ba0c203dee1b0.depth.f32": {
+              "bytes": 743424,
+              "sha256": "e828223a689e05d3ed481c6abbfb9ce1b405944d32c59306948c02ba769c3482"
+            },
+            "de7593d76648450e947ba0c203dee1b0.features.f32": {
+              "bytes": 1081344,
+              "sha256": "98c6247c5409371506336669130df82e54affb070c05dc225f960680ba6ebaff"
+            },
+            "de7593d76648450e947ba0c203dee1b0.labels.u8": {
+              "bytes": 640000,
+              "sha256": "1abc80ff351d2154d18eefe9fcd563b863beb44fd14451d78eccf20da169dd36"
+            },
+            "de7593d76648450e947ba0c203dee1b0.logits.f32": {
+              "bytes": 46080000,
+              "sha256": "855d90c4b21941a151f6425f78a64530e56341402894576cb8b0cf0cd5f7e3e5"
+            },
+            "de7593d76648450e947ba0c203dee1b0.pooled.f32": {
+              "bytes": 10240000,
+              "sha256": "a0d3cffbd71d6788b7e7c09a6ac1c2f0391ee5d34b817ab93395134c8a1812ba"
+            }
+          }
+        },
+        "tensors": {
+          "depth": {
+            "elements": 185856,
+            "relative_rmse": 0.17074861977355868,
+            "max_abs": 0.622920498251915
+          },
+          "features": {
+            "elements": 270336,
+            "relative_rmse": 0.13602755105270536,
+            "max_abs": 6.317422866821289
+          },
+          "pooled": {
+            "elements": 2560000,
+            "relative_rmse": 0.1308839199461082,
+            "max_abs": 24.747406005859375
+          },
+          "logits": {
+            "elements": 11520000,
+            "relative_rmse": 0.03859186290826682,
+            "max_abs": 5.1782684326171875
+          }
+        }
+      }
+    ],
+    "mean_label_agreement": 0.97723828125
+  },
+  "snapshot_check": {
+    "bytes": 640064,
+    "sequence": 674,
+    "marker": 34,
+    "timestamp_ms": 1793208703158,
+    "token": "1c9a906c40f6417bbe1cea06d6e55501",
+    "label_count": 640000,
+    "label_min": 0,
+    "label_max": 17,
+    "non_empty_voxels": 496762,
+    "sha256": "652e32c5a5ab1806c46b44043b914bda1843bd59c16ce80f4896afd7e639bf06"
+  },
+  "shutdown": {
+    "fixture_validation": {
+      "initial_fixture_check": "inference and finite-logit checks completed and summary written; process timed out during shutdown after 180s",
+      "diagnostic_retry": "same inputs, unmodified application binary; temporary signal-backtrace helper and stop tracing enabled; exited zero",
+      "retry_outputs_byte_identical": true,
+      "root_cause": "not established",
+      "diagnostic_only_not_used_in_timed_benchmarks": true
+    },
+    "packed3_control": {
+      "all_256_updates_completed": true,
+      "summary_written_before_shutdown": true,
+      "shutdown_hung": true,
+      "termination": "SIGTERM followed by SIGKILL of verified benchmark PID",
+      "pid": 21587
+    },
+    "packed6_full_app": "clean exit",
+    "sequential_full_app": "clean exit",
+    "all_six_sources_stopped": true
+  },
+  "measurements": {
+    "path": "reports/qat-packed/packed6-ev74-20261028-measurements.json",
+    "sha256": "289fb9f106e01a9b5aac3e66f56f79d5ea252b8a351c73ecfa26a2a6c10b95a1"
+  },
+  "input_clip_verification": [
+    {
+      "file": "flashocc-cam_front_left.mp4",
+      "decoded_pixels_sha256": "f40111db4b2166061e3ae64c4146e4a3e44c25740b8aba91ad71a8a47cb71f9a",
+      "probe": {
+        "avg_frame_rate": "20/1",
+        "duration": "2.000000",
+        "nb_frames": "40"
+      }
+    },
+    {
+      "file": "flashocc-cam_front.mp4",
+      "decoded_pixels_sha256": "4c8ff24cfb4f603a3bccacc5b0111fe7c1d51f4ed4bacc420aea83c501757aa7",
+      "probe": {
+        "avg_frame_rate": "20/1",
+        "duration": "2.000000",
+        "nb_frames": "40"
+      }
+    },
+    {
+      "file": "flashocc-cam_front_right.mp4",
+      "decoded_pixels_sha256": "5a9d16f0a8e3954c2e5b3198f48e01815a69e907115ae6e99acd2d4bc15cf31f",
+      "probe": {
+        "avg_frame_rate": "20/1",
+        "duration": "2.000000",
+        "nb_frames": "40"
+      }
+    },
+    {
+      "file": "flashocc-cam_back_left.mp4",
+      "decoded_pixels_sha256": "8efa8774f45f79086dc0b8fbe4659fa4947209a1a428f3b014cdbcc80559c18b",
+      "probe": {
+        "avg_frame_rate": "20/1",
+        "duration": "2.000000",
+        "nb_frames": "40"
+      }
+    },
+    {
+      "file": "flashocc-cam_back.mp4",
+      "decoded_pixels_sha256": "41eb0116c7b034f3cb03956f68c96392f5fa93179818626dbe4a279ba351aac3",
+      "probe": {
+        "avg_frame_rate": "20/1",
+        "duration": "2.000000",
+        "nb_frames": "40"
+      }
+    },
+    {
+      "file": "flashocc-cam_back_right.mp4",
+      "decoded_pixels_sha256": "dcebfa60130cc90e8f5255652da52d160e5da1597e641455d8680d08464d18f9",
+      "probe": {
+        "avg_frame_rate": "20/1",
+        "duration": "2.000000",
+        "nb_frames": "40"
+      }
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/benchmark-commands.json",
+      "sha256": "10bf84c9d4bdcb085651d96d1aebff97ba4c35c15baf9d28bb18331b78afb62f"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/comparison.json",
+      "sha256": "240f105d3ec5a769f37bc79baf32e93f4912fd4e6755f699a8b1c1b5d1371cc9"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/configs/packed3-ev74-no-render.json",
+      "sha256": "f3c87ac448aab30018ca7c44fe89fb7c14dec7160cace51d51cea39086069007"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/configs/packed6-arm-no-render.json",
+      "sha256": "a6a7c61f3cd5a204eea49176fad04809739af5450b675743ea65e26cd4b5a3a6"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/configs/packed6-ev74-no-render.json",
+      "sha256": "b63dbcecfa1060002031c3588d8dea73fda5c9f9fe78e6b30b02ae47aee2a4ce"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/configs/sequential-ev74-no-render.json",
+      "sha256": "4feb77ddb2ef688faefbd4f1acf7e5914fe4c0434ad5b687f2a82c5296480b73"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/debug-close/3e8750f331d7499e9b5123e9eb70f2e2.labels.u8",
+      "sha256": "a5f18d88d8fa57deddbdc32484e1947bf46d0091c5f68f52317f1a6d4d3f5a56"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/debug-close/de7593d76648450e947ba0c203dee1b0.labels.u8",
+      "sha256": "1abc80ff351d2154d18eefe9fcd563b863beb44fd14451d78eccf20da169dd36"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/debug-close/summary.json",
+      "sha256": "d61e47217f1fbded4ea3d9488a6af61436e90f1ef48bbdb2a9b3b2d7a1fcf4cf"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/fixture-comparison.json",
+      "sha256": "8967f972ae58e8ad4178c5ec0ffd0a83e9ba370cab24f5f4f8edca9145e21eaf"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/fixtures/packed6-arm/3e8750f331d7499e9b5123e9eb70f2e2.labels.u8",
+      "sha256": "ce8ea466800b6be0eff7d0c13130673125ca26249a8645ee5e57c03da86758c3"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/fixtures/packed6-arm/de7593d76648450e947ba0c203dee1b0.labels.u8",
+      "sha256": "c8500163228e16a8a2b6a6e1d164bcbc8ad6973148d9b518ed7fff3c294970b3"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/fixtures/packed6-arm/summary.json",
+      "sha256": "9438ed4338c68c7c52ee143880302bac9923d07685ac460d1139f722abf153a1"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/fixtures/packed6-ev74/3e8750f331d7499e9b5123e9eb70f2e2.labels.u8",
+      "sha256": "a5f18d88d8fa57deddbdc32484e1947bf46d0091c5f68f52317f1a6d4d3f5a56"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/fixtures/packed6-ev74/de7593d76648450e947ba0c203dee1b0.labels.u8",
+      "sha256": "1abc80ff351d2154d18eefe9fcd563b863beb44fd14451d78eccf20da169dd36"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/fixtures/packed6-ev74/summary.json",
+      "sha256": "a68ae28eca76ce7fca5d74324a1e916a5f3e5413babe6187c54900dc25714052"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/health.json",
+      "sha256": "86b07f53c730bbef35f5372df16585eb2488dd643f0224cdd8d4faad9e5aa070"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/identities.json",
+      "sha256": "689ad450e3e2ec62edf467474833236f99390133201f46898c0063b8a63ef84a"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/inputs/20/clip-verification.json",
+      "sha256": "d96c90dccd7834f6dc88b269e912d4333b79e6a541acfd8b6cd393c6447cca42"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/inputs/20/config.json",
+      "sha256": "c8fc148141d402ab696437ee56e9209ba9e041ccfbe4d20fa6217de70facee7b"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/inputs/20/insight-state.json",
+      "sha256": "75cc0984e1ca96f4515d83c7f50207b1709f688a80fba4811b0f94ab3c147f7f"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/live/packed3-ev74/20/execution.json",
+      "sha256": "fd9472cd4cf29fa7eab1fd652c75ed5330bd3123815d9fe345587365ec68266f"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/live/packed3-ev74/20/summary.json",
+      "sha256": "bea14fcddfb5ba17ca6ac28fd4ce0a1c97e81d77b2c65121217ea57f236e66f3"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/live/packed6-ev74/20/execution.json",
+      "sha256": "1ff2a70c158c6ede25464049069085c02792466ca459e2ea8915c3fb794fe08d"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/live/packed6-ev74/20/summary.json",
+      "sha256": "3ed56ed39f10093a7803577f0f23aab98eae29050b2e4ab5157bc261fd0a704b"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/live/packed6-ev74/summary.json",
+      "sha256": "db59f9817e71df1175342976a03e60f67807768b55f9a665a9607e5a7b6c2b53"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/live/sequential-ev74/20/execution.json",
+      "sha256": "7439c1a554d7af158334a0cab1abbac5b4bd8911f6044efc96411b1ca86fa8e6"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/live/sequential-ev74/20/summary.json",
+      "sha256": "565995a2bd459b6a01e3bcfb066e2f740cc66248a45216d99d3f7c07c67ff73b"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/live/sequential-ev74/summary.json",
+      "sha256": "157e075f7b29e39f49ad0b000b4af631e3293eeddeb2ef51b17f5a3990e5eb17"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/packed3-shutdown.json",
+      "sha256": "b59341b2dcc72a2c67c4721703727a004c2772f0acb3bad6e7df7b481cff488e"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/runtime.json",
+      "sha256": "9e39b76f2c1ce249378dfb2f26b9d92fa2b1e829ce85ae29dd1847c0cb7dd0a2"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/shutdown-observation.json",
+      "sha256": "e8523150fe51c26d2b7d8fb37c4dfa32dca3ca6f0b814d4380941fde150a8e0a"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/snapshot-check.json",
+      "sha256": "16fd67273f9c873cbf1f0da238ec3520092aa7118807b74e8c22c3a954dac14e"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/sources-after.json",
+      "sha256": "1a4450cc723d8f46d044bd7a55962ba95af1132dda18757400cd4fdd23d007f9"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/sources-before.json",
+      "sha256": "1a4450cc723d8f46d044bd7a55962ba95af1132dda18757400cd4fdd23d007f9"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/validation/validation.json",
+      "sha256": "afefd4971ca80c58c1d76a10c1c98a066a2e8bba3414f410e05dab28cb774308"
+    },
+    {
+      "path": "artifacts/qat-packed6-ev74-20261028/validation-commands.json",
+      "sha256": "8674e8a65dcdc94f878e5e6f729b8ae971ef2c622b626ac85fd8acc60c3d738b"
+    }
+  ]
+}
