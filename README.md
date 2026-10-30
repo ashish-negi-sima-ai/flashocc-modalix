@@ -18,6 +18,10 @@ The viewer uses physical height scale and 0.4 m cells.
 
 [![Host viewer: live 3D semantic occupancy grid](docs/media/host-3d-grid.gif)](docs/media/host-3d-grid.mp4)
 
+**15-second Full HD MP4s (1920×1080):**
+[Insight](docs/media/hd-15s/insight.mp4) ·
+[Host 3D grid with camera orbit](docs/media/hd-15s/host-3d-grid.mp4).
+
 Both recordings use QAT models with EV74 preprocessing on Modalix and replay
 `scene-0103` at 8 FPS. The host receives occupancy snapshots at 2 Hz; browser
 rendering speed is separate from application throughput.
