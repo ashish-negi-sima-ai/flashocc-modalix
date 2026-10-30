@@ -1,0 +1,284 @@
+{
+  "schema": "flashocc-demo-assets-v1",
+  "description": "Sequential QAT camera and compatible QAT BEV, EV74 BGR normalization, 20 FPS six-camera replay.",
+  "source_revision": "b23c3a9c05b0adb83bd51fa2c6a5a2697c4de63c",
+  "runtime": {
+    "architecture": "aarch64",
+    "sdk": "2.1.3_Palette_SDK_neat_v2.1.3.1",
+    "neat_version": "0.5.0",
+    "core_revision": "7274b4eeb797",
+    "internals_revision": "f33a8292921f",
+    "libsima_neat_so_5_sha256": "4b1496cbd8bc6a30592b67e1d49abc2e2ed02c281d2bb690cd87a48a7dbf88e1",
+    "opencv_soname": "406",
+    "mla_clock_mhz": 1000
+  },
+  "data": {
+    "dataset": "nuScenes mini",
+    "scene": "scene-0103",
+    "frames": 40,
+    "recording_fps": 2,
+    "replay_fps": 20,
+    "geometry_format": "FOCCGEO2",
+    "provenance": "Same calibrated keyframes as the validated live benchmark. Retimestamped H.264 clips preserve decoded pixels and marker footers; replay loops every two seconds. This demo does not include occupancy GT labels."
+  },
+  "model_provenance": {
+    "camera": "PTQ on QAT-trained camera weights; same a6670650 archive as the sequential EV74 benchmark.",
+    "bev": "PTQ on QAT-trained BEV weights; same 56e0e807 archive, with leading-singleton shape metadata adapted for Neat 0.5.0; ELF unchanged."
+  },
+  "binary_source_files": {
+    "app/insight.cpp": "596bfe6d368d1b6e397c6c81b13a81fa2d6c1c17da211ea2eabc53178a825512",
+    "app/replay_core.hpp": "59614cc684bbb7e55a13104deb72503d84a7de685f21a8f4a09c21212aac1123"
+  },
+  "files": [
+    {
+      "path": "bin/flashocc_insight",
+      "size_bytes": 478192,
+      "sha256": "293ba07f62e1d20b4499c572e25b787907e18f205c89f80463a73aeeb5e9bbae"
+    },
+    {
+      "path": "inputs/config.json",
+      "size_bytes": 7014,
+      "sha256": "8ce5ed32deca1c84f9d0f53583c92c5267534b5af8ed7244a8f262a0b3ecbab7"
+    },
+    {
+      "path": "inputs/flashocc-cam_back.mp4",
+      "size_bytes": 2122799,
+      "sha256": "5b1896a40d6be4e3a405483b16a4e2f00af4edcccb62d5d4778db7f17a908d0a"
+    },
+    {
+      "path": "inputs/flashocc-cam_back_left.mp4",
+      "size_bytes": 2305105,
+      "sha256": "23ce64faaf502af279692ee4759015742c82862e277d064d34ad39aa10d5060f"
+    },
+    {
+      "path": "inputs/flashocc-cam_back_right.mp4",
+      "size_bytes": 2080738,
+      "sha256": "8e01499328b73e05f8289b0dac475f99535403cf4cd27696482c0522db1e90b9"
+    },
+    {
+      "path": "inputs/flashocc-cam_front.mp4",
+      "size_bytes": 2304806,
+      "sha256": "da54be7599b5e9d38b32d3b3ce799df6ee5f74a33bdb467521a709946a3072ff"
+    },
+    {
+      "path": "inputs/flashocc-cam_front_left.mp4",
+      "size_bytes": 2514292,
+      "sha256": "2985f69a365c988d0c0a4f959062b4b7d25c09287deecced086a8c1bdbb1c672"
+    },
+    {
+      "path": "inputs/flashocc-cam_front_right.mp4",
+      "size_bytes": 2167540,
+      "sha256": "ce7254449085f09b4e2bc11d99fb1dd8e3fd794009f9acc29357622c304879d8"
+    },
+    {
+      "path": "inputs/geometry/000.geom",
+      "size_bytes": 2628652,
+      "sha256": "b58a34cb4af0171aad28c654bc6b3b30dba7ee8cb9a44a1f958b361b134b93b3"
+    },
+    {
+      "path": "inputs/geometry/001.geom",
+      "size_bytes": 2628832,
+      "sha256": "e78322abdc19c67f6338e042f113e0c9db2b80a219156b0c2b030260600d6ea3"
+    },
+    {
+      "path": "inputs/geometry/002.geom",
+      "size_bytes": 2628892,
+      "sha256": "abd6c9f99d84913d4e7096243b31eaba977b6c545c48bbe7e2c41a87b8d36316"
+    },
+    {
+      "path": "inputs/geometry/003.geom",
+      "size_bytes": 2628916,
+      "sha256": "32b362a174a74ca8c1c455d0232a0cfbf69987b9e7ad30403a0ac56c8636e459"
+    },
+    {
+      "path": "inputs/geometry/004.geom",
+      "size_bytes": 2628964,
+      "sha256": "41971dfe1b7629c0b59c1d8dc9fb82501abdffbf7d5e069f0eda49c42c38b2a8"
+    },
+    {
+      "path": "inputs/geometry/005.geom",
+      "size_bytes": 2628748,
+      "sha256": "5ecfbd0536d51bab1e17955d97133bfbe3709db28f0838489ff7543224d472a9"
+    },
+    {
+      "path": "inputs/geometry/006.geom",
+      "size_bytes": 2628904,
+      "sha256": "7d9def64f3d1645390bbf5df8135186f89075cc2b9ed50fbac3bd855ee5fb0c8"
+    },
+    {
+      "path": "inputs/geometry/007.geom",
+      "size_bytes": 2628820,
+      "sha256": "173b1377314243295897d7f34c89bfe23d5493ac252594132e3a2bf99898319f"
+    },
+    {
+      "path": "inputs/geometry/008.geom",
+      "size_bytes": 2628604,
+      "sha256": "53bf2412f86622419210a7ea4236ff7e2892808eb070fb7155723df072479004"
+    },
+    {
+      "path": "inputs/geometry/009.geom",
+      "size_bytes": 2628664,
+      "sha256": "659dc5542184b582dfb2fab02c67a0947d06ace1b1db72266ab39aa7975cab49"
+    },
+    {
+      "path": "inputs/geometry/010.geom",
+      "size_bytes": 2628352,
+      "sha256": "050a0d06136fec9d9fdfc0ea51847cef08871c6c6caf971931411d55c7e37018"
+    },
+    {
+      "path": "inputs/geometry/011.geom",
+      "size_bytes": 2628496,
+      "sha256": "d541ca770cf90f74d184e9139054d94b1dc2532580f0f4fbb24a0418fb7a39e0"
+    },
+    {
+      "path": "inputs/geometry/012.geom",
+      "size_bytes": 2628604,
+      "sha256": "e66bc3b62204af17e86291125f9a0cafe4b8bcb83b968d01d5c8311b73fc141f"
+    },
+    {
+      "path": "inputs/geometry/013.geom",
+      "size_bytes": 2628664,
+      "sha256": "272dafbc4be71ad8ff4979334899a89f1d925a2f36705115ead7fb940fca64fe"
+    },
+    {
+      "path": "inputs/geometry/014.geom",
+      "size_bytes": 2628736,
+      "sha256": "d019a74d3c5925ab640f328b4aa5c06cb7dc2c2250fb500363fb3278cd6659ae"
+    },
+    {
+      "path": "inputs/geometry/015.geom",
+      "size_bytes": 2628832,
+      "sha256": "e0fe2f32956ac929c0f57c59e0991df2837e5c47627582aab83b5168e2ea258b"
+    },
+    {
+      "path": "inputs/geometry/016.geom",
+      "size_bytes": 2628928,
+      "sha256": "2308b23412359c20bd4aac7e54581c21b60d657c57e82bfd768898df3b1987eb"
+    },
+    {
+      "path": "inputs/geometry/017.geom",
+      "size_bytes": 2628868,
+      "sha256": "57d621ab122eee3cb218d44d70e572c0ae0eb7280d1b658e0685d8d6ffe9a67c"
+    },
+    {
+      "path": "inputs/geometry/018.geom",
+      "size_bytes": 2628856,
+      "sha256": "b688d0a2f9a40e94a1ed425c9933b3c8326a41acd9f7d2b23ff90938af4ffac5"
+    },
+    {
+      "path": "inputs/geometry/019.geom",
+      "size_bytes": 2628868,
+      "sha256": "6fa9f98f1f62754c2d718eda41c1c21c6111cfc9c5d0dcd3e1ee0a928ce18072"
+    },
+    {
+      "path": "inputs/geometry/020.geom",
+      "size_bytes": 2628736,
+      "sha256": "8df054ac9198729eec54308235b533c05ab88cc705cf235a09d06e745f9d07e3"
+    },
+    {
+      "path": "inputs/geometry/021.geom",
+      "size_bytes": 2628772,
+      "sha256": "787f8e3b361836f0981f1246c7f1bb6e9bf35a4a3b59c3bcb69cd5bd76f72846"
+    },
+    {
+      "path": "inputs/geometry/022.geom",
+      "size_bytes": 2628748,
+      "sha256": "a5108b8ea8f98b5d7636fbdba2514f73dec4097571aad50add619f183b3ce7db"
+    },
+    {
+      "path": "inputs/geometry/023.geom",
+      "size_bytes": 2628700,
+      "sha256": "cd1c0b18ea1a02ea86731b1d58d64bfc40fd561027bbedadf4e86484bc6c0acf"
+    },
+    {
+      "path": "inputs/geometry/024.geom",
+      "size_bytes": 2628712,
+      "sha256": "f6be1c8e31d462ebcfd34d6d06a5d059916e2e85a921426343201fec9e73899e"
+    },
+    {
+      "path": "inputs/geometry/025.geom",
+      "size_bytes": 2628556,
+      "sha256": "eae438c260db087ff72b78900e291f4522fcde81acce8ecfd76e3845f2058694"
+    },
+    {
+      "path": "inputs/geometry/026.geom",
+      "size_bytes": 2628580,
+      "sha256": "0ec470f16a210dc0463603f17a2f3714d613b2d387dc7b4ffe1b5ca3c56d79a9"
+    },
+    {
+      "path": "inputs/geometry/027.geom",
+      "size_bytes": 2628700,
+      "sha256": "a1de7e8f4576f837f93cb9345d98dbcc03cb599add215739aac02003b7f93216"
+    },
+    {
+      "path": "inputs/geometry/028.geom",
+      "size_bytes": 2628532,
+      "sha256": "a5e903d92214268e958196caf71a8c4b0c642d77fbd9f8851afb98a96eb29203"
+    },
+    {
+      "path": "inputs/geometry/029.geom",
+      "size_bytes": 2628472,
+      "sha256": "01f94d2b5836b599863a3304c78d86449d89b4c5eea72b4ed90d7c28cde03ca9"
+    },
+    {
+      "path": "inputs/geometry/030.geom",
+      "size_bytes": 2628520,
+      "sha256": "3e63e33338e3ffbb49f6e4a26a73b8494983101a3d6568ceebd42fe0d768c0cc"
+    },
+    {
+      "path": "inputs/geometry/031.geom",
+      "size_bytes": 2628544,
+      "sha256": "e8c025b8e7457cc84f62f3bac7cc8c49969d9640c8ad95c75793c7953922a940"
+    },
+    {
+      "path": "inputs/geometry/032.geom",
+      "size_bytes": 2628628,
+      "sha256": "35dadddf96ea6b10d8360b08e6dad9a268d494d086c2ad7bac3da376cfee1d04"
+    },
+    {
+      "path": "inputs/geometry/033.geom",
+      "size_bytes": 2628496,
+      "sha256": "240ef4ca938609ff9e2d3b661ad64f2058233ed8fde22485007065b07436cad3"
+    },
+    {
+      "path": "inputs/geometry/034.geom",
+      "size_bytes": 2628472,
+      "sha256": "797b4b88146f0ecc938cfd81b6a03576c85abbe490222e58f9e5fecb8f181bb9"
+    },
+    {
+      "path": "inputs/geometry/035.geom",
+      "size_bytes": 2628496,
+      "sha256": "e6403554b9907054293de85495170204fa40693e08d699a79231476214e71742"
+    },
+    {
+      "path": "inputs/geometry/036.geom",
+      "size_bytes": 2628532,
+      "sha256": "f67ffdf84be5d45f6aceb7494f3188ecf5bbd79d2c9e935973f30136538d44e8"
+    },
+    {
+      "path": "inputs/geometry/037.geom",
+      "size_bytes": 2628376,
+      "sha256": "8c9aa104cdb60f72e93bf9cccf50d01006c3f199844ad567c13bdf4d167ce243"
+    },
+    {
+      "path": "inputs/geometry/038.geom",
+      "size_bytes": 2628412,
+      "sha256": "285c59bfc357717538e0a1765ef144f5064f89d570b0b8ad36420570592d5a04"
+    },
+    {
+      "path": "inputs/geometry/039.geom",
+      "size_bytes": 2628520,
+      "sha256": "49d63f13eba4e30b50d7f3bab2c54744e27962de7d9b0f36aded709d4a158910"
+    },
+    {
+      "path": "models/bev_mpk.tar.gz",
+      "size_bytes": 14887760,
+      "sha256": "56e0e8071edf8f7805dac2086cdedd766c6cc585746bc6c3dd796613132f8739"
+    },
+    {
+      "path": "models/camera_mpk.tar.gz",
+      "size_bytes": 23197772,
+      "sha256": "a66706506cccb06385c7a9700675dec7d74d3d4a256627cc159d20f7ea050ad0"
+    }
+  ]
+}

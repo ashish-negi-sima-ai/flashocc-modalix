@@ -1,0 +1,93 @@
+{
+  "date_utc": "2026-10-30",
+  "scope": "Relocated checkout of the staged Git tree, with no ignored model/input/build directories; smoke tests, not replacement FPS benchmarks.",
+  "checkout": "/workspace/flashocc-reproduction-check-20261030",
+  "device": "Modalix, aarch64, Neat 0.5.0",
+  "runtime_sha256": "4b1496cbd8bc6a30592b67e1d49abc2e2ed02c281d2bb690cd87a48a7dbf88e1",
+  "modes": {
+    "smoke-fast": {
+      "total_processed": 64,
+      "signal": 0,
+      "invalid_markers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "visualization": false,
+      "check_finite_logits": false,
+      "warmup_updates": 16,
+      "post_warmup_fps": 11.051429844609723,
+      "mean_application_ms": 90.29850147916666,
+      "snapshot_bytes": 640064,
+      "snapshot_sha256": "4b28274f9538c47d55b71f210c922f2e29382b57f93320844e6abc07fa971f91",
+      "unique_classes": [
+        0,
+        1,
+        2,
+        4,
+        7,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17
+      ]
+    },
+    "smoke-insight": {
+      "total_processed": 32,
+      "signal": 0,
+      "invalid_markers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "visualization": true,
+      "check_finite_logits": false,
+      "warmup_updates": 8,
+      "post_warmup_fps": 8.014826592867074,
+      "mean_application_ms": 124.205999625,
+      "snapshot_bytes": 640064,
+      "snapshot_sha256": "2f2e88d10f2ac349d25a04886262f8f20d88c39a2f51580bc79958d0458a2323",
+      "unique_classes": [
+        4,
+        7,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "jpeg_sha256": "f43ec1f88a713ab8af39e3401a0e9b15ff6eb1173f9f72da61a161f1d0d3ce6b"
+    }
+  },
+  "checkout_method": "git checkout-index --all into a new directory; only staged Git files copied",
+  "asset_verification": {
+    "payload_files": 50,
+    "sha256": "all passed before and after both runs",
+    "relocated_paths": true,
+    "source_template_unchanged": true
+  },
+  "launcher_checks": [
+    "relative geometry resolves against input config parent",
+    "custom Insight host/RTSP/video ports",
+    "IPv6 RTSP host formatting",
+    "missing geometry/ports rejected before source mutation",
+    "absolute-path legacy config preserved"
+  ],
+  "shutdown": {
+    "both_application_processes_exited": true,
+    "all_six_sources_stopped": true,
+    "appcomplex": "active"
+  },
+  "runner": "SDK dk attempted; NFS chmod rejected. Existing passwordless SSH launcher used successfully."
+}

@@ -13,3 +13,6 @@ __pycache__/
 /qat/runs/**/checkpoints/
 /qat/runs/**/*.pt
 /qat/runs/
+
+# State from direct use of the bundled demo's source-control helper.
+/demo/inputs/insight-state.json

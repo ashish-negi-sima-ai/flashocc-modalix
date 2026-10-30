@@ -16,6 +16,7 @@ def main():
     parser.add_argument('action',choices=['start','stop','status'])
     parser.add_argument('--config',type=Path,default=ROOT/'artifacts/insight-demo/config.json')
     parser.add_argument('--api',default=runtime['insight_api'])
+    parser.add_argument('--state-output',type=Path,help='write source/viewer state outside the input directory')
     args=parser.parse_args()
     require(parser,args.api,'--api','FLASHOCC_INSIGHT_API')
     config=json.loads(args.config.read_text())
@@ -47,7 +48,8 @@ def main():
     selected=[s for s in state if s['index'] in {c['source_index'] for c in config['clips']}]
     viewer=api('/api/viewer-url?mode=light&src='+str(config['channel']))
     report=dict(sources=selected,viewer=viewer)
-    destination=args.config.parent/'insight-state.json'
+    destination=args.state_output or args.config.parent/'insight-state.json'
+    destination.parent.mkdir(parents=True,exist_ok=True)
     destination.write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(report,indent=2))
 

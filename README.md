@@ -60,23 +60,74 @@ validation benchmark. [Detailed timings and scope](app/QAT_COMPARISON.md) ·
 
 ## Setup
 
-Clone with the pinned upstream FlashOCC submodule:
+The repository includes a [ready-to-run demo](demo/README.md): QAT camera and
+compatible QAT BEV archives, six 20 FPS clips, matching geometry, and the tested
+ARM64 executable (approximately 150 MiB). A clone contains these application
+assets. Modalix, compatible Neat runtime/plugins and Insight are still required.
+No model compilation or submodule checkout is needed for this demo.
+
+Inside the SDK container:
 
 ```bash
-git submodule update --init --recursive
-cp configs/runtime.example.json configs/runtime.local.json
+git clone https://github.com/ashish-negi-sima-ai/flashocc-modalix.git
+cd flashocc-modalix
+python3 scripts/verify_demo.py
+
+export FLASHOCC_DEVICE=sima@10.42.0.102
+export FLASHOCC_INSIGHT_API=https://10.42.0.1:9900
+neat --json
 ```
 
-Set `device`, `insight_api` and optionally `insight_url` in that local file.
-Alternatively export `FLASHOCC_DEVICE`, `FLASHOCC_INSIGHT_API` and
-`FLASHOCC_INSIGHT_URL`. CLI arguments override these defaults. No developer
-home directory or fixed device address is required. The host and Modalix must
-see the shared workspace at the same path.
+Replace the device and SDK host addresses for your network. You can also copy
+`configs/runtime.example.json` to `configs/runtime.local.json` and set `device`
+and `insight_api` there. CLI arguments override environment/local defaults.
+The SDK and Modalix must see the shared repository at the same absolute path;
+its folder name and location within that workspace can vary. Geometry and
+model paths in the bundled launch configuration are relative.
+
+For export/training work, initialize the pinned upstream FlashOCC submodule
+with `git submodule update --init --recursive` and use the SiMa compiler
+environment. Runtime identities and demo asset checksums are pinned in
+[demo/manifest.json](demo/manifest.json).
+
+## Run the bundled application
+
+Use the published `rtsp.tcp` and `videoUDP` starting ports from `neat --json`:
+
+```bash
+python3 scripts/run_insight_demo.py start \
+  --rtsp-port 8554 --video-port 9000 --output-dir artifacts/live
+
+tail -f artifacts/live/live.log
+
+python3 scripts/run_insight_demo.py status --output-dir artifacts/live
+python3 scripts/run_insight_demo.py stop --output-dir artifacts/live
+```
+
+The default selects sequential QAT camera inference, EV74 BGR preprocessing,
+QAT BEV, 2 Hz snapshots, rendering off and the logit check off: approximately
+**12.1 FPS** in the validated 20 FPS-input test. Each update processes six views.
+To display the Insight mosaic, stop and restart with `--visualization true`;
+earlier visualization-enabled runs measured approximately **8.3 FPS**. The
+helper prints Insight's viewer URL. [Full run commands](demo/README.md).
+
+For interactive 3D, in a host terminal outside Docker:
+
+```bash
+python3 scripts/run_host_3d_viewer.py start --source artifacts/live/latest.occ
+python3 scripts/run_host_3d_viewer.py stop
+```
+
+The service prints its URL; pass `--host` for access from another machine.
+WebGL rendering runs in the browser, separately from Modalix inference.
+
+## Optional build and historical comparison assets
 
 Use the SiMa SDK/compiler environment for export/validation and the ARM64 Neat
 SDK for application builds. The original comparison used installed Neat 0.5.0;
 precompiled model identities are pinned by SHA-256 in [models/manifest.json](models/manifest.json).
-Model and dataset payloads belong in external asset storage, not source Git.
+The bundled demo contains the selected QAT pair. Other experimental model pairs
+and the labeled 32-input comparison fixtures use external asset storage.
 
 Restore the preserved asset bundle obtained from your model storage:
 
@@ -90,9 +141,8 @@ python3 scripts/comparison_assets.py verify --asset-root /path/to/restored-asset
 Keep the adjacent `.tar.gz.json` inventory/checksum file with the bundle.
 The local cleanup archive is stored outside the repository under
 `/workspace/benchmark-archives/`; a public release download URL has not been
-published. A source checkout alone does not contain images, GT or model weights.
-
-## Build and run
+published. This larger bundle is needed for the historical comparison, not for
+running the bundled demo.
 
 Inside the SDK container, from the repository root:
 
@@ -101,17 +151,9 @@ cmake -S app -B build/modalix \
   -DCMAKE_TOOLCHAIN_FILE=toolchain.cmake -DCMAKE_BUILD_TYPE=Release
 cmake --build build/modalix -j3
 
-# With reference assets restored at the repository root:
 python3 scripts/run_insight_demo.py start \
-  --config artifacts/fps-inputs/12/config.json \
-  --execution configs/execution/qat-ev74-bgr.json \
-  --output-dir artifacts/live \
-  --check-finite-logits false
-
-python3 scripts/run_insight_demo.py status \
-  --config artifacts/fps-inputs/12/config.json --output-dir artifacts/live
-python3 scripts/run_insight_demo.py stop \
-  --config artifacts/fps-inputs/12/config.json --output-dir artifacts/live
+  --binary build/modalix/flashocc_insight \
+  --rtsp-port 8554 --video-port 9000 --output-dir artifacts/live
 ```
 
 Execution presets use workspace-relative model paths. For an asset bundle
@@ -119,16 +161,6 @@ restored elsewhere, use the comparison runner below or generate execution/source
 configs with the corresponding absolute asset paths. Preset defaults retain the
 logit scan; disable it explicitly when reproducing the FPS table.
 [All execution settings](app/EXECUTION.md).
-
-For interactive 3D, in a host terminal outside Docker:
-
-```bash
-python3 scripts/run_host_3d_viewer.py start --source artifacts/live/latest.occ
-python3 scripts/run_host_3d_viewer.py stop
-```
-
-The service prints its URL; pass `--host` for access from another machine.
-WebGL rendering runs in the browser, separately from Modalix inference.
 
 ## Reproduce both comparisons
 

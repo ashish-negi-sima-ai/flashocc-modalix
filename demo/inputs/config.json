@@ -1,0 +1,272 @@
+{
+  "scene": "scene-0103",
+  "fps": 20,
+  "width": 704,
+  "height": 288,
+  "clips": [
+    {
+      "camera": "CAM_FRONT_LEFT",
+      "file": "flashocc-cam_front_left.mp4",
+      "source_index": 1,
+      "url": "rtsp://{insight_host}:{rtsp_port}/src1"
+    },
+    {
+      "camera": "CAM_FRONT",
+      "file": "flashocc-cam_front.mp4",
+      "source_index": 2,
+      "url": "rtsp://{insight_host}:{rtsp_port}/src2"
+    },
+    {
+      "camera": "CAM_FRONT_RIGHT",
+      "file": "flashocc-cam_front_right.mp4",
+      "source_index": 3,
+      "url": "rtsp://{insight_host}:{rtsp_port}/src3"
+    },
+    {
+      "camera": "CAM_BACK_LEFT",
+      "file": "flashocc-cam_back_left.mp4",
+      "source_index": 4,
+      "url": "rtsp://{insight_host}:{rtsp_port}/src4"
+    },
+    {
+      "camera": "CAM_BACK",
+      "file": "flashocc-cam_back.mp4",
+      "source_index": 5,
+      "url": "rtsp://{insight_host}:{rtsp_port}/src5"
+    },
+    {
+      "camera": "CAM_BACK_RIGHT",
+      "file": "flashocc-cam_back_right.mp4",
+      "source_index": 6,
+      "url": "rtsp://{insight_host}:{rtsp_port}/src6"
+    }
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "token": "3e8750f331d7499e9b5123e9eb70f2e2",
+      "geometry": "geometry/000.geom"
+    },
+    {
+      "index": 1,
+      "token": "3950bd41f74548429c0f7700ff3d8269",
+      "geometry": "geometry/001.geom"
+    },
+    {
+      "index": 2,
+      "token": "c5f58c19249d4137ae063b0e9ecd8b8e",
+      "geometry": "geometry/002.geom"
+    },
+    {
+      "index": 3,
+      "token": "700c1a25559b4433be532de3475e58a9",
+      "geometry": "geometry/003.geom"
+    },
+    {
+      "index": 4,
+      "token": "747aa46b9a4641fe90db05d97db2acea",
+      "geometry": "geometry/004.geom"
+    },
+    {
+      "index": 5,
+      "token": "f4f86af4da3b49e79497deda5c5f223a",
+      "geometry": "geometry/005.geom"
+    },
+    {
+      "index": 6,
+      "token": "6832e717621341568c759151b5974512",
+      "geometry": "geometry/006.geom"
+    },
+    {
+      "index": 7,
+      "token": "c59e60042a8643e899008da2e446acca",
+      "geometry": "geometry/007.geom"
+    },
+    {
+      "index": 8,
+      "token": "fa65a298c01f44e7a182bbf9e5fe3697",
+      "geometry": "geometry/008.geom"
+    },
+    {
+      "index": 9,
+      "token": "a98fba72bde9433fb882032d18aedb2e",
+      "geometry": "geometry/009.geom"
+    },
+    {
+      "index": 10,
+      "token": "b6b0d9f2f2e14a3aaa2c8aedeb1edb69",
+      "geometry": "geometry/010.geom"
+    },
+    {
+      "index": 11,
+      "token": "796b1988dd254f74bf2fb19ba9c5b8c6",
+      "geometry": "geometry/011.geom"
+    },
+    {
+      "index": 12,
+      "token": "0d0700a2284e477db876c3ee1d864668",
+      "geometry": "geometry/012.geom"
+    },
+    {
+      "index": 13,
+      "token": "de7593d76648450e947ba0c203dee1b0",
+      "geometry": "geometry/013.geom"
+    },
+    {
+      "index": 14,
+      "token": "f753d3f87e5b40af87ff2cbf7c8e7082",
+      "geometry": "geometry/014.geom"
+    },
+    {
+      "index": 15,
+      "token": "b22fa0b3c34f47b6a360b60f35d5d567",
+      "geometry": "geometry/015.geom"
+    },
+    {
+      "index": 16,
+      "token": "0a0d6b8c2e884134a3b48df43d54c36a",
+      "geometry": "geometry/016.geom"
+    },
+    {
+      "index": 17,
+      "token": "8e9c2cba0ee74056aa3746e8391d54a9",
+      "geometry": "geometry/017.geom"
+    },
+    {
+      "index": 18,
+      "token": "fdc39b23ab4242eda6ec5e1e6574fe33",
+      "geometry": "geometry/018.geom"
+    },
+    {
+      "index": 19,
+      "token": "9ee4020153674b9e9943d395ff8cfdf3",
+      "geometry": "geometry/019.geom"
+    },
+    {
+      "index": 20,
+      "token": "5b03af7a953245b5a3b23191ed4da62a",
+      "geometry": "geometry/020.geom"
+    },
+    {
+      "index": 21,
+      "token": "d0ecf474e0e64950aa265cd44b9c9d75",
+      "geometry": "geometry/021.geom"
+    },
+    {
+      "index": 22,
+      "token": "456ec36cb4a44ca78f36fbd90c0c34fa",
+      "geometry": "geometry/022.geom"
+    },
+    {
+      "index": 23,
+      "token": "6bfd42cf0aba4f1a94ec11fa43e2dd92",
+      "geometry": "geometry/023.geom"
+    },
+    {
+      "index": 24,
+      "token": "0af0feb5b1394b928dd13d648de898f5",
+      "geometry": "geometry/024.geom"
+    },
+    {
+      "index": 25,
+      "token": "61d9340c5ad8418dafe7a4af1b96e6b9",
+      "geometry": "geometry/025.geom"
+    },
+    {
+      "index": 26,
+      "token": "9e7683e8586542a1b6032980c45f15ce",
+      "geometry": "geometry/026.geom"
+    },
+    {
+      "index": 27,
+      "token": "cc57c1ea80fe46a7abddfdb15654c872",
+      "geometry": "geometry/027.geom"
+    },
+    {
+      "index": 28,
+      "token": "4cf5d6c3f6ab42aab23f67b5a9782d1a",
+      "geometry": "geometry/028.geom"
+    },
+    {
+      "index": 29,
+      "token": "6d9984d09d52479e837da2fd09e192cc",
+      "geometry": "geometry/029.geom"
+    },
+    {
+      "index": 30,
+      "token": "38a28a3aaf2647f2a8c0e90e31267bf8",
+      "geometry": "geometry/030.geom"
+    },
+    {
+      "index": 31,
+      "token": "6402fd1ffaf041d0b9162bd92a7ba0a2",
+      "geometry": "geometry/031.geom"
+    },
+    {
+      "index": 32,
+      "token": "ce94ef7a0522468e81c0e2b3a2f1e12d",
+      "geometry": "geometry/032.geom"
+    },
+    {
+      "index": 33,
+      "token": "9fcdc52b791045e99c623c5fc643331f",
+      "geometry": "geometry/033.geom"
+    },
+    {
+      "index": 34,
+      "token": "1c9a906c40f6417bbe1cea06d6e55501",
+      "geometry": "geometry/034.geom"
+    },
+    {
+      "index": 35,
+      "token": "a771effa2a2648d78096c3e92b95b129",
+      "geometry": "geometry/035.geom"
+    },
+    {
+      "index": 36,
+      "token": "b9ea04a6121d4a8bb00199b885aa5ef0",
+      "geometry": "geometry/036.geom"
+    },
+    {
+      "index": 37,
+      "token": "87e772078a494d42bd34cd16172808bc",
+      "geometry": "geometry/037.geom"
+    },
+    {
+      "index": 38,
+      "token": "f40544fd4f5d42abbcfa948eeaf86850",
+      "geometry": "geometry/038.geom"
+    },
+    {
+      "index": 39,
+      "token": "281b92269fd648d4b52d06ac06ca6d65",
+      "geometry": "geometry/039.geom"
+    }
+  ],
+  "insight_host": "{insight_host}",
+  "video_port": "{video_port}",
+  "channel": 0,
+  "camera_overlay": "Full XYZ occupancy volume; calibrated camera raycasting; nearest occupied voxel; 176x64 rays per camera",
+  "geometry_format": "FOCCGEO2",
+  "projection_roundtrip_max_pixels": 0.00012388293089315994,
+  "crop": "Upstream PIL resize/crop applied before encoding; normalization on Modalix; footer excluded from model input",
+  "provenance": "nuScenes mini keyframes at 2 Hz, H.264 CRF 16; predictions are not ground truth",
+  "replay_speed_relative_to_recording": 10.0,
+  "volume_fps": 2,
+  "execution": {
+    "camera_mode": "sequential",
+    "camera_input": "ev74-bgr",
+    "camera_model_order": "BGR",
+    "camera_model": "demo/models/camera_mpk.tar.gz",
+    "camera_pre_target": "EV74",
+    "camera_post_target": "A65",
+    "bev_model": "demo/models/bev_mpk.tar.gz",
+    "bev_pre_target": "AUTO",
+    "bev_post_target": "A65",
+    "pool_threads": 8,
+    "argmax_threads": 8,
+    "render_threads": 6,
+    "visualization": false,
+    "check_finite_logits": false
+  }
+}

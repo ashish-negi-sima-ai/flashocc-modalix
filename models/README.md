@@ -10,8 +10,11 @@ shape-metadata compatibility copy. The QDQ-hint compilation is a distinct
 experiment. Its simulator results are kept separately under `reports/qat`.
 The original BEV archive and unchanged-ELF compatibility provenance are retained.
 
-Large files are stored under ignored `artifacts/`, with an independently
-restorable copy outside the repository in the checksummed comparison bundle.
+The selected runnable QAT camera/compatible BEV pair is now also committed under
+[`demo/models`](../demo/README.md), with clips, geometry and a prebuilt executable.
+`demo/manifest.json` pins these payloads. Other large files are stored under
+ignored `artifacts/`, with an independently restorable copy outside the repository
+in the checksummed comparison bundle.
 The six generated QAT binaries previously tracked under `qat/runs` are retained
 in `artifacts/qat-runs`. Compiler IR and checkpoints are generated outputs.
 Small training, export and validation reports remain under `reports/qat`.
